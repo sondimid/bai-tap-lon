@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class HostalDTO {
+public class MotelDTO {
 
     private String title;
 

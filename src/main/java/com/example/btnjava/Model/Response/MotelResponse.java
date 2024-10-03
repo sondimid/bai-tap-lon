@@ -1,5 +1,6 @@
 package com.example.btnjava.Model.Response;
 
+import com.example.btnjava.Model.Entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,9 +30,7 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String detail;
 
-    private String managerName;
-
-    private String phoneNumber;
+    private UserEntity owner;
 
     private String address;
 

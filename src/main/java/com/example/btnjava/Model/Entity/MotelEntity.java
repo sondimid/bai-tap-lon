@@ -9,7 +9,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "motel")
 public class MotelEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

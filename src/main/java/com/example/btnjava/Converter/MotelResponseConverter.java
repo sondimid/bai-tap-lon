@@ -20,8 +20,6 @@ public class MotelResponseConverter {
         List<MotelResponse> result = new ArrayList<>();
         for(MotelEntity motelEntity : hostalEntities){
             MotelResponse motelResponse = modelMapper.map(motelEntity, MotelResponse.class);
-            motelResponse.setManagerName(motelEntity.getUser().getName());
-            motelResponse.setPhoneNumber(motelEntity.getUser().getPhoneNumber());
             motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
                                         + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố " + motelEntity.getProvince());
             if(motelEntity.getStatus() == 1){

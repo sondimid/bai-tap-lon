@@ -1,7 +1,7 @@
 package com.example.btnjava.Service.Implement;
 
 import com.example.btnjava.Converter.MotelResponseConverter;
-import com.example.btnjava.Model.DTO.HostalDTO;
+import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.Entity.MotelEntity;
 import com.example.btnjava.Repository.MotelRepository;
 import com.example.btnjava.Model.Response.MotelResponse;
@@ -36,8 +36,8 @@ public class MotelServiceImpl implements MotelService {
     }
 
     @Override
-    public void save(HostalDTO hostalDTO) {
-        MotelEntity motelEntity = modelMapper.map(hostalDTO, MotelEntity.class);
+    public void save(MotelDTO motelDTO) {
+        MotelEntity motelEntity = modelMapper.map(motelDTO, MotelEntity.class);
         motelRepository.save(motelEntity);
     }
 
