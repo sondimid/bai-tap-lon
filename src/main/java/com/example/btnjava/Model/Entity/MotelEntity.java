@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -51,6 +53,9 @@ public class MotelEntity {
 
     @Column(name = "status")
     private Integer status = 0;
+
+    @Column(name = "urlfiles")
+    private String urlFiles;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", insertable = false, updatable = false)

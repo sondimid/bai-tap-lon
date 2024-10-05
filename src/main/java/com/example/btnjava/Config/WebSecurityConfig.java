@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebMvc
@@ -31,7 +32,11 @@ public class WebSecurityConfig {
                             .requestMatchers("/api/users/login","/api/users/register")
                             .permitAll()
                             .requestMatchers(GET,
-                                    "/api/admin/list-user").hasAuthority("ADMIN")
+                                    "/api/admin/**").hasRole("ADMIN")
+                            .requestMatchers(GET,
+                                    "/api/users/search").hasRole("USER")
+                            .requestMatchers(POST,
+                                    "/api/user/create").hasRole("USER")
                             .anyRequest().authenticated();
 
                 });

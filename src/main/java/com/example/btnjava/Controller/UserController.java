@@ -5,6 +5,7 @@ import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.DTO.UserLoginDTO;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
 import com.example.btnjava.Service.MotelService;
+import com.example.btnjava.Service.StorageService;
 import com.example.btnjava.Service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StorageService storageService;
+
     @GetMapping("/search")
     public ResponseEntity<Object>searchByMotelSearchBuilder(@RequestBody MotelSearchBuilder motelSearchBuilder) {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addMotel(@RequestBody MotelDTO motelDTO){
+    @PostMapping("/create")
+    public ResponseEntity<String> addMotel(@ModelAttribute MotelDTO motelDTO){
         motelService.save(motelDTO);
         return ResponseEntity.accepted().body("SUCCESS");
     }

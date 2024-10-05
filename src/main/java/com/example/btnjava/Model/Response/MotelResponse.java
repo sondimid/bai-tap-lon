@@ -3,6 +3,9 @@ package com.example.btnjava.Model.Response;
 import com.example.btnjava.Model.Entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,6 +38,10 @@ public class MotelResponse implements Comparable<MotelResponse>{
     private String address;
 
     private String status;
+
+    List<MultipartFile> files;
+
+    private String urlFiles;
 
     @Override
     public int compareTo(MotelResponse o) {

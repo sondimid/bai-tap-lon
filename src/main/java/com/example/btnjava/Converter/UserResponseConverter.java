@@ -17,6 +17,7 @@ public class UserResponseConverter {
         List<UserResponse> result = new ArrayList<>();
         for(UserEntity user : list){
             UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+            userResponse.setRole(user.getRoleEntity().getRole());
             result.add(userResponse);
         }
         return result;

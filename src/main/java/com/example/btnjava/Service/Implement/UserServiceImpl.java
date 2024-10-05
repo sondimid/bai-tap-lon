@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String   login(String username, String password) throws InvalidParamException {
+    public String   login(String username, String password) throws Exception {
         Optional<UserEntity> user = userRepository.findByUserName(username);
         if(user.isEmpty()){
             throw new UsernameNotFoundException("Wrong username or password");

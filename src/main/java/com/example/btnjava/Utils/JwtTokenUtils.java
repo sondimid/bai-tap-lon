@@ -4,6 +4,7 @@ import com.example.btnjava.CustomException.InvalidParamException;
 import com.example.btnjava.Model.Entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtTokenUtils {
 
-    public String generateToken(UserEntity userEntity) throws InvalidParamException {
+    public String generateToken(UserEntity userEntity) throws Exception {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userName", userEntity.getUsername());
         try{
@@ -30,7 +31,7 @@ public class JwtTokenUtils {
                     .setClaims(claims)
                     .setSubject(userEntity.getUsername())
                     .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000L))
-                    .signWith(getSignInKey())
+                    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                     .compact();
         }catch (Exception e){
             throw new InvalidParamException(e.getMessage());
@@ -40,7 +41,7 @@ public class JwtTokenUtils {
         byte[] bytes = Decoders.BASE64.decode("TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=");
         return Keys.hmacShaKeyFor(bytes);
     }
-    private Claims extractAllClaimsFromToken(String token) {
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
@@ -48,18 +49,18 @@ public class JwtTokenUtils {
                 .getBody();
     }
     public <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = this.extractAllClaimsFromToken(token);
+        final Claims claims = this.extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
     public boolean isTokenExpired(String token) {
-        Date expiration = extractClaims(token, Claims::getExpiration);
+        Date expiration = this.extractClaims(token, Claims::getExpiration);
         return expiration.before(new Date());
     }
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }
     public boolean isValidateToken(String token, UserDetails userDetails) {
-        String username = extractClaims(token, Claims::getSubject);
-        return username.equals(userDetails.getUsername()) && isTokenExpired(token);
+        String username = extractUsername(token);
+            return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 }

@@ -19,8 +19,8 @@ public class AdminController {
         return ResponseEntity.ok().body(motelService.findAndPagination(page));
     }
 
-    @PostMapping("/addMotel/{id}")
-    public ResponseEntity<String> addMotel(@PathVariable Integer id){
+    @PostMapping("/markMotel/{id}")
+    public ResponseEntity<String> markMotel(@PathVariable Integer id){
         motelService.markById(id);
         return ResponseEntity.accepted().body("Thêm thành công!");
     }
