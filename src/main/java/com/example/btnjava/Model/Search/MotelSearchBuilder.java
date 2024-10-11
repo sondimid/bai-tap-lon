@@ -38,6 +38,6 @@ public class MotelSearchBuilder {
 
     private Integer page = 1;
 
-    private Integer maxPageItems = 4;
+    private Integer maxPageItems = 10;
 
 }

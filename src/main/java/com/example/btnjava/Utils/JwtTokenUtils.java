@@ -7,9 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -62,5 +60,9 @@ public class JwtTokenUtils {
     public boolean isValidateToken(String token, UserDetails userDetails) {
         String username = extractUsername(token);
             return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+    public boolean isTokenUserNameValid(String token, String userName) {
+        String usernameToken = extractUsername(token);
+        return usernameToken.equals(userName);
     }
 }

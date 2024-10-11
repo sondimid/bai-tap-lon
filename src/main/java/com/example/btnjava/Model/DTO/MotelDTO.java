@@ -9,6 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 public class MotelDTO {
+    private Integer id;
+
+    private Integer maxPeople;
 
     private String title;
 
@@ -16,7 +19,7 @@ public class MotelDTO {
 
     private String street;
 
-    private  String ward;
+    private String ward;
 
     private String district;
 

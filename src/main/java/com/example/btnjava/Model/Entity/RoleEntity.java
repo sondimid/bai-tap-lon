@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "role")
 @Getter
 @Setter
-public class RoleEntity {
+public class RoleEntity extends AbstractEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

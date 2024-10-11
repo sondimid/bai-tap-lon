@@ -75,7 +75,7 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<MotelEntity> searchByHostalSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable) {
+    public List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable) {
         StringBuilder sql = new StringBuilder(" select m.* from motel m ");
         queryNormal(sql, motelSearchBuilder);
         querySpecial(sql, motelSearchBuilder);

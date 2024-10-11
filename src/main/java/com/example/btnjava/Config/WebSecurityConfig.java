@@ -37,8 +37,9 @@ public class WebSecurityConfig {
                                     "/api/users/search").hasRole("USER")
                             .requestMatchers(POST,
                                     "/api/user/create").hasRole("USER")
+                            .requestMatchers(GET,
+                                    "/api/users/{userName}/added-buildings").hasRole("USER")
                             .anyRequest().authenticated();
-
                 });
         return http.build();
     }

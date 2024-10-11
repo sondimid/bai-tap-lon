@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface MotelRepositoryCustom {
-    List<MotelEntity> searchByHostalSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable);
+    List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable);
 }

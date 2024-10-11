@@ -1,7 +1,6 @@
 package com.example.btnjava.Service.Implement;
 
 import com.example.btnjava.Converter.UserResponseConverter;
-import com.example.btnjava.CustomException.InvalidParamException;
 import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.Entity.RoleEntity;
 import com.example.btnjava.Model.Entity.UserEntity;
@@ -11,10 +10,11 @@ import com.example.btnjava.Repository.UserRepository;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,7 +23,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,25 +38,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> getAllUsers(Integer page) {
-        Page<UserEntity> users= userRepository.findAll(PageRequest.of(page-1, 3));
+        Page<UserEntity> users = userRepository.findAll(PageRequest.of(page - 1, 3,
+                Sort.by("created_at").descending().and(Sort.by("updated_at").descending()
+                .and(Sort.by("username").ascending()))));
         return userResponseConverter.toUserResponse(users.getContent());
     }
 
     @Override
     public ResponseEntity<?> createUser(UserDTO user) {
-        if(userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
+        if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             throw new DataIntegrityViolationException("Phone number already exists");
         }
 
-        if(userRepository.existsByUserName(user.getUserName())){
+        if (userRepository.existsByUserName(user.getUserName())) {
             throw new DataIntegrityViolationException("User name already exists");
         }
 
-        if(userRepository.existsByEmail(user.getEmail())){
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new DataIntegrityViolationException("Email already exists");
         }
 
-        if(!user.getPassword().equals(user.getRetypePassword())){
+        if (!user.getPassword().equals(user.getRetypePassword())) {
             throw new DataIntegrityViolationException("Password does not match");
         }
         RoleEntity roleEntity = roleRepository.findByRole("USER");
@@ -69,17 +70,18 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(user.getPhoneNumber())
                 .build();
         userEntity.setRoleEntity(roleEntity);
-        return ResponseEntity.ok(userRepository.save(userEntity));
+        userRepository.save(userEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Successfully created user");
     }
 
     @Override
-    public String   login(String username, String password) throws Exception {
+    public String login(String username, String password) throws Exception {
         Optional<UserEntity> user = userRepository.findByUserName(username);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("Wrong username or password");
         }
         UserEntity userEntity = user.get();
-        if(!passwordEncoder.matches(password, userEntity.getPassword())){
+        if (!passwordEncoder.matches(password, userEntity.getPassword())) {
             throw new BadCredentialsException("Wrong username or password");
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -87,5 +89,15 @@ public class UserServiceImpl implements UserService {
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         return jwtTokenUtils.generateToken(userEntity);
 
+    }
+
+    @Override
+    public Optional<UserEntity> findByUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    @Override
+    public Optional<UserEntity> findById(Integer id) {
+        return userRepository.findById(id);
     }
 }

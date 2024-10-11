@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "motel")
-public class MotelEntity {
+public class MotelEntity extends AbstractEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -54,10 +56,11 @@ public class MotelEntity {
     @Column(name = "status")
     private Integer status = 0;
 
-    @Column(name = "urlfiles")
-    private String urlFiles;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", insertable = false, updatable = false)
-    private UserEntity user;
+    private UserEntity user = new UserEntity();
+
+    @OneToMany(mappedBy = "motelEntity", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+            , orphanRemoval = true)
+    private List<FileEntity> fileEntities = new ArrayList<>();
 }

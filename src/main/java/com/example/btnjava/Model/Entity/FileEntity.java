@@ -2,26 +2,32 @@ package com.example.btnjava.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Entity
-@Table(name = "image")
+@Table(name = "file")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImageEntity {
+public class FileEntity extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "productid")
-    private MotelEntity motel;
+    @Column(name = "file_url")
+    private String fileUrl;
+
+    @Column(name = "file_id")
+    private String fileId;
+
+    @Column(name = "motelid", insertable = false, updatable = false)
+    private Integer motelId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "motelid", insertable = false, updatable = false)
+    private MotelEntity motelEntity = new MotelEntity();
 }

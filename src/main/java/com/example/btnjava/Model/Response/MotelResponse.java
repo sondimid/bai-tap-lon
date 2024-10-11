@@ -1,5 +1,7 @@
 package com.example.btnjava.Model.Response;
 
+import com.example.btnjava.Model.DTO.FileDTO;
+import com.example.btnjava.Model.Entity.FileEntity;
 import com.example.btnjava.Model.Entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,9 +41,8 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String status;
 
-    List<MultipartFile> files;
+    List<FileDTO> filesDTO;
 
-    private String urlFiles;
 
     @Override
     public int compareTo(MotelResponse o) {
