@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String   login(String username, String password) throws Exception {
+    public String login(String username, String password) throws Exception {
         Optional<UserEntity> user = userRepository.findByUserName(username);
         if(user.isEmpty()){
             throw new UsernameNotFoundException("Wrong username or password");
@@ -87,5 +87,21 @@ public class UserServiceImpl implements UserService {
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         return jwtTokenUtils.generateToken(userEntity);
 
+    }
+
+    @Override
+    public ResponseEntity<?> markByIds(List<Integer> ids) {
+        for(Integer id: ids){
+            Optional<UserEntity> userOptional = userRepository.findById(id);
+            if(userOptional.isEmpty()) throw new UsernameNotFoundException(String.format("User with id %s not found", id));
+            UserEntity userEntity = userOptional.get();
+            userEntity.setStatus(1-userEntity.getStatus());
+        }
+        return ResponseEntity.accepted().body("Success");
+    }
+
+    @Override
+    public Optional<UserEntity> findById(Integer id) {
+        return userRepository.findById(id);
     }
 }

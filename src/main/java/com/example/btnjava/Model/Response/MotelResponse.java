@@ -39,8 +39,6 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String status;
 
-    List<MultipartFile> files;
-
     private String urlFiles;
 
     @Override

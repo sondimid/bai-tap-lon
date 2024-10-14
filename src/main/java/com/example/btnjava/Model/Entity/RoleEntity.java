@@ -3,6 +3,7 @@ package com.example.btnjava.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "role")
@@ -17,4 +18,6 @@ public class RoleEntity {
     @Column(name = "role")
     private String role;
 
+    @OneToMany(mappedBy = "roleEntity", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<UserEntity> userEntities = new ArrayList<>();
 }

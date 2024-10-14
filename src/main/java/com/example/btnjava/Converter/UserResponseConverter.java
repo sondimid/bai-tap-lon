@@ -2,6 +2,7 @@ package com.example.btnjava.Converter;
 
 import com.example.btnjava.Model.Entity.UserEntity;
 import com.example.btnjava.Model.Response.UserResponse;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 @Component
+@RequiredArgsConstructor
 public class UserResponseConverter {
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public List<UserResponse> toUserResponse(List<UserEntity> list){
         List<UserResponse> result = new ArrayList<>();

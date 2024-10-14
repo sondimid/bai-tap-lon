@@ -5,35 +5,32 @@ import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.DTO.UserLoginDTO;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
 import com.example.btnjava.Service.MotelService;
-import com.example.btnjava.Service.StorageService;
 import com.example.btnjava.Service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    private MotelService motelService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private StorageService storageService;
+    private final MotelService motelService;
+    private final UserService userService;
 
     @GetMapping("/search")
-    public ResponseEntity<Object>searchByMotelSearchBuilder(@RequestBody MotelSearchBuilder motelSearchBuilder) {
+    public ResponseEntity<Object>searchByMotelSearchBuilder(@RequestBody MotelSearchBuilder motelSearchBuilder) throws IOException {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> addMotel(@ModelAttribute MotelDTO motelDTO){
-        motelService.save(motelDTO);
+    public ResponseEntity<String> addMotel(@ModelAttribute MotelDTO motelDTO,@RequestHeader String token) throws IOException {
+        motelService.save(motelDTO, token);
         return ResponseEntity.accepted().body("SUCCESS");
     }
 

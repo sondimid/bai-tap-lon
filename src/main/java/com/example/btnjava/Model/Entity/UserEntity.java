@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity implements UserDetails {
+public class UserEntity extends AbstractEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -34,15 +34,18 @@ public class UserEntity implements UserDetails {
     @Column(name = "password")
     private String passWord;
 
+    @Column(name = "status")
+    private Integer status;
+
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
-    private List<MotelEntity> motelEntities;
+    @OneToMany(mappedBy = "userEntity", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
+    private List<MotelEntity> motelEntities = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "roleid", nullable = false, updatable = false)
-    private RoleEntity roleEntity;
+    @JoinColumn(name = "roleid", insertable = false, updatable = false)
+    private RoleEntity roleEntity = new RoleEntity();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
