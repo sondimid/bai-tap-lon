@@ -13,8 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -59,7 +61,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO userDTO){
+    public ResponseEntity<?> loginUser(@Valid @RequestBody @ModelAttribute UserLoginDTO userDTO){
+        ModelAndView mav = new ModelAndView("login");
         try{
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
             return ResponseEntity.ok().body(token);
@@ -68,7 +71,6 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
     @GetMapping("{userName}/added-buildings")
     @PreAuthorize("#userName == authentication.name")
     public ResponseEntity<?> searchByUserId(@PathVariable("userName") String userName, @RequestHeader("authorization") String token) {
