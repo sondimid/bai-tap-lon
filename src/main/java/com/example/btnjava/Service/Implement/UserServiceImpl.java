@@ -47,19 +47,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> createUser(UserDTO user) {
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
-            throw new DataIntegrityViolationException("Phone number already exists");
+            throw new DataIntegrityViolationException("Số Điện Thoại Đã Tồn Tại");
         }
 
         if (userRepository.existsByUserName(user.getUserName())) {
-            throw new DataIntegrityViolationException("User name already exists");
+            throw new DataIntegrityViolationException("Tên Đăng Nhập Đã Tồn Tại");
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new DataIntegrityViolationException("Email already exists");
+            throw new DataIntegrityViolationException("Email Đã Tồn Tại");
         }
 
         if (!user.getPassword().equals(user.getRetypePassword())) {
-            throw new DataIntegrityViolationException("Password does not match");
+            throw new DataIntegrityViolationException("Mật Khẩu Không Khớp");
         }
         RoleEntity roleEntity = roleRepository.findByRole("USER");
         UserEntity userEntity = UserEntity.builder().
@@ -78,11 +78,11 @@ public class UserServiceImpl implements UserService {
     public String login(String username, String password) throws Exception {
         Optional<UserEntity> user = userRepository.findByUserName(username);
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException("Wrong username or password");
+            throw new UsernameNotFoundException("Sai Tên Đăng Nhập Hoặc Mật Khẩu");
         }
         UserEntity userEntity = user.get();
         if (!passwordEncoder.matches(password, userEntity.getPassword())) {
-            throw new BadCredentialsException("Wrong username or password");
+            throw new BadCredentialsException("Sai Tên Đăng Nhập Hoặc Mật Khẩu");
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(username, password, userEntity.getAuthorities());

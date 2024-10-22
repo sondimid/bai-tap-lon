@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 
-@RestController
+@Controller
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
@@ -46,29 +47,33 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDTO,
-                                                BindingResult result){
+    @PostMapping(value="/register")
+    public String registerUser(@Valid @ModelAttribute("userRegister") UserDTO userDTO,
+                                                BindingResult result, Model model){
         try{
             if(result.hasErrors()){
-                return ResponseEntity.badRequest().body(result.getAllErrors());
+                return "signup/signup";
             }
-            return userService.createUser(userDTO);
+            userService.createUser(userDTO);
+            model.addAttribute("successMessage", "Đăng Ký Thành Công");
+            return "signup/signup";
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "signup/signup";
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@Valid @RequestBody @ModelAttribute UserLoginDTO userDTO){
-        ModelAndView mav = new ModelAndView("login");
+    @PostMapping(value="/login")
+    public String loginUser(@Valid @ModelAttribute UserLoginDTO userDTO, Model model){
         try{
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
-            return ResponseEntity.ok().body(token);
+            ResponseEntity.ok().body(token);
+            return "home/index";
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            model.addAttribute("errorMessage", e.getMessage());
+            return "login/login";
         }
     }
     @GetMapping("{userName}/added-buildings")
