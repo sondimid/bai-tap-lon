@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.MalformedURLException;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final MotelService motelService;

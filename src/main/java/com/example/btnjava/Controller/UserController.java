@@ -17,14 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 
 @Controller
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final MotelService motelService;
@@ -52,15 +51,15 @@ public class UserController {
                                                 BindingResult result, Model model){
         try{
             if(result.hasErrors()){
-                return "signup/signup";
+                return "signup";
             }
             userService.createUser(userDTO);
             model.addAttribute("successMessage", "Đăng Ký Thành Công");
-            return "signup/signup";
+            return "signup";
         }
         catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
-            return "signup/signup";
+            return "signup";
         }
     }
 
@@ -69,11 +68,11 @@ public class UserController {
         try{
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
             ResponseEntity.ok().body(token);
-            return "home/index";
+            return "index";
         }
         catch (Exception e){
             model.addAttribute("errorMessage", e.getMessage());
-            return "login/login";
+            return "login";
         }
     }
     @GetMapping("{userName}/added-buildings")

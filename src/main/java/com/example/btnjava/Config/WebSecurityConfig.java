@@ -26,27 +26,27 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> {
                     request
-                            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                            .requestMatchers("/api/users/login","/api/users/register","/login","/register").permitAll()
+                            .requestMatchers("/users/login","/users/register","/login","/register").permitAll()
+                            .requestMatchers("/img/**","/js/**","/css/**").permitAll()
+                            .requestMatchers("/lib/**","/scss/**").permitAll()
                             .requestMatchers(GET,
-                                    "/api/admin/**").hasRole("ADMIN")
+                                    "/admin/**").hasRole("ADMIN")
                             .requestMatchers(GET,
-                                    "/api/users/search").hasRole("USER")
+                                    "users/search").hasRole("USER")
                             .requestMatchers(POST,
-                                    "/api/user/create").hasRole("USER")
+                                    "/user/create").hasRole("USER")
                             .requestMatchers(GET,
-                                    "/api/users/{userName}/added-buildings").hasRole("USER")
-                            .anyRequest().authenticated();
-                });
+                                    "/users/{userName}/added-buildings").hasRole("USER")
+                            .anyRequest().authenticated()
+                            ;
+                })
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-    @Bean
-    WebSecurityCustomizer customizeWebSecurity(){
-        return web -> web.ignoring().requestMatchers("/css/**","/img/**","/js/**","/lib/**","/scss/**");
-    }
+
 }

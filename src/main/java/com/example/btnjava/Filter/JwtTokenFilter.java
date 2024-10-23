@@ -60,8 +60,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     public boolean isByPassToken(@NonNull HttpServletRequest request) {
         final List<Pair<String, String>> list = Arrays.asList(
-                Pair.of("/api/users/login", "POST"),
-                Pair.of("/api/users/register", "POST"),
+                Pair.of("/users/login", "POST"),
+                Pair.of("/users/register", "POST"),
                 Pair.of("/login", "GET"),
                 Pair.of("/register", "GET")
 
