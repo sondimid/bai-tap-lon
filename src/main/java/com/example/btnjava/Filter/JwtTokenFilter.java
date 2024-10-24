@@ -64,6 +64,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of("/users/register", "POST"),
                 Pair.of("/login", "GET"),
                 Pair.of("/register", "GET")
+//                Pair.of("/static/**", "GET"),
+//                Pair.of("/css/**", "GET"),
+//                Pair.of("/img/**", "GET"),
+//                Pair.of("/js/**", "GET"),
+//                Pair.of("/lib/**", "GET"),
+//                Pair.of("/scss/**", "GET")
 
         );
         for(Pair<String, String> pair : list) {
