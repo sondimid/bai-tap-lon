@@ -41,10 +41,4 @@ public class SecurityConfig {
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         return daoAuthenticationProvider;
     }
-
-    @Bean
-    public WebSecurityCustomizer customizeWebSecurity(){
-        return web -> web.ignoring().requestMatchers("/css/**","/img/**","/js/**","/lib/**","/scss/**",
-                "/resources/**","/static/**");
-    }
 }
