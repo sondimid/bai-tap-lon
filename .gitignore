@@ -1,3 +1,5 @@
-/back-end/.idea
+/.back-end/.idea
 /.idea
-/back-end/.target
+/.back-end/.target
+.idea/
+.target/
