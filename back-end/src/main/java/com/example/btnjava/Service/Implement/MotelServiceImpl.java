@@ -79,8 +79,9 @@ public class MotelServiceImpl implements MotelService {
 
     @Override
     public List<MotelResponse> findAll() throws MalformedURLException {
-        List<MotelEntity> motelEntities = motelRepository.findAll(Sort.by("created_at").descending().and(Sort.by("updated_at").descending().and(Sort.by("status").ascending())));
-        return motelResponseConverter.toMotelResponse(motelEntities);
+//        List<MotelEntity> motelEntities = motelRepository.findAll(Sort.by("created_at").descending().and(Sort.by("updated_at").descending().and(Sort.by("status").ascending())));
+
+        return motelResponseConverter.toMotelResponse(motelRepository.findAll());
     }
 
     @Override

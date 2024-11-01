@@ -33,6 +33,7 @@ public class WebSecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> {
                     request
                             .requestMatchers("/static/**").permitAll()
@@ -40,15 +41,15 @@ public class WebSecurityConfig{
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(GET,
-                                    "users/search").hasRole("USER")
+                                    "/dashboard").hasRole("ADMIN")
                             .requestMatchers(POST,
                                     "/user/create").hasRole("USER")
                             .requestMatchers(GET,
                                     "/users/{userName}/added-buildings").hasRole("USER")
                             .anyRequest().permitAll();
                 })
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider);
+
 
         return http.build();
     }

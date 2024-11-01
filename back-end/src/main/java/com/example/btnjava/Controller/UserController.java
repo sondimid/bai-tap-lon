@@ -4,6 +4,7 @@ import com.example.btnjava.CustomException.NotNullException;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.DTO.UserLoginDTO;
+import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
@@ -20,21 +21,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:8080")
 @Controller
-@RequestMapping("/users")
+@RequestMapping()
 @RequiredArgsConstructor
 public class UserController {
     private final MotelService motelService;
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
 
-    @GetMapping("/search")
-    public ResponseEntity<Object>searchByMotelSearchBuilder(@RequestBody MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
+    @GetMapping("/")
+    public ResponseEntity<Object>searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
     }
-
+    @GetMapping("/dashboard")
+    public ResponseEntity<?> getAll() throws MalformedURLException {
+        List<MotelResponse> motelResponses = motelService.findAll();
+        return ResponseEntity.ok().body(motelResponses);
+    }
     @PostMapping("/create")
     public ResponseEntity<String> addMotel(@ModelAttribute MotelDTO motelDTO, @RequestHeader("authorization") String token) throws IOException {
 
@@ -47,32 +53,24 @@ public class UserController {
     }
 
     @PostMapping(value="/register")
-    public String registerUser(@Valid @ModelAttribute("userRegister") UserDTO userDTO,
-                                                BindingResult result, Model model){
+    public ResponseEntity<?> registerUser(@Valid UserDTO userDTO){
         try{
-            if(result.hasErrors()){
-                return "signup";
-            }
             userService.createUser(userDTO);
-            model.addAttribute("successMessage", "Đăng Ký Thành Công");
-            return "signup";
+            return ResponseEntity.accepted().body("Success");
         }
         catch (Exception e){
-            model.addAttribute("errorMessage", e.getMessage());
-            return "signup";
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping(value="/login")
-    public String loginUser(@Valid @ModelAttribute UserLoginDTO userDTO, Model model){
+    public ResponseEntity<String> loginUser(@Valid UserLoginDTO userDTO){
         try{
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
-            ResponseEntity.ok().body(token);
-            return "index";
+            return ResponseEntity.ok(token);
         }
         catch (Exception e){
-            model.addAttribute("errorMessage", e.getMessage());
-            return "login";
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @GetMapping("{userName}/added-buildings")
