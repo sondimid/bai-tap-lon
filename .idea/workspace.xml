@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8200fc6-5c89-462a-86d7-4e425ca28c0f" name="Changes" comment="" />
+    <list default="true" id="f8200fc6-5c89-462a-86d7-4e425ca28c0f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +72,7 @@
     &quot;Tomcat Server.Tomcat.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sondimid/IdeaProjects&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sondimid/IdeaProjects/bai-tap-lon/back-end&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -91,6 +97,19 @@
   <component name="RunManager" selected="Spring Boot.BtnjavaApplication">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/bai-tap-lon/btnjava/templates/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="bai-tap-lon" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="bai-tap-lon" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="BtnjavaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="22" />
@@ -255,6 +274,8 @@
       <workItem from="1730194902022" duration="3305000" />
       <workItem from="1730383239671" duration="5521000" />
       <workItem from="1730426537759" duration="6138000" />
+      <workItem from="1730443992227" duration="25000" />
+      <workItem from="1730444038015" duration="28000" />
     </task>
     <servers />
   </component>
