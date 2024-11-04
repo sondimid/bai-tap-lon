@@ -24,8 +24,8 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
-@Controller
-@RequestMapping()
+@RestController
+@RequestMapping("")
 @RequiredArgsConstructor
 public class UserController {
     private final MotelService motelService;
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping(value="/register")
-    public ResponseEntity<?> registerUser(@Valid UserDTO userDTO){
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
         try{
             userService.createUser(userDTO);
             return ResponseEntity.accepted().body("Success");
@@ -64,13 +64,13 @@ public class UserController {
     }
 
     @PostMapping(value="/login")
-    public ResponseEntity<String> loginUser(@Valid UserLoginDTO userDTO){
+    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userDTO){
         try{
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
             return ResponseEntity.ok(token);
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+                return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @GetMapping("{userName}/added-buildings")
@@ -85,4 +85,10 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("/get-infor")
+    public ResponseEntity<?> getUserDetail(@RequestHeader("Authorization") String authorization) {
+        String token = authorization.replace("Bearer ", "");
+        return ResponseEntity.ok(userService.getUserDetail(token));
+    }
+
 }

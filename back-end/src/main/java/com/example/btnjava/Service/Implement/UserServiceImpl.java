@@ -100,4 +100,11 @@ public class UserServiceImpl implements UserService {
     public Optional<UserEntity> findById(Integer id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public UserResponse getUserDetail(String token) {
+        Integer id = jwtTokenUtils.extractUserId(token);
+        UserEntity userEntity = userRepository.findById(id).get();
+        return userResponseConverter.toUserResponse(userEntity);
+    }
 }

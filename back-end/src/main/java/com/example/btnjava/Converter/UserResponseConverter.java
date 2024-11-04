@@ -22,4 +22,9 @@ public class UserResponseConverter {
         }
         return result;
     }
+    public UserResponse toUserResponse(UserEntity userEntity){
+        UserResponse userResponse = modelMapper.map(userEntity, UserResponse.class);
+        userResponse.setRole(userEntity.getRoleEntity().getRole());
+        return userResponse;
+    }
 }

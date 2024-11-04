@@ -14,4 +14,5 @@ public interface UserService {
     String login(String username, String password) throws Exception;
     Optional<UserEntity> findByUserName(String username);
     Optional<UserEntity> findById(Integer id);
+    UserResponse getUserDetail(String token);
 }

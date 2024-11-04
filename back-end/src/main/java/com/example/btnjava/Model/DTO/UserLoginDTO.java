@@ -9,9 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserLoginDTO {
-    @NotBlank(message = "user name is not blank")
     private String userName;
 
-    @NotBlank(message = "password is not blank")
     private String password;
 }
