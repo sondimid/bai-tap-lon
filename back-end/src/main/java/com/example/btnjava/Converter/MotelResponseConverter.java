@@ -51,4 +51,26 @@ public class MotelResponseConverter {
         Collections.sort(result);
         return result;
     }
+    public MotelResponse toMotelResponse(MotelEntity motelEntity) {
+            MotelResponse motelResponse = modelMapper.map(motelEntity, MotelResponse.class);
+            List<FileDTO> filesDTO = new ArrayList<>();
+            List<FileEntity> fileEntities = fileService.findByMotelId(motelEntity.getId());
+            for(FileEntity fileEntity : fileEntities){
+                FileDTO fileDTO = FileDTO
+                        .builder()
+                        .name(fileEntity.getName())
+                        .fileId(fileEntity.getFileId())
+                        .fileUrl(fileEntity.getFileUrl())
+                        .build();
+                filesDTO.add(fileDTO);
+            }
+            motelResponse.setFilesDTO(filesDTO);
+            motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
+                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố " + motelEntity.getProvince());
+            if(motelEntity.getStatus() == 1){
+                motelResponse.setStatus("đã duyệt");
+            }
+            else motelResponse.setStatus("chưa duyệt");
+            return motelResponse;
+    }
 }

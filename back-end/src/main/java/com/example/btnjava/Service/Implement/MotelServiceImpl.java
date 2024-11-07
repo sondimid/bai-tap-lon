@@ -10,6 +10,7 @@ import com.example.btnjava.Repository.MotelRepository;
 import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
 import com.example.btnjava.Service.CloudinaryService;
+import com.example.btnjava.Service.FileService;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
@@ -41,6 +42,7 @@ public class MotelServiceImpl implements MotelService {
     private final CloudinaryService cloudinaryService;
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
+    private final FileService fileService;
 
     @Override
     public List<MotelResponse> findAll(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
@@ -62,7 +64,7 @@ public class MotelServiceImpl implements MotelService {
         motelRepository.save(motelEntity);
 
         List<MultipartFile> files = motelDTO.getFiles();
-        for(MultipartFile file : files){
+        for(MultipartFile file : files) {
             Map result = cloudinaryService.uploadFile(file);
             FileEntity fileEntity = FileEntity
                     .builder()
@@ -104,5 +106,11 @@ public class MotelServiceImpl implements MotelService {
         Optional<List<MotelEntity>> motelEntities = motelRepository.findByUserId(user.get().getId());
         if(motelEntities.isEmpty()) throw new NotFoundException("Empty");
         return motelResponseConverter.toMotelResponse(motelEntities.get());
+    }
+
+    @Override
+    public MotelResponse findById(Integer Id) {
+        MotelEntity motelEntity = motelRepository.findById(Id).get();
+        return motelResponseConverter.toMotelResponse(motelEntity);
     }
 }

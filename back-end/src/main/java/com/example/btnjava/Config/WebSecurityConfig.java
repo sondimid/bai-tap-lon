@@ -37,7 +37,8 @@ public class WebSecurityConfig{
                 .authorizeHttpRequests(request -> {
                     request
                             .requestMatchers("/static/**").permitAll()
-                            .requestMatchers("/users/login","/users/register","/login","/register").permitAll()
+                            .requestMatchers("/get-all-motels","/login","/register",
+                                    "/search","/motel/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(GET,

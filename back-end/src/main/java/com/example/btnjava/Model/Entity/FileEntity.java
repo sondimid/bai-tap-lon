@@ -24,7 +24,7 @@ public class FileEntity extends AbstractEntity {
     @Column(name = "file_id")
     private String fileId;
 
-    @Column(name = "motelid", insertable = false, updatable = false)
+    @Column(name = "motelid")
     private Integer motelId;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -334,21 +334,9 @@
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Chi Tiết Phòng Trọ</h1>
                         </div>
 
-                        <div class="row">
-                            <div class="col-7 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                <a href="#" class="card flex-row" @click="toMotelDetailPage(motel.id)">
-                                    <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                        class="card-img-right" alt="Profile Image">
-                                    <div class="card-body">
-                                        <h2 class="card-title fw-bold mb-2">{{ motel.title }}</h2>
-                                        <p class="card-text">{{ motel.detail }}</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                     <!-- /.container-fluid -->
 
@@ -358,9 +346,6 @@
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Nhóm 15</span>
-                        </div>
                     </div>
                 </footer>
                 <!-- End of Footer -->
@@ -390,7 +375,7 @@
 
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             @click=closeModal>Hủy</button>
-                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal" @click=LogoutUser>Đăng
+                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal" @click=toLoginPage>Đăng
                             Xuất</button>
                     </div>
                 </div>
@@ -404,7 +389,7 @@
 import axios from 'axios';
 
 export default {
-    name: 'DashBoard',
+    name: 'MotelDetail',
     data() {
         return {
             showModal: false,
@@ -429,35 +414,30 @@ export default {
             maxPageItems: null,
         };
     },
+    created() {
+        const motelId = this.$route.params.id;
+        this.fetchMotelDetail(motelId);
+    },
     mounted() {
-        if (this.hasToken) {
-            if (!localStorage.getItem('userInfor')) {
-                this.getUserInfo(); 
-            } else {
-                this.userInfo = JSON.parse(localStorage.getItem('userInfor')); 
-            }
-        }
-        if (localStorage.getItem('queryMotel')) {
-            const queryMotel = JSON.parse(localStorage.getItem('queryMotel'));
-            this.search(queryMotel);
-            localStorage.removeItem('queryMotel');
-        } else {
-            this.getAllMotels();
-        }
+        this.getUserInfo();
     },
     methods: {
-        toMotelDetailPage(id) {
-            this.$router.push({ name: 'MotelDetail', params: { id } });
+        toDashBoardPage() {
+            this.resetData();
+            this.$router.push('/').then(() => {
+                window.location.reload();
+            });
         },
-        LogoutUser() {
+        toLoginPage() {
             this.showModal = false;
-            this.clearDataAndRedirect('/login');
+            localStorage.clear();
+            this.$router.push('/login')
         },
         openLogoutModal() {
             this.showModal = true;
         },
         closeModal() {
-            this.showModal = false;
+            this.showModal = false
         },
         async getUserInfo() {
             const token = localStorage.getItem('token');
@@ -468,47 +448,38 @@ export default {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    localStorage.setItem('userInfor', JSON.stringify(response.data)); 
+                    console.log(response);
                     this.userInfo = response.data;
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
             }
         },
-        async getAllMotels() {
-            const response = await axios.get('http://localhost:8081/get-all-motels');
-            console.log(response);
-            this.listMotel = response.data;
-        },
         async searchByPrice(priceFrom, priceTo) {
-            const data = this.buildSearchData();
-            data.priceFrom = priceFrom;
-            data.priceTo = priceTo;
+            const data = this.createSearchData({ priceFrom, priceTo });
             this.search(data);
         },
         async searchByArea(areaFrom, areaTo) {
-            const data = this.buildSearchData();
-            data.areaFrom = areaFrom;
-            data.areaTo = areaTo;
+            const data = this.createSearchData({ areaFrom, areaTo });
             this.search(data);
         },
         async searchByDistrict(district) {
-            const data = this.buildSearchData();
-            data.district = district;
+            const data = this.createSearchData({ district });
             this.search(data);
         },
         async search(data) {
-            console.log(data);
-            const response = await axios.get('http://localhost:8081/search', {
-                params: data,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response.data);
-            this.listMotel = response.data;
+            localStorage.setItem('queryMotel', JSON.stringify(data));
+            this.$router.push('/');
         },
-        buildSearchData() {
+        async fetchMotelDetail(id) {
+            try {
+                const response = await axios.get(`http://localhost:8081/motel/${id}`); 
+                this.motel = response.data;
+            } catch (error) {
+                console.error('Error fetching motel details:', error);
+            }
+        },
+        createSearchData(overrides) {
             return {
                 description: this.description,
                 houseNumber: this.houseNumber,
@@ -525,23 +496,10 @@ export default {
                 managerName: this.managerName,
                 phoneNumber: this.phoneNumber,
                 page: this.page || 1,
-                maxPageItems: this.maxPageItems || 10
+                maxPageItems: this.maxPageItems || 10,
+                ...overrides
             };
-        },
-        async toDashBoardPage() {
-            this.$router.push('/').then(() => {
-                window.location.reload();
-            });
-        },
-        clearDataAndRedirect(route) {
-            localStorage.clear();
-            this.resetData();
-
-            this.$router.push(route).then(() => {
-                window.location.reload();
-            });
-        },
-        resetData() {
+        }, resetData() {
             this.showModal = false;
             this.userInfo = {};
             this.listMotel = {};
@@ -563,13 +521,15 @@ export default {
             this.maxPageItems = null;
         }
     },
+
     computed: {
         hasToken() {
-            return !!localStorage.getItem('token');
+            return !!localStorage.getItem('token')
         }
     }
-};
+}
 </script>
+
 <style scoped>
 .re__btn {
     font-size: 10px;

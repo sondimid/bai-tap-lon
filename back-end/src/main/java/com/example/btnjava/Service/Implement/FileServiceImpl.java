@@ -30,4 +30,9 @@ public class FileServiceImpl implements FileService {
     public List<FileEntity> findByMotelId(Integer id) {
         return fileRepository.findByMotelId(id);
     }
+
+    @Override
+    public void save(FileEntity file) {
+        fileRepository.save(file);
+    }
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -32,17 +33,22 @@ public class UserController {
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
 
-    @GetMapping("/")
-    public ResponseEntity<Object>searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
+    @GetMapping("/search")
+    public ResponseEntity<?>searchByMotelSearchBuilder( MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
     }
-    @GetMapping("/dashboard")
+    @GetMapping("/get-all-motels")
     public ResponseEntity<?> getAll() throws MalformedURLException {
         List<MotelResponse> motelResponses = motelService.findAll();
         return ResponseEntity.ok().body(motelResponses);
     }
+    @GetMapping("/motel/{id}")
+    public ResponseEntity<?> getMotel(@PathVariable Integer id) throws MalformedURLException {
+        MotelResponse motelResponses = motelService.findById(id);
+        return ResponseEntity.ok().body(motelResponses);
+    }
     @PostMapping("/create")
-    public ResponseEntity<String> addMotel(@ModelAttribute MotelDTO motelDTO, @RequestHeader("authorization") String token) throws IOException {
+    public ResponseEntity<String> addMotel(MotelDTO motelDTO, @RequestHeader("authorization") String token) throws IOException {
 
         try{
             motelService.save(motelDTO, token);

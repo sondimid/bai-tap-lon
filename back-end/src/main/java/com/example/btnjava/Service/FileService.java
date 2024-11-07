@@ -10,4 +10,5 @@ import java.util.Map;
 public interface FileService {
     void save(Map result);
     List<FileEntity> findByMotelId(Integer id);
+    void save(FileEntity file);
 }

@@ -30,7 +30,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         WHITE_LIST.add("/static/**");
         WHITE_LIST.add("/login");
         WHITE_LIST.add("/register");
-        WHITE_LIST.add("/users/login");
+        WHITE_LIST.add("/get-all-motels");
+        WHITE_LIST.add("/search");
+        WHITE_LIST.add("/motel/**");
     }
 
     @Override
