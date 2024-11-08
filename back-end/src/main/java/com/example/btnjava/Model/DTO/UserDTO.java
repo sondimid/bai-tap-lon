@@ -6,12 +6,14 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @Builder
 
 public class UserDTO {
+
     private String fullName;
 
     private String email;
@@ -23,5 +25,7 @@ public class UserDTO {
     private String password;
 
     private String retypePassword;
+
+    private MultipartFile file;
 
 }

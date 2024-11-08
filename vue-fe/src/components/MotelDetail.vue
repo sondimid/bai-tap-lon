@@ -295,7 +295,7 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.userName }}</span>
 
-                                    <img class="img-profile rounded-circle" src="../../assets/img/undraw_profile.svg">
+                                    <img class="img-profile rounded-circle" :src="this.avatar || '../../assets/img/undraw_profile.svg'">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -412,6 +412,7 @@ export default {
             phoneNumber: null,
             page: null,
             maxPageItems: null,
+            avatar : localStorage.getItem('avatar') || ''
         };
     },
     created() {

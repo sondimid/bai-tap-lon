@@ -1,6 +1,7 @@
 package com.example.btnjava.Controller;
 
 import com.example.btnjava.CustomException.NotNullException;
+import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.DTO.UserLoginDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -92,9 +94,23 @@ public class UserController {
         }
     }
     @GetMapping("/get-infor")
-    public ResponseEntity<?> getUserDetail(@RequestHeader("Authorization") String authorization) {
+    public ResponseEntity<?> getUserDetail(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
         String token = authorization.replace("Bearer ", "");
         return ResponseEntity.ok(userService.getUserDetail(token));
     }
-
+    @PostMapping("/upload-avatar/{id}")
+    public ResponseEntity<?> uploadAvatar(@PathVariable Integer id,@RequestParam("file") MultipartFile file) throws Exception {
+        return ResponseEntity.accepted().body(userService.uploadAvatar(id, file));
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO,
+                                            @RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        String token = authorization.replace("Bearer ", "");
+        try{
+            userService.changePassword(changePasswordDTO,token);
+            return ResponseEntity.accepted().body("Success");
+        }catch (Exception e){
+                return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

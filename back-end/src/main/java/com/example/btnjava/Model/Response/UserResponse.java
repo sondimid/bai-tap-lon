@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UserResponse {
+    private Integer id;
 
     private String fullName;
 
@@ -19,6 +20,8 @@ public class UserResponse {
     private String userName;
 
     private String email;
+
+    private String fileUrl;
 
     private List<MotelResponse> motelResponses;
 

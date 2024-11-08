@@ -64,7 +64,7 @@
                       <a class="small" href="forgot-password.html">Quên Mật Khẩu?</a>
                     </div>
                     <div class="text-center">
-                      <a class="small" @click="toRegisterPage">Tạo Tài Khoản Mới!</a>
+                      <a class="small" href="" @click="toRegisterPage">Tạo Tài Khoản Mới!</a>
                     </div>
                   </div>
                 </div>

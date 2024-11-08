@@ -37,6 +37,9 @@ public class UserEntity extends AbstractEntity implements UserDetails{
     @Column(name = "email")
     private String email;
 
+    @Column(name = "fileurl")
+    private String fileUrl;
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<MotelEntity> motelEntities = new ArrayList<>();
 

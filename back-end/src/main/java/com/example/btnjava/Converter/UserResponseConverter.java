@@ -2,17 +2,19 @@ package com.example.btnjava.Converter;
 
 import com.example.btnjava.Model.Entity.UserEntity;
 import com.example.btnjava.Model.Response.UserResponse;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 @Component
+@RequiredArgsConstructor
 public class UserResponseConverter {
-    @Autowired
-    private ModelMapper modelMapper;
-
+    private final ModelMapper modelMapper;
+    private final MotelResponseConverter motelResponseConverter;
     public List<UserResponse> toUserResponse(List<UserEntity> list){
         List<UserResponse> result = new ArrayList<>();
         for(UserEntity user : list){
@@ -22,9 +24,10 @@ public class UserResponseConverter {
         }
         return result;
     }
-    public UserResponse toUserResponse(UserEntity userEntity){
+    public UserResponse toUserResponse(UserEntity userEntity) throws MalformedURLException {
         UserResponse userResponse = modelMapper.map(userEntity, UserResponse.class);
-        userResponse.setRole(userEntity.getRoleEntity().getRole());
+        userResponse.setUserName(userEntity.getUsername());
+        userResponse.setMotelResponses(motelResponseConverter.toMotelResponse(userEntity.getMotelEntities()));
         return userResponse;
     }
 }

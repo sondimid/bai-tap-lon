@@ -41,6 +41,8 @@ public class WebSecurityConfig{
                                     "/search","/motel/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
+                            .requestMatchers(POST,
+                                    "/upload-avatar/**").hasRole("USER")
                             .requestMatchers(GET,
                                     "/dashboard").hasRole("ADMIN")
                             .requestMatchers(POST,
