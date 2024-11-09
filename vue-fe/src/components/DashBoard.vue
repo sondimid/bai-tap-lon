@@ -102,6 +102,16 @@
                     </div>
 
                 </li>
+                <hr class="sidebar-divider">
+
+                <!-- Advanced Search Button at the bottom -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Tìm Kiếm Nâng Cao</span>
+                    </a>
+                </li>
+
 
             </ul>
             <!-- End of Sidebar -->
@@ -171,7 +181,8 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.fullName }}</span>
 
-                                    <img class="img-profile rounded-circle" :src="this.avatar ||'../../assets/img/undraw_profile.svg'">
+                                    <img class="img-profile rounded-circle"
+                                        :src="this.avatar || '../../assets/img/undraw_profile.svg'">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -179,14 +190,6 @@
                                     <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
@@ -196,7 +199,7 @@
 
                                 </div>
                             </li>
-                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="toLoginPage">
+                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="LogoutUser">
                                 <i class="bi bi-box-arrow-in-right"></i> Login
                             </button>
 
@@ -214,17 +217,48 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-7 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                <a href="#" class="card flex-row" @click="toMotelDetailPage(motel.id)">
-                                    <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                        class="card-img-right" alt="Profile Image">
+                            <div class="col-7 mb-5" v-for="motel in listMotel" :key="motel.id">
+                                <a href="#" class="card flex-row align-items-center p-3 shadow-sm"
+                                    @click="toMotelDetailPage(motel.id)" style="text-decoration: none;">
+
+                                    <!-- Image Section -->
+                                    <div class="motel-image" style="width: 300px; height: min-content;">
+                                        <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                            class="rounded me-3" alt="Profile Image"
+                                            style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
+                                    </div>
+                                    <!-- Content Section -->
                                     <div class="card-body">
-                                        <h2 class="card-title fw-bold mb-2">{{ motel.title }}</h2>
-                                        <p class="card-text">{{ motel.detail }}</p>
+                                        <!-- Title and Price Section -->
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h1 class="card-title fw-bold text-primary mb-0" style="font-size: 1.5rem;">
+                                                {{ motel.title }}
+                                            </h1>
+                                            <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
+                                                {{ motel.price }} triệu
+                                            </h3>
+                                        </div>
+
+                                        <!-- Details Section -->
+                                        <div class="mb-3">
+                                            <p class="card-text text-muted">{{ motel.detail }}</p>
+                                        </div>
+
+                                        <!-- Footer Section -->
+                                        <hr class="sidebar-divider">
+                                        <div class="text-end">
+                                            Click Vào Để Xem Chi Tiết
+                                        </div>
                                     </div>
                                 </a>
                             </div>
+
+
+
+
                         </div>
+
+
                     </div>
                     <!-- /.container-fluid -->
 
@@ -232,13 +266,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Nhóm 15</span>
-                        </div>
-                    </div>
-                </footer>
+
                 <!-- End of Footer -->
 
             </div>
@@ -309,9 +337,9 @@ export default {
     mounted() {
         if (this.hasToken) {
             if (!localStorage.getItem('userInfor')) {
-                this.getUserInfo(); 
+                this.getUserInfo();
             } else {
-                this.userInfo = JSON.parse(localStorage.getItem('userInfor')); 
+                this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
         if (localStorage.getItem('queryMotel')) {
@@ -348,7 +376,7 @@ export default {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    localStorage.setItem('userInfor', JSON.stringify(response.data)); 
+                    localStorage.setItem('userInfor', JSON.stringify(response.data));
                     this.userInfo = response.data;
                     if (this.userInfo.fileUrl) {
                         localStorage.setItem('avatar', this.userInfo.fileUrl)
