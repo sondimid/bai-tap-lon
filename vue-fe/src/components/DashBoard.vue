@@ -106,7 +106,7 @@
 
                 <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
+                    <a class="nav-link" href="#" @click="toAdvancedSearchPage">
                         <i class="fas fa-search-plus"></i>
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
@@ -170,6 +170,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
+                                </button>
+                            </li>
+
 
 
                             <div class="topbar-divider d-none d-sm-block"></div>
@@ -252,10 +259,6 @@
                                     </div>
                                 </a>
                             </div>
-
-
-
-
                         </div>
 
 
@@ -454,6 +457,9 @@ export default {
                 window.location.reload();
             });
         },
+        toAdvancedSearchPage() {
+            this.$router.push('/advanced-search')
+        },
         resetData() {
             this.showModal = false;
             this.userInfo = {};
@@ -474,6 +480,12 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
+        },
+        addNewMotel() {
+            if (this.hasToken) {
+                this.$router.push('/add-motel')
+            }
+            else this.$router.push('/login')
         }
     },
     computed: {

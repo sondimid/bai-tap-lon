@@ -1,11 +1,12 @@
-import DashBoard from '@/components/DashBoard.vue';
-import Login from '@/components/Login.vue';
+import DashBoard from "@/components/DashBoard.vue";
+import Login from "@/components/Login.vue";
 import Register from "@/components/Register.vue";
-import { createRouter, createWebHistory } from 'vue-router'
-import MotelDetail from '@/components/MotelDetail.vue';
-import Profile from '@/components/Profile.vue';
-import ChangePassword from '@/components/ChangePassword.vue';
-
+import { createRouter, createWebHistory } from "vue-router";
+import MotelDetail from "@/components/MotelDetail.vue";
+import Profile from "@/components/Profile.vue";
+import ChangePassword from "@/components/ChangePassword.vue";
+import AdvancedSearch from "@/components/AdvancedSearch .vue";
+import AddMotel from "@/components/AddMotel.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,8 +15,22 @@ const router = createRouter({
     { path: "/register", name: "Register", component: Register },
     { path: "/motel-detail/:id", name: "MotelDetail", component: MotelDetail },
     { path: "/profile", name: "Profile", component: Profile },
-    { path: "/change-password", name: "ChangePassword", component: ChangePassword },
+    {
+      path: "/change-password",
+      name: "ChangePassword",
+      component: ChangePassword,
+    },
+    {
+      path: "/advanced-search",
+      name: "AdvancedSearch",
+      component: AdvancedSearch,
+    },
+    {
+      path: "/add-motel",
+      name: "AddMotel",
+      component: AddMotel,
+    },
   ],
 });
 
-export default router
+export default router;

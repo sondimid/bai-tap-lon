@@ -32,9 +32,6 @@ public class MotelEntity extends AbstractEntity{
     @Column(name = "district")
     private String district;
 
-    @Column(name = "province")
-    private String province;
-
     @Column(name = "area")
     private Integer area;
 

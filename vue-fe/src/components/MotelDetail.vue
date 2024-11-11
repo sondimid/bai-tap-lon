@@ -162,10 +162,15 @@
                             </li>
 
                             <!-- Nav Item - Alerts -->
-                            
+
 
                             <!-- Nav Item - Messages -->
-                            
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
+                                </button>
+                            </li>
 
                             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -176,7 +181,8 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.fullName }}</span>
 
-                                    <img class="img-profile rounded-circle" :src="this.avatar || '../../assets/img/undraw_profile.svg'">
+                                    <img class="img-profile rounded-circle"
+                                        :src="this.avatar || '../../assets/img/undraw_profile.svg'">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -225,7 +231,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-               
+
                 <!-- End of Footer -->
 
             </div>
@@ -398,6 +404,12 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
+        },
+        addNewMotel() {
+            if (this.hasToken) {
+                this.$router.push('/add-motel')
+            }
+            else this.$router.push('/login')
         }
     },
 

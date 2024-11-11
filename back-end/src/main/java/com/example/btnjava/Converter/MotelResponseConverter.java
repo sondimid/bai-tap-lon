@@ -40,7 +40,7 @@ public class MotelResponseConverter {
             }
             motelResponse.setFilesDTO(filesDTO);
             motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                                        + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố " + motelEntity.getProvince());
+                                        + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội");
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("đã duyệt");
             }
@@ -66,7 +66,7 @@ public class MotelResponseConverter {
             }
             motelResponse.setFilesDTO(filesDTO);
             motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố " + motelEntity.getProvince());
+                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội" );
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("đã duyệt");
             }

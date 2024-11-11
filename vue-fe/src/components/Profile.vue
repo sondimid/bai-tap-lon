@@ -71,6 +71,13 @@
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
+                                </button>
+                            </li>
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <!-- Nav Item - User Information -->
@@ -78,7 +85,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
-                                        userInfo.userName }} </span>
+                                        userInfo.fullName }} </span>
 
                                     <img class="img-profile rounded-circle"
                                         :src="this.avatar || '../../assets/img/undraw_profile.svg'">
@@ -119,7 +126,8 @@
                                                 Diện</label>
                                             <input type="file" @change="onFileSelected" class="form-control d-none"
                                                 id="customFile1" />
-                                            <label class="btn btn-outline-primary" @click="toChangePasswsordPage">Đổi Mật Khẩu</label>
+                                            <label class="btn btn-outline-primary" @click="toChangePasswsordPage">Đổi
+                                                Mật Khẩu</label>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +181,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-               
+
                 <!-- End of Footer -->
 
             </div>
@@ -207,7 +215,7 @@
                 </div>
             </div>
         </div>
-        
+
 
     </body>
 </template>
@@ -271,6 +279,15 @@ export default {
         },
         toChangePasswsordPage(){
             this.$router.push('/change-password')
+        },
+        addNewMotel() {
+            if (this.hasToken) {
+                this.$router.push('/add-motel')
+            }
+            else this.$router.push('/login')
+        },
+        hasToken() {
+            return !!localStorage.getItem('token')
         }
     },
     created() {

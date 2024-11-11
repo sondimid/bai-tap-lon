@@ -46,10 +46,10 @@ public class WebSecurityConfig{
                             .requestMatchers(GET,
                                     "/dashboard").hasRole("ADMIN")
                             .requestMatchers(POST,
-                                    "/user/create").hasRole("USER")
+                                    "/create").hasRole("USER")
                             .requestMatchers(GET,
                                     "/users/{userName}/added-buildings").hasRole("USER")
-                            .anyRequest().permitAll();
+                            .anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider);
 

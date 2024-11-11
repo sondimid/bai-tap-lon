@@ -12,11 +12,9 @@ public class MotelSearchBuilder {
 
     private Integer houseNumber;
 
-    private  String ward;
+    private String ward;
 
     private String district;
-
-    private String province;
 
     private Integer areaFrom;
 
@@ -25,6 +23,8 @@ public class MotelSearchBuilder {
     private Integer priceFrom;
 
     private Integer priceTo;
+
+    private Integer maxPeople;
 
     private String interior;
 

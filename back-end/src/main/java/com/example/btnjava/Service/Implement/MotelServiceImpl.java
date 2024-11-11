@@ -53,29 +53,30 @@ public class MotelServiceImpl implements MotelService {
 
     @Override
     public void save(MotelDTO motelDTO, String token) throws IOException {
-        Optional<UserEntity> userEntityOptional = userService.findById(motelDTO.getUserId());
+        Integer id = jwtTokenUtils.extractUserId(token);
+        Optional<UserEntity> userEntityOptional = userService.findById(id);
         if(userEntityOptional.isEmpty()) throw new NotFoundException("User not found");
-        if(!jwtTokenUtils.isTokenUserNameValid(token.substring(7), userEntityOptional.get().getUsername())){
-            throw new NotFoundException("Unauthorized");
-        }
         MotelEntity motelEntity = modelMapper.map(motelDTO, MotelEntity.class);
-        motelEntity.setUserId(motelDTO.getUserId());
+        motelEntity.setUserId(id);
         motelEntity.setUser(userEntityOptional.get());
         motelRepository.save(motelEntity);
 
         List<MultipartFile> files = motelDTO.getFiles();
-        for(MultipartFile file : files) {
-            Map result = cloudinaryService.uploadFile(file);
-            FileEntity fileEntity = FileEntity
-                    .builder()
-                    .name(result.get("original_filename").toString())
-                    .fileUrl(result.get("url").toString())
-                    .fileId(result.get("public_id").toString())
-                    .motelId(motelEntity.getId())
-                    .motelEntity(motelEntity)
-                    .build();
-            motelEntity.getFileEntities().add(fileEntity);
+        if(files != null && !files.isEmpty()) {
+            for(MultipartFile file : files) {
+                Map result = cloudinaryService.uploadFile(file);
+                FileEntity fileEntity = FileEntity
+                        .builder()
+                        .name(result.get("original_filename").toString())
+                        .fileUrl(result.get("url").toString())
+                        .fileId(result.get("public_id").toString())
+                        .motelId(motelEntity.getId())
+                        .motelEntity(motelEntity)
+                        .build();
+                motelEntity.getFileEntities().add(fileEntity);
+            }
         }
+
         motelRepository.save(motelEntity);
     }
 

@@ -29,7 +29,7 @@ public class JwtTokenUtils {
             return Jwts.builder()
                     .setClaims(claims)
                     .setSubject(userEntity.getUsername())
-                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000L))
+                    .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000L))
                     .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                     .compact();
         } catch (Exception e) {

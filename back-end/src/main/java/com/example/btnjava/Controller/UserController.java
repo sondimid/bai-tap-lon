@@ -49,10 +49,12 @@ public class UserController {
         MotelResponse motelResponses = motelService.findById(id);
         return ResponseEntity.ok().body(motelResponses);
     }
+
     @PostMapping("/create")
-    public ResponseEntity<String> addMotel(MotelDTO motelDTO, @RequestHeader("authorization") String token) throws IOException {
+    public ResponseEntity<?> addMotel(MotelDTO motelDTO, @RequestHeader("Authorization") String authorization) throws IOException {
 
         try{
+            String token = authorization.replace("Bearer ", "");
             motelService.save(motelDTO, token);
             return ResponseEntity.status(HttpStatus.CREATED).body("Success");
         }catch (Exception e){
@@ -83,7 +85,7 @@ public class UserController {
     }
     @GetMapping("{userName}/added-buildings")
     @PreAuthorize("#userName == authentication.name")
-    public ResponseEntity<?> searchByUserId(@PathVariable("userName") String userName, @RequestHeader("authorization") String token) {
+    public ResponseEntity<?> searchByUserId(@PathVariable("userName") String userName, @RequestHeader("Authorization") String token) {
         if(userName == null) throw new NotNullException("User not exist");
         if(jwtTokenUtils.isTokenUserNameValid(token.substring(7), userName)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         try{
