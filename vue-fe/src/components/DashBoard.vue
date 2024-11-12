@@ -244,13 +244,13 @@
                                                 {{ motel.title }}
                                             </h1>
                                             <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                {{ motel.price }} triệu
+                                                {{ motel.price }} 
                                             </h3>
                                         </div>
 
-                                        <!-- Details Section -->
+                                        <!-- Address Section -->
                                         <div class="mb-3">
-                                            <p class="card-text text-muted">{{ motel.detail }}</p>
+                                            <p class="card-text text-muted">{{ motel.address }}</p>
                                         </div>
 
                                         <!-- Footer Section -->
@@ -464,7 +464,7 @@ export default {
         resetData() {
             this.showModal = false;
             this.userInfo = {};
-            this.listMotel = {};
+            this.listMotel;
             this.description = null;
             this.houseNumber = null;
             this.ward = null;

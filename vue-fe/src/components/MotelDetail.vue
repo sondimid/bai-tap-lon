@@ -211,35 +211,32 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-             <div class="container-fluid main-container">
-    <div class="row">
-      <!-- Hình ảnh phòng trọ lớn -->
-      <div class="col-12 motel-image-container">
-        <img :src="motel.imageUrl || defaultImage" alt="Motel Image" class="motel-image-large" />
-      </div>
-    </div>
+                    <div class="container-fluid main-container">
+                        <div class="row">
+                            <!-- Cột bên trái: Thông tin nhà trọ kèm hình ảnh -->
+                            <div v-if="motel" class="col-md-8 motel-info">
+                                <div class="motel-image-container">
+                                    <img :src="motel.imageUrl || defaultImage" @error="e => e.target.src = defaultImage" alt="Motel Image" class="motel-image-large" />
+                                </div>
+                                <div class="motel-details">
+                                    <h2 class="motel-title">{{ motel.title }}</h2>
+                                    <p><strong>Địa chỉ:</strong> {{ motel.address }}</p>
+                                    <p style="color:green;"><strong>Giá:</strong> {{ motel.price }} /tháng</p>
+                                    <p style="color:black;"><strong>Diện tích:</strong> {{ motel.area }} m²</p>
+                                    <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
+                                </div>
+                            </div>
 
-    <div class="row content-section">
-      <!-- Cột bên trái: Thông tin chi tiết phòng trọ -->
-      <div class="col-md-8 motel-details">
-        <h2 class="motel-title">{{ motel.title }}</h2>
-        <p><strong>Địa chỉ:</strong> {{ motel.address }}</p>
-        <p><strong>Giá:</strong> {{ motel.price }} /tháng</p>
-        <p><strong>Diện tích:</strong> {{ motel.area }} m²</p>
-        <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
-      </div>
-
-      <!-- Cột bên phải: Thông tin người cho thuê -->
-      <div class="col-md-4 retal-info">
-        <div class="retal-info-header">Thông tin người cho thuê</div>
-        <img :src="motel.retalinfo.retalavatar" alt="Renter Avatar" class="renter-avatar" />
-        <p><strong>Tên:</strong> {{ motel.retalinfo.retatname }}</p>
-        <p><strong>Số điện thoại:</strong> {{ motel.retalinfo.retalSDT }}</p>
-        <button class="contact-button">Liên hệ ngay</button>
-      </div>
-    </div>
-  </div>
-
+                            <!-- Cột bên phải: Thông tin người cho thuê (giảm size của cột này) -->
+                            <div class="col-md-4 rental-info">
+                                <div class="retal-info-header">Thông tin người cho thuê</div>
+                                <img :src="motel.retalinfo.retalavatar||defaultImage"  @error="e => e.target.src = defaultImage" alt="Renter Avatar" class="renter-avatar" />
+                                <p><strong>Tên:</strong> {{ motel.retalinfo.retatname }}</p>
+                                <p><strong>Số điện thoại:</strong> {{ motel.retalinfo.retalSDT }}</p>
+                                <button class="contact-button">Liên hệ ngay</button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.container-fluid -->
 
                 </div>
@@ -284,7 +281,7 @@
     </body>
 </template>
 
-<script>
+<script >
 import axios from 'axios';
 import listMotel from '../../motels.js';
 export default {
@@ -293,6 +290,7 @@ export default {
         return {
             showModal: false,
             userInfo: {},
+            motel: null,
             listMotel,
             defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
             description: null,
@@ -315,15 +313,27 @@ export default {
         };
     },
     created() {
-        const motelId = this.$route.params.id;  // Get the motel ID from the route params
+        const motelId = this.$route.params.id; 
         if (motelId) {
-            this.fetchMotelDetail(motelId);  // Fetch details of the motel based on the ID
-        } else {
+            this.fetchMotelDetail(motelId);  
             console.error('Motel ID is missing');
+        }
+    },
+    watch: {
+    listMotel(newVal) {
+            if (newVal && this.$route.params.id) {
+                this.fetchMotelDetail(this.$route.params.id);
+            }
         }
     },
     mounted() {
         this.getUserInfo();
+        const motelId = this.$route.params.id;
+        if (motelId) {
+            this.fetchMotelDetail(motelId);  
+        } else {
+            console.error('Motel ID is missing');
+        }
     },
     methods: {
         toDashBoardPage() {
@@ -359,6 +369,10 @@ export default {
                 }
             }
         },
+         async getAllMotels() {
+            this.listMotel=listMotel;
+            console.log(this.listMotel);
+        },
         async searchByPrice(priceFrom, priceTo) {
             const data = this.createSearchData({ priceFrom, priceTo });
             this.search(data);
@@ -372,16 +386,28 @@ export default {
             this.search(data);
         },
         async search(data) {
-            localStorage.setItem('queryMotel', JSON.stringify(data));
-            this.$router.push('/');
+            console.log(data);
+            const response = await axios.get('http://localhost:8081/search', {
+                params: data,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response.data);
+            this.listMotel = response.data;
         },
         fetchMotelDetail(id) {
-            const motel = this.listMotel.find(motel => motel.id === id);  // Tìm kiếm nhà trọ theo ID trong mảng motels
+            
+            const motel = this.listMotel.find(motel => motel.id === id);
             if (motel) {
-                this.motel = motel;  // Nếu tìm thấy, gán dữ liệu vào biến 'motel'
-                console.log('Image URL:', motel.imageUrl); // Kiểm tra giá trị của imageUrl
+                
+                this.motel = motel;
+                
+                console.log('Motel details:', motel); // Kiểm tra toàn bộ dữ liệu của nhà trọ
+                console.log('Image URL:', motel.imageUrl); // Kiểm tra URL của ảnh
             } else {
-                console.error('Không tìm thấy nhà trọ với ID:', id);  // Nếu không tìm thấy, log lỗi
+                console.error('Không tìm thấy nhà trọ với ID:', id);
+                this.motel = {};
             }
         },
         createSearchData(overrides) {
@@ -404,7 +430,8 @@ export default {
                 maxPageItems: this.maxPageItems || 10,
                 ...overrides
             };
-        }, resetData() {
+        }, 
+        resetData() {
             this.showModal = false;
             this.userInfo = {};
             this.listMotel = {};
@@ -436,67 +463,122 @@ export default {
 </script>
 
 <style scoped>
+
 .main-container {
-  padding-top: 20px;
+    margin: 30px 0;
 }
 
+/* Phông chữ chung cho trang */
+body {
+    font-family: 'Roboto', sans-serif; /* Phông chữ chung */
+    color: #333; /* Màu chữ chính */
+    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+}
+
+/* Thông tin nhà trọ */
+.motel-info {
+    padding: 20px;
+}
+
+/* Border cho ảnh motel */
 .motel-image-container {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .motel-image-large {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-  border-radius: 8px;
-  object-fit: cover;
+    width: 80%;
+    height: auto;
+    border-radius: 8px;
 }
 
-.content-section {
-  margin-top: 20px;
+/* Thông tin motel */
+.motel-details {
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
 }
 
 .motel-title {
-  color:#055699;
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 28px; /* Cỡ chữ cho tiêu đề */
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #055699; /* Màu chữ cho tiêu đề */
+    text-transform: uppercase; /* In hoa tiêu đề */
 }
 
-.retal-info {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
+.motel-details p {
+    font-size: 16px; /* Cỡ chữ thông tin */
+    margin-bottom: 12px;
+    color: #555; /* Màu chữ thông tin */
 }
 
+.motel-details p strong {
+    color: #333; /* Màu đậm cho từ "Địa chỉ", "Giá", ... */
+}
+
+/* Phần giá nhà trọ */
+.motel-details p span.price {
+    color: #28a745; /* Màu xanh cho giá */
+    font-weight: bold;
+}
+.rental-info {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    
+    /* Sử dụng flexbox để căn giữa nội dung */
+    display: flex;
+    flex-direction: column;  /* Xếp các phần tử theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center;     /* Căn giữa theo chiều ngang */
+    height: 100%;            /* Đảm bảo chiều cao cột đủ để căn giữa */
+}
+
+/* Căn giữa phần ảnh người cho thuê */
 .retal-info-header {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center; /* Căn giữa tiêu đề */
 }
 
 .renter-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+/* Căn giữa các thông tin liên hệ */
+.rental-info p {
+    text-align: center; /* Căn giữa các đoạn văn bản */
+    margin-bottom: 10px;
 }
 
 .contact-button {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Tạo khoảng cách giữa các thông tin và nút */
+    font-size: 16px;
 }
 
+/* Khi hover nút "Liên hệ ngay" */
 .contact-button:hover {
-  background-color: #218838;
+    background-color: #218838;
 }
+
 
 .re__btn {
     font-size: 10px;
