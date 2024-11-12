@@ -162,15 +162,10 @@
                             </li>
 
                             <!-- Nav Item - Alerts -->
-
+                            
 
                             <!-- Nav Item - Messages -->
-                            <li class="nav-item mx-1 d-flex align-items-center">
-                                <button type="button" class="btn btn-primary" @click="addNewMotel">
-                                    <i class="fas fa-plus fa-fw"></i>
-                                    Thêm nhà trọ mới
-                                </button>
-                            </li>
+                            
 
                             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -181,8 +176,7 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.fullName }}</span>
 
-                                    <img class="img-profile rounded-circle"
-                                        :src="this.avatar || '../../assets/img/undraw_profile.svg'">
+                                    <img class="img-profile rounded-circle" :src="this.avatar || '../../assets/img/undraw_profile.svg'">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -217,21 +211,42 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid">
+             <div class="container-fluid main-container">
+    <div class="row">
+      <!-- Hình ảnh phòng trọ lớn -->
+      <div class="col-12 motel-image-container">
+        <img :src="motel.imageUrl || defaultImage" alt="Motel Image" class="motel-image-large" />
+      </div>
+    </div>
 
-                        <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Chi Tiết Phòng Trọ</h1>
-                        </div>
+    <div class="row content-section">
+      <!-- Cột bên trái: Thông tin chi tiết phòng trọ -->
+      <div class="col-md-8 motel-details">
+        <h2 class="motel-title">{{ motel.title }}</h2>
+        <p><strong>Địa chỉ:</strong> {{ motel.address }}</p>
+        <p><strong>Giá:</strong> {{ motel.price }} /tháng</p>
+        <p><strong>Diện tích:</strong> {{ motel.area }} m²</p>
+        <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
+      </div>
 
-                    </div>
+      <!-- Cột bên phải: Thông tin người cho thuê -->
+      <div class="col-md-4 retal-info">
+        <div class="retal-info-header">Thông tin người cho thuê</div>
+        <img :src="motel.retalinfo.retalavatar" alt="Renter Avatar" class="renter-avatar" />
+        <p><strong>Tên:</strong> {{ motel.retalinfo.retatname }}</p>
+        <p><strong>Số điện thoại:</strong> {{ motel.retalinfo.retalSDT }}</p>
+        <button class="contact-button">Liên hệ ngay</button>
+      </div>
+    </div>
+  </div>
+
                     <!-- /.container-fluid -->
 
                 </div>
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-
+               
                 <!-- End of Footer -->
 
             </div>
@@ -265,20 +280,20 @@
                 </div>
             </div>
         </div>
-
+        
     </body>
 </template>
 
 <script>
 import axios from 'axios';
-
+import listMotel from '../../motels.js';
 export default {
     name: 'MotelDetail',
     data() {
         return {
             showModal: false,
             userInfo: {},
-            listMotel: {},
+            listMotel,
             defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
             description: null,
             houseNumber: null,
@@ -300,8 +315,12 @@ export default {
         };
     },
     created() {
-        const motelId = this.$route.params.id;
-        this.fetchMotelDetail(motelId);
+        const motelId = this.$route.params.id;  // Get the motel ID from the route params
+        if (motelId) {
+            this.fetchMotelDetail(motelId);  // Fetch details of the motel based on the ID
+        } else {
+            console.error('Motel ID is missing');
+        }
     },
     mounted() {
         this.getUserInfo();
@@ -356,12 +375,13 @@ export default {
             localStorage.setItem('queryMotel', JSON.stringify(data));
             this.$router.push('/');
         },
-        async fetchMotelDetail(id) {
-            try {
-                const response = await axios.get(`http://localhost:8081/motel/${id}`); 
-                this.motel = response.data;
-            } catch (error) {
-                console.error('Error fetching motel details:', error);
+        fetchMotelDetail(id) {
+            const motel = this.listMotel.find(motel => motel.id === id);  // Tìm kiếm nhà trọ theo ID trong mảng motels
+            if (motel) {
+                this.motel = motel;  // Nếu tìm thấy, gán dữ liệu vào biến 'motel'
+                console.log('Image URL:', motel.imageUrl); // Kiểm tra giá trị của imageUrl
+            } else {
+                console.error('Không tìm thấy nhà trọ với ID:', id);  // Nếu không tìm thấy, log lỗi
             }
         },
         createSearchData(overrides) {
@@ -404,12 +424,6 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
-        },
-        addNewMotel() {
-            if (this.hasToken) {
-                this.$router.push('/add-motel')
-            }
-            else this.$router.push('/login')
         }
     },
 
@@ -422,6 +436,68 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+  padding-top: 20px;
+}
+
+.motel-image-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.motel-image-large {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.content-section {
+  margin-top: 20px;
+}
+
+.motel-title {
+  color:#055699;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.retal-info {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.retal-info-header {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.renter-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.contact-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-button:hover {
+  background-color: #218838;
+}
+
 .re__btn {
     font-size: 10px;
     padding: 3px 8px;

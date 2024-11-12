@@ -225,15 +225,17 @@
 
                         <div class="row">
                             <div class="col-7 mb-5" v-for="motel in listMotel" :key="motel.id">
+                                <!-- Card for each Motel -->
                                 <a href="#" class="card flex-row align-items-center p-3 shadow-sm"
-                                    @click="toMotelDetailPage(motel.id)" style="text-decoration: none;">
+                                @click.prevent="toMotelDetailPage(motel.id)" style="text-decoration: none;">
 
                                     <!-- Image Section -->
                                     <div class="motel-image" style="width: 300px; height: min-content;">
-                                        <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                        <img :src="motel.imageUrl || defaultImage"
                                             class="rounded me-3" alt="Profile Image"
                                             style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
                                     </div>
+
                                     <!-- Content Section -->
                                     <div class="card-body">
                                         <!-- Title and Price Section -->
@@ -260,7 +262,6 @@
                                 </a>
                             </div>
                         </div>
-
 
                     </div>
                     <!-- /.container-fluid -->
@@ -309,7 +310,7 @@
 
 <script>
 import axios from 'axios';
-
+import listMotel from '../../motels';
 export default {
     name: 'DashBoard',
     data() {
@@ -392,9 +393,9 @@ export default {
             }
         },
         async getAllMotels() {
-            const response = await axios.get('http://localhost:8081/get-all-motels');
-            console.log(response);
-            this.listMotel = response.data;
+            // Thay vì gọi API, bạn lấy dữ liệu từ mảng motels tĩnh
+            this.listMotel=listMotel;
+            console.log(this.listMotel); // In ra danh sách nhà trọ
         },
         async searchByPrice(priceFrom, priceTo) {
             const data = this.buildSearchData();
