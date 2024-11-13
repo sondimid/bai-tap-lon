@@ -12,8 +12,14 @@ const listMotel = [
         retalavatar: "/assets/img/agent/agent-1.jpg"
       },
       detail: 'Nhà trọ có điều hòa, chỗ để xe, đầy đủ tiện nghi, rộng rãi, thang máy, máy giặt',
-      imageUrl: '/assets/img/blog/blog-details-1.jpg'
+      imageUrl: [
+        '/assets/img/blog/blog-details-1.jpg',
+        '/assets/img/blog/lastest-1.jpg',
+        '/assets/img/blog/blog-details-3.jpg'
+      ],
+      
     },
+    
     {
       id: '2',
       title: 'Nhà trọ Mỗ Lao',
@@ -26,7 +32,10 @@ const listMotel = [
         retalavatar: "/assets/img/agent/agent-2.jpg"
       },
       detail: 'Nhà trọ rộng rãi',
-      imageUrl: '/assets/img/blog/blog-details-2.jpg'
+      imageUrl:[
+         '/assets/img/blog/blog-details-2.jpg',
+         '/assets/img/blog/latest-2.jpg'
+      ]
     },
     {
       id: '3',
@@ -40,7 +49,10 @@ const listMotel = [
         retalavatar: "/assets/img/agent/agent-3.jpg"
       },
       detail: 'Nhà trọ rộng rãi',
-      imageUrl: '/assets/img/blog/blog-details-3.jpg'
+      imageUrl: [
+        '/assets/img/blog/blog-details-3.jpg',
+        '/assets/img/blog/latest-3.jpg'
+      ]
     },
     {
       id: '4',
@@ -54,7 +66,11 @@ const listMotel = [
         retalavatar: "/assets/img/agent/agent-4.jpg"
       },
       detail: 'Nhà trọ rộng rãi',
-      imageUrl: '/assets/img/blog/blog-details-4.jpg'
+      imageUrl: [
+        '/assets/img/blog/blog-details-4.jpg',
+        '/assets/img/blog/latest-4.jpg'
+
+      ]
     },
     {
       id: '5',
@@ -68,7 +84,7 @@ const listMotel = [
         retalavatar: "/assets/img/agent/agent-5.jpg"
       },
       detail: 'Nhà trọ rộng rãi',
-      imageUrl: '/assets/img/blog/blog-details-5.jpg'
+      imageUrl: ['/assets/img/blog/blog-details-5.jpg']
     },
     // Thêm các mục khác nếu cần
   ];

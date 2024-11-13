@@ -211,7 +211,7 @@
                     <form class="container-fluid" @submit.prevent="addMotel">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">
-                                <h1 class="h3 mb-4 text-gray-800">Thêm Nhà Trọ</h1>
+                                <p class="h3 mb-4 text-gray-800">Thêm Nhà Trọ</p>
                             </h1>
                         </div>
                         <fieldset class="border p-3">

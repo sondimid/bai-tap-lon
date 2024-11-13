@@ -231,7 +231,7 @@
 
                                     <!-- Image Section -->
                                     <div class="motel-image" style="width: 300px; height: min-content;">
-                                        <img :src="motel.imageUrl || defaultImage"
+                                        <img :src="motel.imageUrl[0] || defaultImage"
                                             class="rounded me-3" alt="Profile Image"
                                             style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
                                     </div>
