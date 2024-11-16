@@ -93,6 +93,11 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" @click="GetMotel">
+                                        <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Nhà Trọ Đã Đăng
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400"></i>
                                         Logout
@@ -288,7 +293,14 @@ export default {
         },
         hasToken() {
             return !!localStorage.getItem('token')
+        },
+        GetMotel() {
+            this.$router.push('/my-motel')
+        },
+        PostMotel() {
+            this.$router.push('/add-motel');
         }
+
     },
     created() {
         this.getUserInfor();

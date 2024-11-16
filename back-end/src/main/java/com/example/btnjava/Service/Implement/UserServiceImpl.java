@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserResponse> getAllUsers() {
+        return userResponseConverter.toUserResponse(userRepository.findAll());
+    }
+
+    @Override
     public ResponseEntity<?> createUser(UserDTO user) throws IOException {
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             throw new DataIntegrityViolationException("Số Điện Thoại Đã Tồn Tại");
@@ -137,4 +142,5 @@ public class UserServiceImpl implements UserService {
         user.setPassWord(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
         userRepository.save(user);
     }
+
 }

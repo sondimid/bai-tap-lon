@@ -7,6 +7,9 @@ import Profile from "@/components/Profile.vue";
 import ChangePassword from "@/components/ChangePassword.vue";
 import AdvancedSearch from "@/components/AdvancedSearch .vue";
 import AddMotel from "@/components/AddMotel.vue";
+import MyMotel from "@/components/MyMotel.vue";
+import Admin from "@/components/Admin.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,7 +33,18 @@ const router = createRouter({
       name: "AddMotel",
       component: AddMotel,
     },
+    {
+      path: "/my-motel",
+      name: "MyMotel",
+      component: MyMotel,
+    },
+    {
+      path: "/admin",
+      name: "Admin",
+      component: Admin,
+    },
   ],
 });
+
 
 export default router;

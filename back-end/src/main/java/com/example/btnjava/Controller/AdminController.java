@@ -1,5 +1,6 @@
 package com.example.btnjava.Controller;
 
+import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class AdminController {
     private final MotelService motelService;
@@ -22,14 +25,24 @@ public class AdminController {
         return ResponseEntity.ok().body(motelService.findAndPagination(page));
     }
 
-    @PostMapping("/markMotel/{id}")
-    public ResponseEntity<String> markMotel(@PathVariable Integer id){
-        motelService.markById(id);
+    @PostMapping("/admin/markMotel")
+    public ResponseEntity<String> markMotel(@RequestHeader("Authorization") String authorization,
+                                            @RequestParam("selectedMotels") List<Integer> ids) {
+        motelService.markById(ids);
         return ResponseEntity.status(HttpStatus.CREATED).body("Thêm thành công!");
     }
 
-    @GetMapping("/list-user")
-    public ResponseEntity<Object> findAllUsers(@RequestParam(name = "page", defaultValue = "1") Integer page) throws Exception {
-        return ResponseEntity.ok().body(userService.getAllUsers(page));
+    @GetMapping("/admin/get-all-motels-non-status")
+    public ResponseEntity<?> getByNonStatus(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        List<MotelResponse> motelResponses = motelService.findByNonStatus();
+        return ResponseEntity.ok().body(motelResponses);
+    }
+    @GetMapping("/admin/list-user")
+    public ResponseEntity<Object> findAllUsers(@RequestHeader("Authorization") String authorization) throws Exception {
+        return ResponseEntity.ok().body(userService.getAllUsers());
+    }
+    @GetMapping("/admin/get-motels-by-user/{id}")
+    public ResponseEntity<?> getMotelsByUser(@RequestHeader("Authorization") String authorization,@PathVariable(name = "id") Integer id) throws MalformedURLException {
+        return ResponseEntity.ok().body(motelService.adminFindByUserId(id));
     }
 }

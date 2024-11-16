@@ -32,16 +32,16 @@
                     <div id="collapsePrice" class="collapse" aria-labelledby="headingPrice"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1000)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1000, 2000)">Từ 1 triệu đến 2
+                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2000, 3000)">Từ 2 triệu đến 3
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3000, 5000)">Từ 3 triệu đến 5
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5000, 7000)">Từ 5 triệu đến 7
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(7000)">Trên 7 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
                 </li>
@@ -195,7 +195,7 @@
                                     aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
+                                        Thông Tin Cá Nhân
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">

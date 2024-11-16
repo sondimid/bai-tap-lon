@@ -41,9 +41,10 @@ public class UserController {
     }
     @GetMapping("/get-all-motels")
     public ResponseEntity<?> getAll() throws MalformedURLException {
-        List<MotelResponse> motelResponses = motelService.findAll();
+        List<MotelResponse> motelResponses = motelService.findByStatus();
         return ResponseEntity.ok().body(motelResponses);
     }
+
     @GetMapping("/motel/{id}")
     public ResponseEntity<?> getMotel(@PathVariable Integer id) throws MalformedURLException {
         MotelResponse motelResponses = motelService.findById(id);
@@ -56,7 +57,7 @@ public class UserController {
         try{
             String token = authorization.replace("Bearer ", "");
             motelService.save(motelDTO, token);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Success");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Đăng Bài Thành Công, Chờ Admin Duyệt");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -83,27 +84,28 @@ public class UserController {
                 return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("{userName}/added-buildings")
-    @PreAuthorize("#userName == authentication.name")
-    public ResponseEntity<?> searchByUserId(@PathVariable("userName") String userName, @RequestHeader("Authorization") String token) {
-        if(userName == null) throw new NotNullException("User not exist");
-        if(jwtTokenUtils.isTokenUserNameValid(token.substring(7), userName)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+    @GetMapping("/my-motel")
+    public ResponseEntity<?> searchByUserId(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        String token = authorization.replace("Bearer ", "");
         try{
-            return ResponseEntity.ok().body(motelService.findByUserName(userName));
+            return ResponseEntity.ok().body(motelService.findByUserName(jwtTokenUtils.extractUsername(token)));
         }
         catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/get-infor")
     public ResponseEntity<?> getUserDetail(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
         String token = authorization.replace("Bearer ", "");
         return ResponseEntity.ok(userService.getUserDetail(token));
     }
+
     @PostMapping("/upload-avatar/{id}")
     public ResponseEntity<?> uploadAvatar(@PathVariable Integer id,@RequestParam("file") MultipartFile file) throws Exception {
         return ResponseEntity.accepted().body(userService.uploadAvatar(id, file));
     }
+
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO,
                                             @RequestHeader("Authorization") String authorization) throws MalformedURLException {
@@ -115,4 +117,5 @@ public class UserController {
                 return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 }

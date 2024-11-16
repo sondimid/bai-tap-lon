@@ -14,20 +14,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserResponseConverter {
     private final ModelMapper modelMapper;
-    private final MotelResponseConverter motelResponseConverter;
     public List<UserResponse> toUserResponse(List<UserEntity> list){
         List<UserResponse> result = new ArrayList<>();
         for(UserEntity user : list){
             UserResponse userResponse = modelMapper.map(user, UserResponse.class);
             userResponse.setRole(user.getRoleEntity().getRole());
+            userResponse.setUserName(user.getUsername());
             result.add(userResponse);
         }
         return result;
     }
     public UserResponse toUserResponse(UserEntity userEntity) throws MalformedURLException {
         UserResponse userResponse = modelMapper.map(userEntity, UserResponse.class);
+        userResponse.setRole(userEntity.getRoleEntity().getRole());
         userResponse.setUserName(userEntity.getUsername());
-        userResponse.setMotelResponses(motelResponseConverter.toMotelResponse(userEntity.getMotelEntities()));
         return userResponse;
     }
 }

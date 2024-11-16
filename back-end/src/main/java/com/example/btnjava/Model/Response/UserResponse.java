@@ -23,7 +23,5 @@ public class UserResponse {
 
     private String fileUrl;
 
-    private List<MotelResponse> motelResponses;
-
     private String role;
 }

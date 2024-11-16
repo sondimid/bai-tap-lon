@@ -14,6 +14,7 @@ import com.example.btnjava.Service.FileService;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -88,10 +89,24 @@ public class MotelServiceImpl implements MotelService {
     }
 
     @Override
-    public void markById(Integer Id) {
-        MotelEntity motelEntity = motelRepository.findById(Id).get();
-        motelEntity.setStatus(1-motelEntity.getStatus());
-        motelRepository.save(motelEntity);
+    public List<MotelResponse> findByStatus() throws MalformedURLException {
+        List<MotelEntity> motelEntities = motelRepository.findAll();
+        return motelResponseConverter.toMotelResponseByStatus(motelEntities);
+    }
+
+    @Override
+    public List<MotelResponse> findByNonStatus() throws MalformedURLException {
+        List<MotelEntity> motelEntities = motelRepository.findAll();
+        return motelResponseConverter.toMotelResponseByNonStatus(motelEntities);
+    }
+
+    @Override
+    public void markById(List<Integer> ids) {
+        for(Integer id: ids){
+            MotelEntity motelEntity = motelRepository.findById(id).get();
+            motelEntity.setStatus(1-motelEntity.getStatus());
+            motelRepository.save(motelEntity);
+        }
     }
 
     @Override
@@ -110,8 +125,14 @@ public class MotelServiceImpl implements MotelService {
     }
 
     @Override
-    public MotelResponse findById(Integer Id) {
+    public MotelResponse findById(Integer Id) throws MalformedURLException {
         MotelEntity motelEntity = motelRepository.findById(Id).get();
         return motelResponseConverter.toMotelResponse(motelEntity);
+    }
+
+    @Override
+    public List<MotelResponse> adminFindByUserId(Integer userId) throws MalformedURLException {
+        UserEntity user = userService.findById(userId).get();
+        return motelResponseConverter.toMotelResponse(user.getMotelEntities());
     }
 }

@@ -48,7 +48,11 @@ public class WebSecurityConfig{
                             .requestMatchers(POST,
                                     "/create").hasRole("USER")
                             .requestMatchers(GET,
-                                    "/users/{userName}/added-buildings").hasRole("USER")
+                                    "/my-motel").hasRole("USER")
+                            .requestMatchers(POST,
+                                    "/admin/markMotel").hasRole("ADMIN")
+                            .requestMatchers(GET,
+                                    "/admin/list-user").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider);

@@ -10,7 +10,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-
+@Getter
+@Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractEntity implements Serializable {

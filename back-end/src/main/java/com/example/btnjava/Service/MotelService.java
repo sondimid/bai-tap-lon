@@ -14,8 +14,11 @@ public interface MotelService {
     List<MotelResponse> findAll(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException;
     void save(MotelDTO motelDTO, String token) throws IOException;
     List<MotelResponse> findAll() throws MalformedURLException;
-    void markById(Integer Id);
+    List<MotelResponse> findByStatus() throws MalformedURLException;
+    List<MotelResponse> findByNonStatus() throws MalformedURLException;
+    void markById(List<Integer> Id);
     List<MotelResponse> findAndPagination(Integer page) throws MalformedURLException;
     List<MotelResponse> findByUserName(String name) throws MalformedURLException;
     MotelResponse findById(Integer Id) throws MalformedURLException;
+    List<MotelResponse> adminFindByUserId(Integer userId) throws MalformedURLException;
 }

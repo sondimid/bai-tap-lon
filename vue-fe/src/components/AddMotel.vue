@@ -32,16 +32,16 @@
                     <div id="collapsePrice" class="collapse" aria-labelledby="headingPrice"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1000)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1000, 2000)">Từ 1 triệu đến 2
+                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2000, 3000)">Từ 2 triệu đến 3
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3000, 5000)">Từ 3 triệu đến 5
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5000, 7000)">Từ 5 triệu đến 7
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(7000)">Trên 7 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
                 </li>
@@ -190,7 +190,7 @@
                                     aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
+                                        Thông Tin Cá Nhân
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
@@ -211,7 +211,7 @@
                     <form class="container-fluid" @submit.prevent="addMotel">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">
-                                <h1 class="h3 mb-4 text-gray-800">Thêm Nhà Trọ</h1>
+                                Thêm Nhà Trọ
                             </h1>
                         </div>
                         <fieldset class="border p-3">
@@ -221,7 +221,7 @@
                                 <label for="buildingName" class="col-3 col-form-label">Tên Toà Nhà</label>
                                 <div class="col-7">
                                     <input type="text" class="form-control" id="buildingName" v-model="title"
-                                        placeholder="Nhập Tên Toà Nhà" />
+                                        placeholder="Nhập Tên Toà Nhà" required />
                                 </div>
                             </div>
 
@@ -230,7 +230,7 @@
                                 <label for="houseNumber" class="col-3 col-form-label">Số nhà</label>
                                 <div class="col-7">
                                     <input type="number" class="form-control" id="houseNumber" v-model="houseNumber"
-                                        placeholder="Số nhà" />
+                                        placeholder="Số nhà" required />
                                 </div>
                             </div>
 
@@ -238,7 +238,7 @@
                                 <label class="col-3 col-form-label">Đường</label>
                                 <div class="col-7">
                                     <input type="text" class="form-control" id="street" v-model="street"
-                                        placeholder="Đường" />
+                                        placeholder="Đường" required />
                                 </div>
 
                             </div>
@@ -249,12 +249,12 @@
 
                                 <div class="col-3">
                                     <select id="district" class="form-select" v-model="district">
-                                        <option value="" selected>Chọn quận huyện</option>
+                                        <option value="" selected required>Chọn quận huyện</option>
                                     </select>
                                 </div>
                                 <div class="col-3">
                                     <select id="ward" class="form-select" v-model="ward">
-                                        <option value="" selected>Chọn phường xã</option>
+                                        <option value="" selected required>Chọn phường xã</option>
                                     </select>
                                 </div>
                             </div>
@@ -266,7 +266,7 @@
                                 <label class="col-3 col-form-label">Diện tích (m²)</label>
                                 <div class="col-7">
                                     <input type="number" class="form-control" id="area" v-model="area"
-                                        placeholder="Diện tích " />
+                                        placeholder="Diện tích " required />
                                 </div>
 
                             </div>
@@ -276,17 +276,17 @@
                                 <label class="col-3 col-form-label">Giá thuê (Triệu VND)</label>
                                 <div class="col-7">
                                     <input type="number" class="form-control" id="price" v-model="price"
-                                        placeholder="Giá thuê" />
+                                        placeholder="Giá thuê" required />
                                 </div>
 
                             </div>
 
                             <!-- Nội thất -->
                             <div class="mb-3 row">
-                                <label for="maxPeople" class="col-3 col-form-label">Nội thất</label>
+                                <label for="maxPeople" class="col-3 col-form-label">Số Người Ở Tối Đa</label>
                                 <div class="col-7">
                                     <input type="number" class="form-control" id="maxPeople" v-model="maxPeople"
-                                        placeholder="Số người ở tối đa" />
+                                        placeholder="Số người ở tối đa" required />
                                 </div>
                             </div>
 
@@ -295,7 +295,7 @@
                                 <label for="type" class="col-3 col-form-label">Loại hình</label>
                                 <div class="col-7">
                                     <input type="text" class="form-control" id="type" v-model="type"
-                                        placeholder="Loại hình" />
+                                        placeholder="Loại hình" required />
                                 </div>
                             </div>
 
@@ -305,14 +305,14 @@
                                     tiết</label>
                                 <div class="col-7">
                                     <textarea class="form-control" id="detail" v-model="detail"
-                                        placeholder="Mô tả chi tiết"></textarea>
+                                        placeholder="Mô tả chi tiết" required></textarea>
                                 </div>
                             </div>
 
                             <div class="mb-3 row">
-                                <label for="uploadFile" class="col-3 col-form-label">Hình ảnh (Nếu có)</label>
+                                <label for="uploadFile" class="col-3 col-form-label">Hình ảnh</label>
                                 <div class="col-7">
-                                    <input class="form-control" type="file" id="formFileMultiple" multiple />
+                                    <input class="form-control" type="file" id="formFileMultiple" multiple required />
                                 </div>
                             </div>
 
@@ -372,6 +372,30 @@
             </div>
         </div>
 
+        <div class="modal" tabindex="-1" v-if="showModalSuccess">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ modalTitle }}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ modelMsg }}</p>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-primary " data-bs-dismiss="modal"
+                            @click="closeModalSuccess">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="isLoading" class="loading-overlay">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div>
+
     </body>
 </template>
 
@@ -382,6 +406,7 @@ export default {
     name: 'AddMotel',
     data() {
         return {
+            showModalSuccess: false,
             showModal: false,
             userInfo: {},
             listMotel: {},
@@ -406,6 +431,9 @@ export default {
             avatar: localStorage.getItem('avatar') || '',
             area: null,
             price: null,
+            modalTitle: null,
+            modelMsg: null, 
+            isLoading: false,
         };
     },
     mounted() {
@@ -416,13 +444,7 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
-        if (localStorage.getItem('queryMotel')) {
-            const queryMotel = JSON.parse(localStorage.getItem('queryMotel'));
-            this.search(queryMotel);
-            localStorage.removeItem('queryMotel');
-        } else {
-            this.getAllMotels();
-        }
+        
         this.getDistrict()
     },
     methods: {
@@ -555,7 +577,12 @@ export default {
             this.page = null;
             this.maxPageItems = null;
         },
+        closeModalSuccess() {
+            this.showModalSuccess = false;
+            this.$router.push('/my-motel')
+        },
         async addMotel() {
+            this.isLoading = true;
             const districts = [
                 { id: 'district1', name: 'Ba Đình' },
                 { id: 'district2', name: 'Hoàn Kiếm' },
@@ -617,6 +644,15 @@ export default {
                     'Content-Type': 'form-data', 
                 }
             });
+            if (response.status === 201) {
+                this.modalTitle = "Thành Công"
+            }
+            else {
+                this.modalTitle = "Thất Bại"
+            }
+            this.modelMsg = response.data
+            this.showModalSuccess = true
+            this.isLoading = false
         },
         getDistrict() {
             const districts = [
@@ -943,5 +979,22 @@ export default {
         flex: 0 0 100%;
         margin-bottom: 1rem;
     }
+}
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
 }
 </style>

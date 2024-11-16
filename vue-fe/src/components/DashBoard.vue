@@ -32,16 +32,16 @@
                     <div id="collapsePrice" class="collapse" aria-labelledby="headingPrice"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1000)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1000, 2000)">Từ 1 triệu đến 2
+                            <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2000, 3000)">Từ 2 triệu đến 3
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3000, 5000)">Từ 3 triệu đến 5
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5000, 7000)">Từ 5 triệu đến 7
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
                                 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(7000)">Trên 7 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
                 </li>
@@ -170,6 +170,13 @@
                                     </form>
                                 </div>
                             </li>
+
+                            <li class="nav-item mx-1 d-flex align-items-center" v-if="isAdmin">
+                                <button type="button" class="btn btn-primary" @click="toAdminPage">
+                                    <i class="fas fa-sync-alt fa-fw"></i>
+                                    Trang Quản Trị
+                                </button>
+                            </li>
                             <li class="nav-item mx-1 d-flex align-items-center">
                                 <button type="button" class="btn btn-primary" @click="addNewMotel">
                                     <i class="fas fa-plus fa-fw"></i>
@@ -196,7 +203,11 @@
                                     aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
+                                        Thông Tin Cá Nhân
+                                    </a>
+                                    <a class="dropdown-item" href="#" @click="toMyMotel">
+                                        <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Nhà Trọ Đã Đăng
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
@@ -216,53 +227,82 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
+                    <div class="container-fluid py-4">
+                        <!-- Page Heading với animation nhẹ -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Trang Chủ</h1>
+                            <h1 class="h3 mb-0 text-gray-800 border-bottom border-primary pb-2">
+                                Trang Chủ
+                            </h1>
                         </div>
 
-                        <div class="row">
-                            <div class="col-7 mb-5" v-for="motel in listMotel" :key="motel.id">
-                                <a href="#" class="card flex-row align-items-center p-3 shadow-sm"
-                                    @click="toMotelDetailPage(motel.id)" style="text-decoration: none;">
+                        <!-- Grid Layout cho danh sách phòng trọ -->
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-7" v-for="motel in listMotel" :key="motel.id">
+                                <div class="card h-100 hover-shadow transition-all" @click="toMotelDetailPage(motel.id)"
+                                    style="cursor: pointer; display: flex; flex-direction: column;">
 
-                                    <!-- Image Section -->
-                                    <div class="motel-image" style="width: 300px; height: min-content;">
+                                    <!-- Phần hình ảnh với tỷ lệ cố định -->
+                                    <div class="position-relative d-flex align-items-center justify-content-center"
+                                        style="height: 250px; overflow: hidden;">
                                         <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                            class="rounded me-3" alt="Profile Image"
-                                            style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
+                                            class="card-img-top" style="width: 100%; object-fit: cover;"
+                                            alt="Motel Image">
+                                        <div class="position-absolute top-0 end-0 m-3">
+                                            <span class="badge" :class="getStatusBadgeClass(motel.status)">
+                                                {{ motel.status }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <!-- Content Section -->
-                                    <div class="card-body">
-                                        <!-- Title and Price Section -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h1 class="card-title fw-bold text-primary mb-0" style="font-size: 1.5rem;">
+
+                                    <!-- Phần nội dung -->
+                                    <div class="card-body p-4 d-flex flex-column justify-content-between">
+                                        <!-- Tiêu đề và giá -->
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <h5 class="card-title text-primary fw-bold mb-0 line-clamp-2">
                                                 {{ motel.title }}
-                                            </h1>
-                                            <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                {{ motel.price }} triệu
-                                            </h3>
+                                            </h5>
+                                            <div class="ms-2">
+                                                <h4 class="text-success fw-bold mb-0">
+                                                    {{ formatPrice(motel.price) }}
+                                                </h4>
+                                                <small class="text-muted">triệu/tháng</small>
+                                            </div>
                                         </div>
 
-                                        <!-- Details Section -->
+                                        <!-- Thông tin chi tiết -->
                                         <div class="mb-3">
-                                            <p class="card-text text-muted">{{ motel.detail }}</p>
-                                        </div>
-
-                                        <!-- Footer Section -->
-                                        <hr class="sidebar-divider">
-                                        <div class="text-end">
-                                            Click Vào Để Xem Chi Tiết
+                                            <div class="d-flex gap-3 mb-2">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-ruler-combined text-primary me-2"></i>
+                                                    <span>{{ motel.area }}m²</span>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                                    <span>{{ motel.district }}</span>
+                                                </div>
+                                            </div>
+                                            <p class="card-text text-muted line-clamp-2 mb-0">
+                                                {{ motel.detail }}
+                                            </p>
                                         </div>
                                     </div>
-                                </a>
+
+                                    <!-- Footer -->
+                                    <div class="card-footer bg-light p-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <i class="far fa-clock text-primary me-2"></i>
+                                                <small>{{ formatDate(motel.createdAt) }}</small>
+                                            </div>
+                                            Click Vào Để Xem chi tiết
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
+
+
                     <!-- /.container-fluid -->
 
                 </div>
@@ -457,6 +497,12 @@ export default {
                 window.location.reload();
             });
         },
+        toAdminPage() {
+            this.$router.push('/admin')
+        },
+        toMyMotel() {
+            this.$router.push('/my-motel')
+        },
         toAdvancedSearchPage() {
             this.$router.push('/advanced-search')
         },
@@ -486,9 +532,32 @@ export default {
                 this.$router.push('/add-motel')
             }
             else this.$router.push('/login')
+        },
+        formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        },
+
+        formatDate(date) {
+            return new Date(date).toLocaleDateString('vi-VN');
+        },
+
+        getStatusBadgeClass(status) {
+            switch (status) {
+                case 'Đã Được Duyệt':
+                case 'Đã Được Duyệt':
+                    return 'bg-success';
+                case 'Chưa Được Duyệt':
+                case 'Chưa Được Duyệt':
+                    return 'bg-danger';
+                default:
+                    return 'bg-secondary';
+            }
         }
     },
     computed: {
+        isAdmin() {
+            return this.userInfo?.role === 'ADMIN';
+        },
         hasToken() {
             return !!localStorage.getItem('token');
         }
@@ -568,5 +637,32 @@ export default {
         flex: 0 0 100%;
         margin-bottom: 1rem;
     }
+}
+.hover-shadow {
+    transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+/* Badge styles */
+.badge {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 20px;
 }
 </style>

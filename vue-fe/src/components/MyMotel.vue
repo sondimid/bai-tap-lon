@@ -102,6 +102,16 @@
                     </div>
 
                 </li>
+                <hr class="sidebar-divider">
+
+                <!-- Advanced Search Button at the bottom -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" @click="toAdvancedSearchPage">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Tìm Kiếm Nâng Cao</span>
+                    </a>
+                </li>
+
 
             </ul>
             <!-- End of Sidebar -->
@@ -160,11 +170,13 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
+                                </button>
+                            </li>
 
-                            <!-- Nav Item - Alerts -->
-
-
-                            <!-- Nav Item - Messages -->
 
 
                             <div class="topbar-divider d-none d-sm-block"></div>
@@ -182,17 +194,13 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
+                                    <a class="dropdown-item" href="#" @click="toMyMotel">
+                                        <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Nhà Trọ Đã Đăng
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
@@ -202,7 +210,7 @@
 
                                 </div>
                             </li>
-                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="toLoginPage">
+                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="LogoutUser">
                                 <i class="bi bi-box-arrow-in-right"></i> Login
                             </button>
 
@@ -210,127 +218,63 @@
 
                     </nav>
                     <!-- End of Topbar -->
-                    <div class="container-fluid" v-if="openMotelUser">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">{{ namePage }}</h1>
-                        </div>
-                        <!-- Main Row -->
-                        <div class="row">
-                            <!-- Motel Listing Section on the Left -->
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-12 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                        <div class="form-check me-3">
-                                            <input type="checkbox" class="form-check-input" :value="motel.id"
-                                                v-model="selectedMotels">
-                                        </div>
-
-                                        <!-- Card link -->
-                                        <a href="#" class="card flex-row align-items-center p-3 shadow-sm w-100"
-                                            style="text-decoration: none;">
-                                            <!-- Image Section -->
-                                            <div class="motel-image" style="width: 300px; height: min-content;">
-                                                <img :src="motel && motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                                    class="rounded me-3" alt="Profile Image"
-                                                    style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
-                                            </div>
-
-
-                                            <!-- Content Section -->
-                                            <div class="card-body">
-                                                <!-- Title and Price Section -->
-                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                    <h1 class="card-title fw-bold text-primary mb-0"
-                                                        style="font-size: 1.5rem;">
-                                                        {{ motel.title }}
-                                                    </h1>
-                                                    <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                        {{ motel.price }} triệu/tháng
-                                                    </h3>
-                                                </div>
-
-                                                <!-- Details Section -->
-                                                <div class="mb-3">
-                                                    <p class="card-text text-muted">{{ motel.detail }}</p>
-                                                </div>
-
-                                                <!-- Footer Section -->
-                                                <hr class="sidebar-divider">
-                                                <div class="text-end fs-4" style="font-size: 24px;">
-                                                    <span v-if="motel.status === '0'">Đang chờ duyệt</span>
-                                                    <span v-else-if="motel.status === '1'">Đã được duyệt</span>
-                                                </div>
-
-                                                <!-- Button to view details -->
-                                                <button class="btn btn-primary text-end"
-                                                    @click.stop="toMotelDetailPage(motel.id)">
-                                                    Xem Chi Tiết
-                                                </button>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- User Information Section on the Right -->
-                            <div class="col-md-4 rental-info">
-                                <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motelUser.fileUrl || defaultImage" @error="e => e.target.src = defaultImage"
-                                    alt="Renter Avatar" class="renter-avatar" />
-                                <p><strong>Tên:</strong> {{ motelUser.fullName }}</p>
-                                <p><strong>Số điện thoại:</strong> {{ motelUser.phoneNumber }}</p>
-                                <div class="button-container">
-                                    <button class="contact-button">Chat</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid main-container" v-else>
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Nhà Trọ Đã Đăng</h1>
+                        </div>
+
                         <div class="row">
-                            <div v-if="motel" class="col-md-8 motel-info">
-                                <div class="motel-image-container">
-                                    <!-- Hình ảnh -->
-                                    <img :src="motel.filesDTO[currentImageIndex].fileUrl"
-                                        @error="e => e.target.src = defaultImage" alt="Motel Image"
-                                        class="motel-image-large" />
+                            <div class="col-7 mb-5" v-for="motel in listMotel" :key="motel.id">
+                                <a href="#" class="card flex-row align-items-center p-3 shadow-sm"
+                                    @click="toMotelDetailPage(motel.id)" style="text-decoration: none;">
 
-                                    <!-- Các nút điều hướng -->
-                                    <div class="image-navigation">
-                                        <button @click="previousImage">←</button>
-                                        <button @click="nextImage">→</button>
+                                    <!-- Status Header Section -->
+
+
+                                    <!-- Image Section -->
+                                    <div class="motel-image" style="width: 300px; height: min-content;">
+                                        <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                            class="rounded me-3" alt="Profile Image"
+                                            style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
                                     </div>
-                                </div>
 
-                                <div class="motel-details">
-                                    <h2 class="motel-title">{{ motel.title }}</h2>
-                                    <p><strong>Địa chỉ:</strong> {{ motel.address }}</p>
-                                    <p style="color:green;"><strong>Giá:</strong> {{ motel.price }} triệu/tháng</p>
-                                    <p style="color:black;"><strong>Diện tích:</strong> {{ motel.area }} m²</p>
-                                    <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
-                                    <p style="color:red;"><strong>Trạng Thái:</strong> {{ motel.status }}</p>
-                                </div>
-                            </div>
+                                    <!-- Content Section -->
+                                    <div class="card-body">
+                                        <!-- Title and Price Section -->
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h1 class="card-title fw-bold text-primary mb-0" style="font-size: 1.5rem;">
+                                                {{ motel.title }}
+                                            </h1>
+                                            <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
+                                                {{ motel.price }} triệu
+                                            </h3>
+                                        </div>
 
-                            <div class="col-md-4 rental-info">
-                                <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motel.owner.fileUrl || defaultImage"
-                                    @error="e => e.target.src = defaultImage" alt="Renter Avatar"
-                                    class="renter-avatar" />
-                                <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
-                                <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
-                                <div class="button-container">
-                                    <button class="contact-button" style="margin-right: 15px;"
-                                        @click="getMotelsByUser(motel.owner)">Xem Thêm Nhà Trọ
-                                    </button>
-                                    <button class="contact-button">Chat</button>
-                                </div>
+                                        <!-- Details Section -->
+                                        <div class="mb-3">
+                                            <p class="card-text text-muted">{{ motel.detail }}</p>
+                                        </div>
 
+                                        <!-- Footer Section -->
+                                        <hr class="sidebar-divider">
+                                        <div class="text-end">
+                                            Click Vào Để Xem Chi Tiết
+                                        </div>
+                                        <div class="text-end">
+                                            {{ motel.status }}
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                    </div>
 
+
+
+                    </div>
                     <!-- /.container-fluid -->
 
                 </div>
@@ -365,7 +309,7 @@
 
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             @click=closeModal>Hủy</button>
-                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal" @click=toLoginPage>Đăng
+                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal" @click=LogoutUser>Đăng
                             Xuất</button>
                     </div>
                 </div>
@@ -377,15 +321,14 @@
 
 <script>
 import axios from 'axios';
-import listMotel from '../../motels.js';
+
 export default {
-    name: 'MotelDetail',
+    name: 'DashBoard',
     data() {
         return {
             showModal: false,
             userInfo: {},
-            motel: null,
-            listMotel:{},
+            listMotel: {},
             defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
             description: null,
             houseNumber: null,
@@ -403,45 +346,35 @@ export default {
             phoneNumber: null,
             page: null,
             maxPageItems: null,
-            currentImageIndex: 0,
-            avatar: localStorage.getItem('avatar') || '',
-            motelUser: {},
-            openMotelUser: false,
+            avatar: localStorage.getItem('avatar') || ''
         };
     },
-    created() {
-        const motelId = this.$route.params.id;
-        if (motelId) {
-            this.fetchMotelDetail(motelId);
-            console.error('Motel ID is missing');
-        }
-    },
     mounted() {
-        this.getUserInfo();
-        const motelId = this.$route.params.id;
-        if (motelId) {
-            this.fetchMotelDetail(motelId);
-        } else {
-            console.error('Motel ID is missing');
+        if (this.hasToken) {
+            if (!localStorage.getItem('userInfor')) {
+                this.getUserInfo();
+            } else {
+                this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
+            }
         }
+        this.getMyMotel();
     },
     methods: {
-        toDashBoardPage() {
-            this.resetData();
-            this.$router.push('/').then(() => {
-                window.location.reload();
-            });
+        toMotelDetailPage(id) {
+            this.$router.push({ name: 'MotelDetail', params: { id } });
         },
-        toLoginPage() {
+        toProfilePage() {
+            this.$router.push('/profile')
+        },
+        LogoutUser() {
             this.showModal = false;
-            localStorage.clear();
-            this.$router.push('/login')
+            this.clearDataAndRedirect('/login');
         },
         openLogoutModal() {
             this.showModal = true;
         },
         closeModal() {
-            this.showModal = false
+            this.showModal = false;
         },
         async getUserInfo() {
             const token = localStorage.getItem('token');
@@ -452,27 +385,47 @@ export default {
                             'Authorization': `Bearer ${token}`
                         }
                     });
-                    console.log(response);
+                    localStorage.setItem('userInfor', JSON.stringify(response.data));
                     this.userInfo = response.data;
+                    if (this.userInfo.fileUrl) {
+                        localStorage.setItem('avatar', this.userInfo.fileUrl)
+                        this.avatar = this.userInfo.fileUrl
+                    }
+                    console.log(response.data)
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
             }
         },
+        async getMyMotel() {
+            const response = await axios.get('http://localhost:8081/my-motel', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            console.log(response)
+            this.listMotel = response.data
+        },
         async getAllMotels() {
-            this.listMotel = listMotel;
-            console.log(this.listMotel);
+            const response = await axios.get('http://localhost:8081/get-all-motels');
+            console.log(response);
+            this.listMotel = response.data;
         },
         async searchByPrice(priceFrom, priceTo) {
-            const data = this.createSearchData({ priceFrom, priceTo });
+            const data = this.buildSearchData();
+            data.priceFrom = priceFrom;
+            data.priceTo = priceTo;
             this.search(data);
         },
         async searchByArea(areaFrom, areaTo) {
-            const data = this.createSearchData({ areaFrom, areaTo });
+            const data = this.buildSearchData();
+            data.areaFrom = areaFrom;
+            data.areaTo = areaTo;
             this.search(data);
         },
         async searchByDistrict(district) {
-            const data = this.createSearchData({ district });
+            const data = this.buildSearchData();
+            data.district = district;
             this.search(data);
         },
         async search(data) {
@@ -486,29 +439,7 @@ export default {
             console.log(response.data);
             this.listMotel = response.data;
         },
-        fetchMotelDetail(id) {
-            axios.get(`http://localhost:8081/motel/${id}`)
-                .then(response => {
-                    this.motel = response.data;  
-                    console.log(this.motel); 
-                })
-                .catch(error => {
-                    console.error('Error fetching motel details:', error);
-                });
-        },
-        async getMotelsByUser(user) {
-            const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:8081/admin/get-motels-by-user/${user.id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            })
-            this.listMotel = response.data
-            this.motelUser = user
-            console.log(this.listMotel)
-            this.openMotelUser = true;
-        },
-        createSearchData(overrides) {
+        buildSearchData() {
             return {
                 description: this.description,
                 houseNumber: this.houseNumber,
@@ -525,23 +456,27 @@ export default {
                 managerName: this.managerName,
                 phoneNumber: this.phoneNumber,
                 page: this.page || 1,
-                maxPageItems: this.maxPageItems || 10,
-                ...overrides
+                maxPageItems: this.maxPageItems || 10
             };
         },
-        previousImage() {
-            if (this.currentImageIndex > 0) {
-                this.currentImageIndex--;
-            } else {
-                this.currentImageIndex = this.motel.filesDTO.length - 1;
-            }
+        async toDashBoardPage() {
+            this.$router.push('/').then(() => {
+                window.location.reload();
+            });
         },
-        nextImage() {
-            if (this.currentImageIndex < this.motel.filesDTO.length - 1) {
-                this.currentImageIndex++;
-            } else {
-                this.currentImageIndex = 0;
-            }
+        clearDataAndRedirect(route) {
+            localStorage.clear();
+            this.resetData();
+
+            this.$router.push(route).then(() => {
+                window.location.reload();
+            });
+        },
+        toMyMotel() {
+            this.$router.push('/my-motel')
+        },
+        toAdvancedSearchPage() {
+            this.$router.push('/advanced-search')
         },
         resetData() {
             this.showModal = false;
@@ -563,195 +498,22 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
+        },
+        addNewMotel() {
+            if (this.hasToken) {
+                this.$router.push('/add-motel')
+            }
+            else this.$router.push('/login')
         }
     },
-
     computed: {
         hasToken() {
-            return !!localStorage.getItem('token')
+            return !!localStorage.getItem('token');
         }
     }
-}
+};
 </script>
-
 <style scoped>
-/* Styling for the navigation buttons */
-.image-navigation button {
-    background-color: #007bff;
-    /* Blue background color */
-    color: white;
-    /* White text color */
-    font-size: 18px;
-    /* Increase the font size */
-    padding: 10px 20px;
-    /* Add some padding for a better look */
-    border: none;
-    /* Remove border */
-    border-radius: 50%;
-    /* Make the buttons round */
-    cursor: pointer;
-    /* Change cursor to pointer */
-    transition: all 0.3s ease;
-    /* Smooth transition for effects */
-}
-
-/* Hover effect for the buttons */
-.image-navigation button:hover {
-    background-color: #0056b3;
-    /* Darker blue when hovered */
-    transform: scale(1.1);
-    /* Slightly enlarge the button */
-}
-
-/* Active button effect */
-.image-navigation button:active {
-    background-color: #003f7f;
-    /* Even darker blue when clicked */
-    transform: scale(1);
-    /* Reset the size after click */
-}
-
-/* Optional: Center buttons horizontally and vertically */
-.image-navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    /* Add space between the buttons */
-}
-.main-container {
-    margin: 30px 0;
-}
-
-
-
-
-/* Border cho ảnh motel */
-.motel-image-container {
-    position: relative;
-    text-align: center;
-    margin-bottom: 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.motel-image-large {
-    width: 80%;
-
-    max-height: 500px;
-    border-radius: 8px;
-}
-
-.image-navigation {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.image-navigation button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 50%;
-    opacity: 0.7;
-}
-
-.image-navigation button:hover {
-    opacity: 1;
-}
-
-/* Thông tin motel */
-.motel-details {
-    max-height: 250px;
-    overflow-y: auto;
-    padding: 20px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background-color: #fafafa;
-}
-
-.motel-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #055699;
-    text-transform: uppercase;
-}
-
-.motel-details p {
-    font-size: 16px;
-    margin-bottom: 12px;
-    color: #555;
-}
-
-.motel-details p strong {
-    color: #333;
-}
-
-.motel-details p span.price {
-    color: #28a745;
-    font-weight: bold;
-}
-
-.rental-info {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    /* Sử dụng flexbox để căn giữa nội dung */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.retal-info-header {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.renter-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-}
-
-.rental-info p {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.contact-button {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-.contact-button:hover {
-    background-color: #218838;
-}
-
-
 .re__btn {
     font-size: 10px;
     padding: 3px 8px;
@@ -825,5 +587,4 @@ export default {
         margin-bottom: 1rem;
     }
 }
-
 </style>

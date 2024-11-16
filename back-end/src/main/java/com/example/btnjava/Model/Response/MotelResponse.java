@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String title;
 
-    private String houseNumber;
+    private Integer houseNumber;
 
     private String ward;
 
@@ -35,7 +36,7 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String detail;
 
-    private UserEntity owner;
+    private UserResponse owner;
 
     private String address;
 
@@ -43,6 +44,7 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     List<FileDTO> filesDTO;
 
+    private LocalDateTime createdAt;
 
     @Override
     public int compareTo(MotelResponse o) {
