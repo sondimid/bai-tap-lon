@@ -38,17 +38,17 @@ public class WebSecurityConfig{
                     request
                             .requestMatchers("/static/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
-                                    "/search","/motel/**").permitAll()
+                                    "/search","/motel/**","/get-motels-by-user/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(POST,
-                                    "/upload-avatar/**").hasRole("USER")
+                                    "/upload-avatar/**").hasAnyRole("USER","ADMIN")
                             .requestMatchers(GET,
                                     "/dashboard").hasRole("ADMIN")
                             .requestMatchers(POST,
-                                    "/create").hasRole("USER")
+                                    "/create").hasAnyRole("USER","ADMIN")
                             .requestMatchers(GET,
-                                    "/my-motel").hasRole("USER")
+                                    "/my-motel").hasAnyRole("USER","ADMIN")
                             .requestMatchers(POST,
                                     "/admin/markMotel").hasRole("ADMIN")
                             .requestMatchers(GET,

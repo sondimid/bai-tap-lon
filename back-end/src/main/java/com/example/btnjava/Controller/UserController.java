@@ -118,4 +118,10 @@ public class UserController {
         }
     }
 
+    @GetMapping("/get-motels-by-user/{id}")
+    public ResponseEntity<?> getMotelsByUser(@RequestHeader("Authorization") String authorization,
+                                             @PathVariable(name = "id") Integer id) throws MalformedURLException {
+        return ResponseEntity.ok().body(motelService.adminFindByUserId(id));
+    }
+
 }

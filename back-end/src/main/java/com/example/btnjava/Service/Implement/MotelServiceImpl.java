@@ -54,6 +54,9 @@ public class MotelServiceImpl implements MotelService {
 
     @Override
     public void save(MotelDTO motelDTO, String token) throws IOException {
+        if(motelDTO.getId() != null) {
+
+        }
         Integer id = jwtTokenUtils.extractUserId(token);
         Optional<UserEntity> userEntityOptional = userService.findById(id);
         if(userEntityOptional.isEmpty()) throw new NotFoundException("User not found");

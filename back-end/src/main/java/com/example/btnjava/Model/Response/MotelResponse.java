@@ -46,6 +46,8 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private LocalDateTime createdAt;
 
+    private LocalDateTime updatedAt;
+
     @Override
     public int compareTo(MotelResponse o) {
         return o.status.compareTo(this.status);

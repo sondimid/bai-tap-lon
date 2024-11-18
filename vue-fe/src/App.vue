@@ -3,5 +3,9 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-  <RouterView/>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" :key="$route.fullPath" />
+    </keep-alive>
+  </router-view>
 </template>

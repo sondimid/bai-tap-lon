@@ -76,7 +76,8 @@
                                     <a class="small" href="forgot-password.html">Quên Mật Khẩu?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" @click="toLoginPage">Đã Có Tài Khoản, Đăng Nhập Ngay!</a>
+                                    <a class="small" href="#" @click="toLoginPage">Đã Có Tài Khoản,
+                                        Đăng Nhập Ngay!</a>
                                 </div>
                             </div>
                         </div>

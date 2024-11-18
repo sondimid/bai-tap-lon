@@ -96,6 +96,8 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(password, userEntity.getPassword())) {
             throw new BadCredentialsException("Sai Tên Đăng Nhập Hoặc Mật Khẩu");
         }
+
+        // sinh token
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(username, password, userEntity.getAuthorities());
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);

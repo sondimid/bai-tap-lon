@@ -33,6 +33,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         WHITE_LIST.add("/get-all-motels");
         WHITE_LIST.add("/search");
         WHITE_LIST.add("/motel/**");
+        WHITE_LIST.add("/get-motels-by-user/**");
     }
 
     @Override

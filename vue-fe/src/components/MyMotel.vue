@@ -220,60 +220,142 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
+                    <div class="container-fluid py-4">
+                        <!-- Page Heading với animation nhẹ -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Nhà Trọ Đã Đăng</h1>
+                            <h1 class="h3 mb-0 text-gray-800 border-bottom border-primary pb-2">
+                                Trang Chủ
+                            </h1>
                         </div>
 
-                        <div class="row">
-                            <div class="col-7 mb-5" v-for="motel in listMotel" :key="motel.id">
-                                <a href="#" class="card flex-row align-items-center p-3 shadow-sm"
-                                    @click="toMotelDetailPage(motel.id)" style="text-decoration: none;">
+                        <!-- Grid Layout cho danh sách phòng trọ -->
+                        <div class="row g-4">
+                            <div class="col-8" v-for="motel in listMotel" :key="motel.id">
+                                <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+                   transition: all 0.3s ease;
+                   cursor: pointer;
+                   display: flex;
+                   flex-direction: row;
+                   border-radius: 12px;
+                   overflow: hidden;
+                   background: white;
+                   height: 220px;">
 
-                                    <!-- Status Header Section -->
-
-
-                                    <!-- Image Section -->
-                                    <div class="motel-image" style="width: 300px; height: min-content;">
+                                    <!-- Phần hình ảnh bên trái -->
+                                    <div style="position: relative; 
+            width: 300px; 
+            min-width: 300px; 
+            height: 220px;"> <!-- Đặt chiều cao cố định -->
+                                        <!-- Ảnh chính -->
                                         <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                            class="rounded me-3" alt="Profile Image"
-                                            style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
+                                            style="width: 100%; 
+                height: 100%; 
+                object-fit: contain;" alt="Motel Image">
+
+                                        <!-- Badge VIP -->
+
+
+                                        <!-- Số lượng ảnh -->
+                                        <div style="position: absolute;
+                           bottom: 10px;
+                           right: 10px;
+                           background: rgba(0, 0, 0, 0.6);
+                           color: white;
+                           padding: 4px 8px;
+                           border-radius: 4px;
+                           font-size: 12px;">
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                            }}
+                                        </div>
                                     </div>
 
-                                    <!-- Content Section -->
-                                    <div class="card-body">
-                                        <!-- Title and Price Section -->
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h1 class="card-title fw-bold text-primary mb-0" style="font-size: 1.5rem;">
-                                                {{ motel.title }}
-                                            </h1>
-                                            <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                {{ motel.price }} triệu
-                                            </h3>
+                                    <!-- Phần nội dung bên phải -->
+                                    <div style="flex: 1;
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;">
+
+                                        <!-- Tiêu đề -->
+                                        <h5 style="font-size: 18px;
+                          font-weight: 500;
+                          margin-bottom: 12px;
+                          line-height: 1.4;
+                          color: #333;">
+                                            {{ motel.title }}
+                                        </h5>
+
+                                        <!-- Giá và diện tích -->
+                                        <div style="display: flex;
+                           gap: 16px;
+                           margin-bottom: 12px;">
+                                            <div style="color: #f43f5e;
+                               font-weight: 600;
+                               font-size: 18px;">
+                                                {{ formatPrice(motel.price) }} triệu/tháng
+                                            </div>
+                                            <div style="color: #666;
+                               font-size: 16px;">
+                                                {{ motel.area }}m²
+                                            </div>
                                         </div>
 
-                                        <!-- Details Section -->
-                                        <div class="mb-3">
-                                            <p class="card-text text-muted">{{ motel.detail }}</p>
+                                        <!-- Địa chỉ -->
+                                        <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                            <i class="fas fa-map-marker-alt" style="color: #666;"></i>
+                                            <span style="color: #666;">{{ motel.district }}</span>
                                         </div>
 
-                                        <!-- Footer Section -->
-                                        <hr class="sidebar-divider">
-                                        <div class="text-end">
-                                            Click Vào Để Xem Chi Tiết
-                                        </div>
-                                        <div class="text-end">
-                                            {{ motel.status }}
+                                        <!-- Mô tả -->
+                                        <p style="color: #666;
+                         font-size: 14px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                            {{ motel.detail }}
+                                        </p>
+
+                                        <!-- Thời gian đăng -->
+                                        <div
+                                            style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                            <!-- Ngày đăng -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                            </div>
+                                            <!-- Ngày chỉnh sửa -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                            </div>
                                         </div>
                                     </div>
-                                </a>
+
+                                    <!-- Nút yêu thích -->
+                                    <div style="position: absolute;
+                       top: 10px;
+                       right: 10px;
+                       width: 32px;
+                       height: 32px;
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       border-radius: 50%;
+                       background: white;
+                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                       cursor: pointer;">
+                                        <i class="far fa-heart" style="color: #666;"></i>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <!-- /.container-fluid -->
 
@@ -504,7 +586,14 @@ export default {
                 this.$router.push('/add-motel')
             }
             else this.$router.push('/login')
-        }
+        },
+        formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        },
+
+        formatDate(date) {
+            return new Date(date).toLocaleDateString('vi-VN');
+        },
     },
     computed: {
         hasToken() {

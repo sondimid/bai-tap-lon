@@ -220,54 +220,130 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-12 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                        <div class="form-check me-3">
-                                            <input type="checkbox" class="form-check-input" :value="motel.id"
-                                                v-model="selectedMotels">
+                                        <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+                   transition: all 0.3s ease;
+                   cursor: pointer;
+                   display: flex;
+                   flex-direction: row;
+                   border-radius: 12px;
+                   overflow: hidden;
+                   background: white;
+                   height: 220px;">
+
+                                            <!-- Phần hình ảnh bên trái -->
+                                            <div style="position: relative; 
+            width: 300px; 
+            min-width: 300px; 
+            height: 220px;"> <!-- Đặt chiều cao cố định -->
+                                                <!-- Ảnh chính -->
+                                                <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                                    style="width: 100%; 
+                height: 100%; 
+                object-fit: contain;" alt="Motel Image">
+
+                                                <!-- Badge VIP -->
+
+
+                                                <!-- Số lượng ảnh -->
+                                                <div style="position: absolute;
+                           bottom: 10px;
+                           right: 10px;
+                           background: rgba(0, 0, 0, 0.6);
+                           color: white;
+                           padding: 4px 8px;
+                           border-radius: 4px;
+                           font-size: 12px;">
+                                                    <i class="fas fa-image"></i> {{ motel.filesDTO ?
+                                                        motel.filesDTO.length : 0
+                                                    }}
+                                                </div>
+                                            </div>
+
+                                            <!-- Phần nội dung bên phải -->
+                                            <div style="flex: 1;
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;">
+
+                                                <!-- Tiêu đề -->
+                                                <h5 style="font-size: 18px;
+                          font-weight: 500;
+                          margin-bottom: 12px;
+                          line-height: 1.4;
+                          color: #333;">
+                                                    {{ motel.title }}
+                                                </h5>
+
+                                                <!-- Giá và diện tích -->
+                                                <div style="display: flex;
+                           gap: 16px;
+                           margin-bottom: 12px;">
+                                                    <div style="color: #f43f5e;
+                               font-weight: 600;
+                               font-size: 18px;">
+                                                        {{ formatPrice(motel.price) }} triệu/tháng
+                                                    </div>
+                                                    <div style="color: #666;
+                               font-size: 16px;">
+                                                        {{ motel.area }}m²
+                                                    </div>
+                                                </div>
+
+                                                <!-- Địa chỉ -->
+                                                <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                                    <i class="fas fa-map-marker-alt" style="color: #666;"></i>
+                                                    <span style="color: #666;">{{ motel.district }}</span>
+                                                </div>
+
+                                                <!-- Mô tả -->
+                                                <p style="color: #666;
+                         font-size: 14px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                                    {{ motel.detail }}
+                                                </p>
+
+                                                <!-- Thời gian đăng -->
+                                                <div
+                                                    style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                                    <!-- Ngày đăng -->
+                                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                                        <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                        Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                                    </div>
+                                                    <!-- Ngày chỉnh sửa -->
+                                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                                        <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                        Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nút yêu thích -->
+                                            <div style="position: absolute;
+                       top: 10px;
+                       right: 10px;
+                       width: 32px;
+                       height: 32px;
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       border-radius: 50%;
+                       background: white;
+                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                       cursor: pointer;">
+                                                <i class="far fa-heart" style="color: #666;"></i>
+                                            </div>
                                         </div>
-
-                                        <!-- Card link -->
-                                        <a href="#" class="card flex-row align-items-center p-3 shadow-sm w-100"
-                                            style="text-decoration: none;">
-                                            <!-- Image Section -->
-                                            <div class="motel-image" style="width: 300px; height: min-content;">
-                                                <img :src="motel && motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                                    class="rounded me-3" alt="Profile Image"
-                                                    style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
-                                            </div>
-
-
-                                            <!-- Content Section -->
-                                            <div class="card-body">
-                                                <!-- Title and Price Section -->
-                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                    <h1 class="card-title fw-bold text-primary mb-0"
-                                                        style="font-size: 1.5rem;">
-                                                        {{ motel.title }}
-                                                    </h1>
-                                                    <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                        {{ motel.price }} triệu/tháng
-                                                    </h3>
-                                                </div>
-
-                                                <!-- Details Section -->
-                                                <div class="mb-3">
-                                                    <p class="card-text text-muted">{{ motel.detail }}</p>
-                                                </div>
-
-                                                <!-- Footer Section -->
-                                                <hr class="sidebar-divider">
-                                                <div class="text-end fs-4" style="font-size: 24px;">
-                                                    <span v-if="motel.status === '0'">Đang chờ duyệt</span>
-                                                    <span v-else-if="motel.status === '1'">Đã được duyệt</span>
-                                                </div>
-
-                                                <!-- Button to view details -->
-                                                <button class="btn btn-primary text-end"
-                                                    @click.stop="toMotelDetailPage(motel.id)">
-                                                    Xem Chi Tiết
-                                                </button>
-                                            </div>
-                                        </a>
+                                        <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -287,32 +363,56 @@
                     </div>
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid main-container" v-else>
+                    <div class="container-fluid main-container" v-else style="overflow: auto;">
                         <div class="row">
                             <div v-if="motel" class="col-md-8 motel-info">
                                 <div class="motel-image-container">
-                                    <!-- Hình ảnh -->
                                     <img :src="motel.filesDTO[currentImageIndex].fileUrl"
                                         @error="e => e.target.src = defaultImage" alt="Motel Image"
-                                        class="motel-image-large" />
-
-                                    <!-- Các nút điều hướng -->
+                                        class="motel-image-large" @load="handleImageLoad" v-show="!isLoading"
+                                        style="width: 100%; height: 100%; object-fit: contain;" />
                                     <div class="image-navigation">
-                                        <button @click="previousImage">←</button>
-                                        <button @click="nextImage">→</button>
+                                        <button @click="previousImage" class="nav-button prev">
+                                            <span>←</span>
+                                        </button>
+                                        <button @click="nextImage" class="nav-button next">
+                                            <span>→</span>
+                                        </button>
+                                    </div>
+                                    <div class="image-counter">
+                                        {{ currentImageIndex + 1 }} / {{ motel.filesDTO.length }}
                                     </div>
                                 </div>
-
                                 <div class="motel-details">
                                     <h2 class="motel-title">{{ motel.title }}</h2>
-                                    <p><strong>Địa chỉ:</strong> {{ motel.address }}</p>
+                                    <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                        <i class="fas fa-map-marker-alt" style="color: #666;"></i>
+                                        <span style="color: #666;">{{ motel.address }}</span>
+                                    </div>
                                     <p style="color:green;"><strong>Giá:</strong> {{ motel.price }} triệu/tháng</p>
                                     <p style="color:black;"><strong>Diện tích:</strong> {{ motel.area }} m²</p>
+                                    <p><strong>Nội thất:</strong> {{ motel.interior }}</p>
+                                    <p><strong>Loại phòng:</strong> {{ motel.type }}</p>
                                     <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
                                     <p style="color:red;"><strong>Trạng Thái:</strong> {{ motel.status }}</p>
+                                    <div
+                                        style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                        <!-- Ngày đăng -->
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                            Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                        </div>
+                                        <!-- Ngày chỉnh sửa -->
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                            Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                             <div class="col-md-4 rental-info">
                                 <div class="retal-info-header">Thông tin người cho thuê</div>
                                 <img :src="motel.owner.fileUrl || defaultImage"
@@ -326,10 +426,10 @@
                                     </button>
                                     <button class="contact-button">Chat</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
 
                     <!-- /.container-fluid -->
 
@@ -385,7 +485,7 @@ export default {
             showModal: false,
             userInfo: {},
             motel: null,
-            listMotel:{},
+            listMotel: {},
             defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
             description: null,
             houseNumber: null,
@@ -489,8 +589,8 @@ export default {
         fetchMotelDetail(id) {
             axios.get(`http://localhost:8081/motel/${id}`)
                 .then(response => {
-                    this.motel = response.data;  
-                    console.log(this.motel); 
+                    this.motel = response.data;
+                    console.log(this.motel);
                 })
                 .catch(error => {
                     console.error('Error fetching motel details:', error);
@@ -498,7 +598,7 @@ export default {
         },
         async getMotelsByUser(user) {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:8081/admin/get-motels-by-user/${user.id}`, {
+            const response = await axios.get(`http://localhost:8081/get-motels-by-user/${user.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
@@ -563,7 +663,16 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
-        }
+        },
+        formatDate(date) {
+            return new Date(date).toLocaleDateString('vi-VN');
+        },
+        formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        },
+        toMotelDetailPage(id) {
+            this.$router.push({ name: 'MotelDetail', params: { id } });
+        },
     },
 
     computed: {
@@ -574,99 +683,138 @@ export default {
 }
 </script>
 
-<style scoped>
-/* Styling for the navigation buttons */
-.image-navigation button {
-    background-color: #007bff;
-    /* Blue background color */
-    color: white;
-    /* White text color */
-    font-size: 18px;
-    /* Increase the font size */
-    padding: 10px 20px;
-    /* Add some padding for a better look */
-    border: none;
-    /* Remove border */
-    border-radius: 50%;
-    /* Make the buttons round */
-    cursor: pointer;
-    /* Change cursor to pointer */
-    transition: all 0.3s ease;
-    /* Smooth transition for effects */
-}
-
-/* Hover effect for the buttons */
-.image-navigation button:hover {
-    background-color: #0056b3;
-    /* Darker blue when hovered */
-    transform: scale(1.1);
-    /* Slightly enlarge the button */
-}
-
-/* Active button effect */
-.image-navigation button:active {
-    background-color: #003f7f;
-    /* Even darker blue when clicked */
-    transform: scale(1);
-    /* Reset the size after click */
-}
-
-/* Optional: Center buttons horizontally and vertically */
-.image-navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    /* Add space between the buttons */
-}
-.main-container {
-    margin: 30px 0;
-}
-
-
-
-
-/* Border cho ảnh motel */
+<style>
 .motel-image-container {
     position: relative;
-    text-align: center;
-    margin-bottom: 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
 }
 
 .motel-image-large {
-    width: 80%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
 
-    max-height: 500px;
-    border-radius: 8px;
+.motel-image-large:hover {
+    transform: scale(1.02);
 }
 
 .image-navigation {
     position: absolute;
-    top: 50%;
+    width: 100%;
+    height: 100%;
+    top: 0;
     left: 0;
-    right: 0;
-    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    align-items: center;
+    padding: 0 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.motel-image-container:hover .image-navigation {
+    opacity: 1;
 }
 
 .image-navigation button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    opacity: 0.7;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .image-navigation button:hover {
+    background-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.image-navigation button:focus {
+    outline: none;
+}
+
+.image-navigation button:active {
+    transform: scale(0.95);
+}
+
+/* Image Counter */
+.image-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 2;
+}
+
+/* Image Loading State */
+.motel-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f8f9fa;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.motel-image-container.loading::before {
     opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .motel-image-container {
+        height: 300px;
+    }
+
+    .image-navigation button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .motel-image-container {
+        height: 250px;
+        border-radius: 8px;
+    }
+
+    .image-navigation {
+        padding: 0 10px;
+    }
+
+    .image-navigation button {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
 }
 
 /* Thông tin motel */
@@ -818,12 +966,4 @@ export default {
 .card-text {
     color: #6c757d;
 }
-
-@media (max-width: 768px) {
-    .col-lg-6 {
-        flex: 0 0 100%;
-        margin-bottom: 1rem;
-    }
-}
-
 </style>

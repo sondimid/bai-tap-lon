@@ -237,67 +237,130 @@
 
                         <!-- Grid Layout cho danh sách phòng trọ -->
                         <div class="row g-4">
-                            <div class="col-md-6 col-lg-7" v-for="motel in listMotel" :key="motel.id">
-                                <div class="card h-100 hover-shadow transition-all" @click="toMotelDetailPage(motel.id)"
-                                    style="cursor: pointer; display: flex; flex-direction: column;">
+                            <div class="col-8" v-for="motel in listMotel" :key="motel.id">
+                                <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+                   transition: all 0.3s ease;
+                   cursor: pointer;
+                   display: flex;
+                   flex-direction: row;
+                   border-radius: 12px;
+                   overflow: hidden;
+                   background: white;
+                   height: 220px;">
 
-                                    <!-- Phần hình ảnh với tỷ lệ cố định -->
-                                    <div class="position-relative d-flex align-items-center justify-content-center"
-                                        style="height: 250px; overflow: hidden;">
+                                    <!-- Phần hình ảnh bên trái -->
+                                    <div style="position: relative; 
+            width: 300px; 
+            min-width: 300px; 
+            height: 220px;"> <!-- Đặt chiều cao cố định -->
+                                        <!-- Ảnh chính -->
                                         <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                            class="card-img-top" style="width: 100%; object-fit: cover;"
-                                            alt="Motel Image">
-                                        <div class="position-absolute top-0 end-0 m-3">
-                                            <span class="badge" :class="getStatusBadgeClass(motel.status)">
-                                                {{ motel.status }}
-                                            </span>
+                                            style="width: 100%; 
+                height: 100%; 
+                object-fit: contain;" alt="Motel Image">
+
+                                        <!-- Badge VIP -->
+
+
+                                        <!-- Số lượng ảnh -->
+                                        <div style="position: absolute;
+                           bottom: 10px;
+                           right: 10px;
+                           background: rgba(0, 0, 0, 0.6);
+                           color: white;
+                           padding: 4px 8px;
+                           border-radius: 4px;
+                           font-size: 12px;">
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                            }}
                                         </div>
                                     </div>
 
-                                    <!-- Phần nội dung -->
-                                    <div class="card-body p-4 d-flex flex-column justify-content-between">
-                                        <!-- Tiêu đề và giá -->
-                                        <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <h5 class="card-title text-primary fw-bold mb-0 line-clamp-2">
-                                                {{ motel.title }}
-                                            </h5>
-                                            <div class="ms-2">
-                                                <h4 class="text-success fw-bold mb-0">
-                                                    {{ formatPrice(motel.price) }}
-                                                </h4>
-                                                <small class="text-muted">triệu/tháng</small>
+                                    <!-- Phần nội dung bên phải -->
+                                    <div style="flex: 1;
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;">
+
+                                        <!-- Tiêu đề -->
+                                        <h5 style="font-size: 18px;
+                          font-weight: 500;
+                          margin-bottom: 12px;
+                          line-height: 1.4;
+                          color: #333;">
+                                            {{ motel.title }}
+                                        </h5>
+
+                                        <!-- Giá và diện tích -->
+                                        <div style="display: flex;
+                           gap: 16px;
+                           margin-bottom: 12px;">
+                                            <div style="color: #f43f5e;
+                               font-weight: 600;
+                               font-size: 18px;">
+                                                {{ formatPrice(motel.price) }} triệu/tháng
+                                            </div>
+                                            <div style="color: #666;
+                               font-size: 16px;">
+                                                {{ motel.area }}m²
                                             </div>
                                         </div>
 
-                                        <!-- Thông tin chi tiết -->
-                                        <div class="mb-3">
-                                            <div class="d-flex gap-3 mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fas fa-ruler-combined text-primary me-2"></i>
-                                                    <span>{{ motel.area }}m²</span>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
-                                                    <span>{{ motel.district }}</span>
-                                                </div>
+                                        <!-- Địa chỉ -->
+                                        <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                            <i class="fas fa-map-marker-alt" style="color: #666;"></i>
+                                            <span style="color: #666;">{{ motel.district }}</span>
+                                        </div>
+
+                                        <!-- Mô tả -->
+                                        <p style="color: #666;
+                         font-size: 14px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                            {{ motel.detail }}
+                                        </p>
+
+                                        <!-- Thời gian đăng -->
+                                        <div
+                                            style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                            <!-- Ngày đăng -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
                                             </div>
-                                            <p class="card-text text-muted line-clamp-2 mb-0">
-                                                {{ motel.detail }}
-                                            </p>
+                                            <!-- Ngày chỉnh sửa -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Footer -->
-                                    <div class="card-footer bg-light p-3">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <i class="far fa-clock text-primary me-2"></i>
-                                                <small>{{ formatDate(motel.createdAt) }}</small>
-                                            </div>
-                                            Click Vào Để Xem chi tiết
-                                        </div>
+                                    <!-- Nút yêu thích -->
+                                    <div style="position: absolute;
+                       top: 10px;
+                       right: 10px;
+                       width: 32px;
+                       height: 32px;
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       border-radius: 50%;
+                       background: white;
+                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                       cursor: pointer;">
+                                        <i class="far fa-heart" style="color: #666;"></i>
                                     </div>
                                 </div>
+                                <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
                     </div>
@@ -564,105 +627,4 @@ export default {
     }
 };
 </script>
-<style scoped>
-.re__btn {
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    width: 80px;
-    max-width: 100px;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.re__btn-se-border--md {
-    border: 2px solid #3498db;
-    background-color: transparent;
-}
-
-.re__btn-se-ghost--md {
-    color: #3498db;
-    background-color: transparent;
-}
-
-.login-btn {
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.re__btn:hover {
-    background-color: #3498db;
-    color: #ffffff;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.re__btn:active {
-    transform: scale(0.98);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.card {
-    display: flex;
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin-right: 10px;
-}
-
-.card-img-right {
-    width: 30%;
-    /* Reduced to 30% for a larger card body */
-    height: auto;
-}
-
-.card-body {
-    padding: 4.5rem;
-    width: 70%;
-}
-
-.card-title {
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    color: #6c757d;
-}
-
-@media (max-width: 768px) {
-    .col-lg-6 {
-        flex: 0 0 100%;
-        margin-bottom: 1rem;
-    }
-}
-.hover-shadow {
-    transition: all 0.3s ease;
-}
-
-.hover-shadow:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.transition-all {
-    transition: all 0.3s ease;
-}
-
-/* Badge styles */
-.badge {
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    border-radius: 20px;
-}
-</style>
+<style scoped></style>
