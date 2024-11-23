@@ -9,13 +9,14 @@ import AdvancedSearch from "@/components/AdvancedSearch .vue";
 import AddMotel from "@/components/AddMotel.vue";
 import MyMotel from "@/components/MyMotel.vue";
 import Admin from "@/components/Admin.vue";
+import ChatComponent from "@/components/ChatComponent.vue";
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { top: 0 }
+      return { top: 0 };
     }
   },
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,11 @@ const router = createRouter({
       path: "/admin",
       name: "Admin",
       component: Admin,
+    },
+    {
+      path: "/chat",
+      name: "ChatComponent",
+      component: ChatComponent,
     },
   ],
 });

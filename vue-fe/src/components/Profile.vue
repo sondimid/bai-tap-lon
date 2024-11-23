@@ -1,14 +1,12 @@
 <template>
-
-    <body id="page-top">
+    <body id="page-top" >
 
         <!-- Page Wrapper -->
         <div id="wrapper">
 
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#"
-                    @click="toDashBoardPage">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#" @click="toDashBoardPage">
                     <div class="sidebar-brand-icon rotate-n-20">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -56,8 +54,7 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                                 <input type="text" class="form-control bg-light border-0 small"
                                     placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -84,8 +81,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
-                                        userInfo.fullName }} </span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ userInfo.fullName }} </span>
 
                                     <img class="img-profile rounded-circle"
                                         :src="this.avatar || '../../assets/img/undraw_profile.svg'">
@@ -123,15 +119,15 @@
                                 <div class="card mb-4">
                                     <div class="card-body text-center">
                                         <img :src="this.avatar || '../../assets/img/undraw_profile.svg'" alt="avatar"
-                                            class="rounded-circle img-fluid" style="width: 89px;">
+                                            class="rounded-circle img-fluid" style="width: 89px; border: 2px solid #ddd;">
 
-                                        <h5 class="my-3">{{ userInfo.fullName }}</h5>
+                                        <h5 class="my-3" style="font-size: 1.2rem; color: #333;">{{ userInfo.fullName }}</h5>
                                         <div class="d-flex justify-content-between mb-2">
-                                            <label for="customFile1" class="btn btn-outline-primary">Thay Đổi Ảnh Đại
+                                            <label for="customFile1" class="btn btn-outline-primary" style="cursor: pointer;">Thay Đổi Ảnh Đại
                                                 Diện</label>
                                             <input type="file" @change="onFileSelected" class="form-control d-none"
                                                 id="customFile1" />
-                                            <label class="btn btn-outline-primary" @click="toChangePasswsordPage">Đổi
+                                            <label class="btn btn-outline-primary" @click="toChangePasswsordPage" style="cursor: pointer;">Đổi
                                                 Mật Khẩu</label>
                                         </div>
                                     </div>
@@ -224,7 +220,6 @@
 
     </body>
 </template>
-
 <script>
 import axios from 'axios';
 
@@ -308,4 +303,206 @@ export default {
 }
 
 </script>
-<style></style>
+<style>
+/* Sidebar Styles */
+.sidebar {
+    min-height: 100vh;
+    position: fixed;
+    transition: all 0.3s;
+    width: 240px;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+}
+
+.sidebar-brand {
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+.sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 1rem 0;
+}
+
+.sidebar-heading {
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.75rem 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.nav-item .nav-link {
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s;
+}
+
+.nav-item .nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.collapse-inner {
+    padding: 0.5rem 0;
+    margin: 0 1rem;
+    border-radius: 0.35rem;
+}
+
+.collapse-item {
+    padding: 0.5rem 1rem;
+    color: #3a3b45;
+    text-decoration: none;
+    display: block;
+}
+
+.collapse-item:hover {
+    background: #eaecf4;
+    color: #3a3b45;
+}
+
+/* Topbar Styles */
+.topbar {
+    height: 4.375rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.navbar-search .input-group {
+    width: 300px;
+}
+
+.navbar-search input {
+    font-size: 0.85rem;
+    height: auto;
+}
+
+.img-profile {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+}
+
+.topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+}
+
+/* Content Styles */
+#content-wrapper {
+    margin-left: 240px;
+    min-height: 100vh;
+    background-color: #f8f9fc;
+}
+
+.container-fluid {
+    padding: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border: none;
+    border-radius: 0.35rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Profile Styles */
+.rounded-circle {
+    border: 3px solid #e3e6f0;
+}
+
+.btn-outline-primary {
+    border-color: #4e73df;
+    color: #4e73df;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4e73df;
+    color: white;
+}
+
+/* Utility Classes */
+.text-gray-800 {
+    color: #5a5c69;
+}
+
+.text-gray-600 {
+    color: #858796;
+}
+
+.text-red-400 {
+    color: #e74a3b;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #content-wrapper {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        width: 0;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.show {
+        width: 240px;
+        transform: translateX(0);
+    }
+
+    .navbar-search .input-group {
+        width: 100%;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    border-radius: 0.3rem;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e3e6f0;
+    padding: 1rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #e3e6f0;
+    padding: 1rem;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    background-color: #4e73df;
+    border-radius: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.scroll-to-top:hover {
+    background-color: #224abe;
+}
+</style>

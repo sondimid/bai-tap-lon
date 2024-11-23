@@ -356,7 +356,7 @@
                                 <p><strong>Tên:</strong> {{ motelUser.fullName }}</p>
                                 <p><strong>Số điện thoại:</strong> {{ motelUser.phoneNumber }}</p>
                                 <div class="button-container">
-                                    <button class="contact-button">Chat</button>
+                                    <button class="contact-button" @click="toggleChatBox">Chat</button>
                                 </div>
                             </div>
                         </div>
@@ -424,8 +424,31 @@
                                     <button class="contact-button" style="margin-right: 15px;"
                                         @click="getMotelsByUser(motel.owner)">Xem Thêm Nhà Trọ
                                     </button>
-                                    <button class="contact-button">Chat</button>
+                                    <button class="contact-button" @click="toggleChatBox">Chat</button>
                                 </div>
+
+                                <div v-if="isChatBoxVisible" class="chat-box">
+                                    <div class="chat-header">
+                                        <h3>Chat với {{ motel.owner.fullName }}</h3>
+                                        <button class="close-button" @click="toggleChatBox">×</button>
+                                    </div>
+
+                                    <div class="chat-messages" ref="chatMessagesContainer">
+                                        <div v-for="(message, index) in messages" :key="index" :class="{
+                                            'message-sender': message.senderId === this.userInfo.id,
+                                            'message-receiver': message.senderId !== this.userInfo.id
+                                        }">
+                                            <p>{{ message.content }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="chat-input">
+                                        <input type="text" v-model="messageContent" @keyup.enter="sendMessage"
+                                            placeholder="Nhập tin nhắn..." />
+                                        <button @click="sendMessage">Gửi</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -477,7 +500,8 @@
 
 <script>
 import axios from 'axios';
-import listMotel from '../../motels.js';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 export default {
     name: 'MotelDetail',
     data() {
@@ -507,24 +531,49 @@ export default {
             avatar: localStorage.getItem('avatar') || '',
             motelUser: {},
             openMotelUser: false,
+            isChatBoxVisible: true,
+            messages: [],
+            messageContent: "",
+            stompClient: null,
+            senderId: null,
+            recipientId: null,
         };
+    },
+    watch: {
+        messages: {
+            handler() {
+                this.scrollToBottom();
+            },
+            deep: true // Theo dõi các thay đổi sâu bên trong mảng
+        }
     },
     created() {
         const motelId = this.$route.params.id;
         if (motelId) {
             this.fetchMotelDetail(motelId);
-            console.error('Motel ID is missing');
         }
+
     },
     mounted() {
-        this.getUserInfo();
+
+        if (this.hasToken) {
+            if (!localStorage.getItem('userInfor')) {
+                this.getUserInfo();
+            } else {
+                this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
+            }
+        }
         const motelId = this.$route.params.id;
         if (motelId) {
             this.fetchMotelDetail(motelId);
         } else {
             console.error('Motel ID is missing');
         }
+        this.connect();
+        this.fetchMessages();
+        this.scrollToBottom();
     },
+
     methods: {
         toDashBoardPage() {
             this.resetData();
@@ -554,10 +603,13 @@ export default {
                     });
                     console.log(response);
                     this.userInfo = response.data;
+                    this.senderId = this.userInfo.id
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
             }
+            this.userInfo = localStorage.getItem('userInfor')
+
         },
         async getAllMotels() {
             this.listMotel = listMotel;
@@ -604,7 +656,8 @@ export default {
                 }
             })
             this.listMotel = response.data
-            this.motelUser = user
+            this.motelUser = user.data
+            this.recipientId = user.id
             console.log(this.listMotel)
             this.openMotelUser = true;
         },
@@ -673,13 +726,84 @@ export default {
         toMotelDetailPage(id) {
             this.$router.push({ name: 'MotelDetail', params: { id } });
         },
+        toggleChatBox() {
+            this.isChatBoxVisible = !this.isChatBoxVisible;
+            if (this.isChatBoxVisible) {
+                this.connect();
+            } else {
+                this.disconnect();
+            }
+        },
+        connect() {
+            const socket = new SockJS("http://localhost:8081/chat");
+            this.stompClient = Stomp.over(socket);
+            this.stompClient.connect({}, () => {
+                console.log("Connected");
+                this.stompClient.subscribe(
+                    `/user/${this.userInfo.id}/queue/messages`,
+                    this.onMessageReceived
+                );
+            });
+        },
+        disconnect() {
+            if (this.stompClient) {
+                this.stompClient.disconnect();
+                console.log("Disconnected");
+            }
+        },
+        sendMessage() {
+            if (this.messageContent.trim() && this.stompClient) {
+                const chatMessage = {
+                    senderId: this.userInfo.id,
+                    recipientId: this.motel.owner.id,
+                    content: this.messageContent.trim(),
+                };
+                this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+                this.messages.push({ ...chatMessage });
+                this.messageContent = "";
+
+               
+                    this.scrollToBottom();
+            
+            }
+        },
+        fetchMessages() {
+            axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${this.motel.owner.id}`)
+                .then(response => {
+                    this.messages = response.data;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+        },
+        onMessageReceived(payload) {
+            const message = JSON.parse(payload.body);
+            this.messages.push(message);
+            this.scrollToBottom();
+        },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    const chatMessagesContainer = this.$refs.chatMessagesContainer;
+                    if (chatMessagesContainer) {
+                        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+                    }
+                }, 50); // Đặt độ trễ 50ms
+            });
+        },
+        toggleChatBox() {
+            this.isChatBoxVisible = !this.isChatBoxVisible;
+        },
     },
 
     computed: {
         hasToken() {
             return !!localStorage.getItem('token')
         }
-    }
+    },
+
+
 }
 </script>
 
@@ -965,5 +1089,122 @@ export default {
 
 .card-text {
     color: #6c757d;
+}
+
+.chat-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 450px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    border: 1px solid #e1e1e1;
+}
+
+.chat-header {
+    padding: 15px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2563eb;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+    /* Smooth scrolling */
+}
+
+.message-sender {
+    align-self: flex-end;
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px 15px 0 15px;
+    background-color: #2563eb;
+    color: white;
+    word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message-receiver {
+    align-self: flex-start;
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px 15px 15px 0;
+    background-color: #e2e8f0;
+    color: black;
+    word-wrap: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input {
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #e1e1e1;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.chat-input input:hover {
+    border-color: #2563eb;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.chat-input button:hover {
+    background-color: #1d4ed8;
 }
 </style>

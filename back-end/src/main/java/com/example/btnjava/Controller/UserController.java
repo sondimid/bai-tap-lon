@@ -1,6 +1,6 @@
 package com.example.btnjava.Controller;
 
-import com.example.btnjava.CustomException.NotNullException;
+
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
@@ -10,14 +10,11 @@ import com.example.btnjava.Model.Search.MotelSearchBuilder;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
-import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

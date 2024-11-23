@@ -36,9 +36,9 @@ public class WebSecurityConfig{
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> {
                     request
-                            .requestMatchers("/static/**").permitAll()
+                            .requestMatchers("/static/**","/messages/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
-                                    "/search","/motel/**","/get-motels-by-user/**").permitAll()
+                                    "/search","/motel/**","/get-motels-by-user/**","/chat/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(POST,
