@@ -15,6 +15,7 @@
                     <div class="sidebar-brand-text mx-10">Trang Chủ</div>
                 </a>
 
+
                 <hr class="sidebar-divider my-0">
 
                 <div class="sidebar-heading" id="headingSearch" style="font-size: larger;">
@@ -57,18 +58,7 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -101,6 +91,12 @@
                                 <button type="button" class="btn btn-primary" @click="toDashBoardPage">
                                     <i class="fas fa-sync-alt fa-fw"></i>
                                     Trang Chủ
+                                </button>
+                            </li>
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
                                 </button>
                             </li>
 
@@ -142,8 +138,14 @@
                         </ul>
 
                     </nav>
-                    <!-- End of Topbar -->
-
+                    <div class="col-12 mb-3 d-flex justify-content-end" v-if="selectedMotels.length">
+                        <button class="btn btn-primary" style="margin-right: 20px;" @click="markMotel(1)">
+                            Duyệt Bài Đăng
+                        </button>
+                        <button class="btn btn-danger" @click="markMotel(0)">
+                            Từ Chối Bài Đăng
+                        </button>
+                    </div>
                     <!-- Begin Page Content -->
                     <div class="container-fluid" v-if="openListMotel">
 
@@ -151,20 +153,10 @@
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">{{ namePage }}</h1>
                         </div>
-
-                        <div class="row">
-                            <!-- Delete button for selected items -->
-                            <div class="col-12 mb-3 d-flex justify-content-end" v-if="selectedMotels.length">
-                                <button class="btn btn-primary" @click="openModalClick">
-                                    Duyệt Các Nhà Trọ Đã Chọn
-                                </button>
-                            </div>
-
-                            <!-- Loop through motels -->
-                            <div class="row g-4">
-                                <div class="col-8" v-for="motel in listMotel" :key="motel.id">
-                                    <div class="card" @click="toMotelDetailPage(motel.id)"
-                                        @mousedown.stop="handleMouseDown" style="border: none; 
+                        <div class="row g-4">
+                            <div class="col-8" v-for="motel in listMotel" :key="motel.id">
+                                <div class="card" @click="toMotelDetailPage(motel.id)" @mousedown.stop="handleMouseDown"
+                                    style="border: none; 
                                     
                    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
                    transition: all 0.3s ease;
@@ -175,32 +167,32 @@
                    overflow: hidden;
                    background: white;
                    height: 220px;">
-                                        <div style="position: absolute; 
+                                    <div style="position: absolute; 
                 top: 10px; 
                 left: 10px; 
                 z-index: 10;">
-                                            <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
-                                                style="width: 18px; 
+                                        <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
+                                            style="width: 18px; 
          height: 18px; 
          cursor: pointer;">
-                                        </div>
+                                    </div>
 
-                                        <!-- Phần hình ảnh bên trái -->
-                                        <div style="position: relative; 
+                                    <!-- Phần hình ảnh bên trái -->
+                                    <div style="position: relative; 
             width: 300px; 
             min-width: 300px; 
             height: 220px;"> <!-- Đặt chiều cao cố định -->
-                                            <!-- Ảnh chính -->
-                                            <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                                style="width: 100%; 
+                                        <!-- Ảnh chính -->
+                                        <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                            style="width: 100%; 
                 height: 100%; 
                 object-fit: contain;" alt="Motel Image">
 
-                                            <!-- Badge VIP -->
+                                        <!-- Badge VIP -->
 
 
-                                            <!-- Số lượng ảnh -->
-                                            <div style="position: absolute;
+                                        <!-- Số lượng ảnh -->
+                                        <div style="position: absolute;
                            bottom: 10px;
                            right: 10px;
                            background: rgba(0, 0, 0, 0.6);
@@ -208,53 +200,53 @@
                            padding: 4px 8px;
                            border-radius: 4px;
                            font-size: 12px;">
-                                                <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length :
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length :
                                                 0
-                                                }}
-                                            </div>
+                                            }}
                                         </div>
+                                    </div>
 
-                                        <!-- Phần nội dung bên phải -->
-                                        <div style="flex: 1;
+                                    <!-- Phần nội dung bên phải -->
+                                    <div style="flex: 1;
                         padding: 16px;
                         display: flex;
                         flex-direction: column;">
 
-                                            <!-- Tiêu đề -->
-                                            <h5 style="font-size: 18px;
+                                        <!-- Tiêu đề -->
+                                        <h5 style="font-size: 18px;
                           font-weight: 500;
                           margin-bottom: 12px;
                           line-height: 1.4;
                           color: #333;">
-                                                {{ motel.title }}
-                                            </h5>
+                                            {{ motel.title }}
+                                        </h5>
 
-                                            <!-- Giá và diện tích -->
-                                            <div style="display: flex;
+                                        <!-- Giá và diện tích -->
+                                        <div style="display: flex;
                            gap: 16px;
                            margin-bottom: 12px;">
-                                                <div style="color: #f43f5e;
+                                            <div style="color: #f43f5e;
                                font-weight: 600;
                                font-size: 18px;">
-                                                    {{ formatPrice(motel.price) }} triệu/tháng
-                                                </div>
-                                                <div style="color: #666;
-                               font-size: 16px;">
-                                                    {{ motel.area }}m²
-                                                </div>
+                                                {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
+                                            <div style="color: #666;
+                               font-size: 16px;">
+                                                {{ motel.area }}m²
+                                            </div>
+                                        </div>
 
-                                            <!-- Địa chỉ -->
-                                            <div style="display: flex;
+                                        <!-- Địa chỉ -->
+                                        <div style="display: flex;
                            align-items: center;
                            gap: 8px;
                            margin-bottom: 12px;">
-                                                <i class="fas fa-map-marker-alt" style="color: #666;"></i>
-                                                <span style="color: #666;">{{ motel.district }}</span>
-                                            </div>
+                                            <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                            <span style="color: #666;">{{ motel.ward }}{{ motel.district }}</span>
+                                        </div>
 
-                                            <!-- Mô tả -->
-                                            <p style="color: #666;
+                                        <!-- Mô tả -->
+                                        <p style="color: #666;
                          font-size: 14px;
                          line-height: 1.5;
                          margin-bottom: 12px;
@@ -262,27 +254,27 @@
                          -webkit-line-clamp: 2;
                          -webkit-box-orient: vertical;
                          overflow: hidden;">
-                                                {{ motel.detail }}
-                                            </p>
+                                            {{ motel.detail }}
+                                        </p>
 
-                                            <!-- Thời gian đăng -->
-                                            <div
-                                                style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
-                                                <!-- Ngày đăng -->
-                                                <div style="display: flex; align-items: center; gap: 8px;">
-                                                    <i class="fas fa-clock" style="color: #00b4d8;"></i>
-                                                    Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
-                                                </div>
-                                                <!-- Ngày chỉnh sửa -->
-                                                <div style="display: flex; align-items: center; gap: 8px;">
-                                                    <i class="fas fa-edit" style="color: #f43f5e;"></i>
-                                                    Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
-                                                </div>
+                                        <!-- Thời gian đăng -->
+                                        <div
+                                            style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                            <!-- Ngày đăng -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                            </div>
+                                            <!-- Ngày chỉnh sửa -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Nút yêu thích -->
-                                        <div style="position: absolute;
+                                    <!-- Nút yêu thích -->
+                                    <div style="position: absolute;
                        top: 10px;
                        right: 10px;
                        width: 32px;
@@ -294,13 +286,13 @@
                        background: white;
                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
                        cursor: pointer;">
-                                            <i class="far fa-heart" style="color: #666;"></i>
-                                        </div>
+                                        <i class="far fa-heart" style="color: #666;"></i>
                                     </div>
-                                    <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                                 </div>
+                                <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
+
 
 
 
@@ -383,53 +375,141 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-12 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                        <div class="form-check me-3">
-                                            <input type="checkbox" class="form-check-input" :value="motel.id"
-                                                v-model="selectedMotels">
-                                        </div>
+                                        <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+                   transition: all 0.3s ease;
+                   cursor: pointer;
+                   display: flex;
+                   flex-direction: row;
+                   border-radius: 12px;
+                   overflow: hidden;
+                   background: white;
+                   height: 220px;">
 
-                                        <!-- Card link -->
-                                        <a href="#" class="card flex-row align-items-center p-3 shadow-sm w-100"
-                                            style="text-decoration: none;">
-                                            <!-- Image Section -->
-                                            <div class="motel-image" style="width: 300px; height: min-content;">
+                                            <div style="position: absolute; 
+                top: 10px; 
+                left: 10px; 
+                z-index: 10;">
+                                                <input type="checkbox" :value="motel.id" v-model="selectedMotels"
+                                                    @click.stop style="width: 18px; 
+         height: 18px; 
+         cursor: pointer;">
+                                            </div>
+
+                                            <!-- Phần hình ảnh bên trái -->
+                                            <div style="position: relative; 
+            width: 300px; 
+            min-width: 300px; 
+            height: 220px;"> <!-- Đặt chiều cao cố định -->
+                                                <!-- Ảnh chính -->
                                                 <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                                    class="rounded me-3" alt="Profile Image"
-                                                    style="object-fit: cover; border-radius: 8px; width: 100%; height: 100%;">
+                                                    style="width: 100%; 
+                height: 100%; 
+                object-fit: contain;" alt="Motel Image">
+
+                                                <!-- Badge VIP -->
+
+
+                                                <!-- Số lượng ảnh -->
+                                                <div style="position: absolute;
+                           bottom: 10px;
+                           right: 10px;
+                           background: rgba(0, 0, 0, 0.6);
+                           color: white;
+                           padding: 4px 8px;
+                           border-radius: 4px;
+                           font-size: 12px;">
+                                                    <i class="fas fa-image"></i> {{ motel.filesDTO ?
+                                                        motel.filesDTO.length : 0
+                                                    }}
+                                                </div>
                                             </div>
 
-                                            <!-- Content Section -->
-                                            <div class="card-body">
-                                                <!-- Title and Price Section -->
-                                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                                    <h1 class="card-title fw-bold text-primary mb-0"
-                                                        style="font-size: 1.5rem;">
-                                                        {{ motel.title }}
-                                                    </h1>
-                                                    <h3 class="text-success fw-bold mb-0" style="font-size: 1.3rem;">
-                                                        {{ motel.price }} triệu/tháng
-                                                    </h3>
+                                            <!-- Phần nội dung bên phải -->
+                                            <div style="flex: 1;
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;">
+
+                                                <!-- Tiêu đề -->
+                                                <h5 style="font-size: 18px;
+                          font-weight: 500;
+                          margin-bottom: 12px;
+                          line-height: 1.4;
+                          color: #333;">
+                                                    {{ motel.title }}
+                                                </h5>
+
+                                                <!-- Giá và diện tích -->
+                                                <div style="display: flex;
+                           gap: 16px;
+                           margin-bottom: 12px;">
+                                                    <div style="color: #f43f5e;
+                               font-weight: 600;
+                               font-size: 18px;">
+                                                        {{ formatPrice(motel.price) }} triệu/tháng
+                                                    </div>
+                                                    <div style="color: #666;
+                               font-size: 16px;">
+                                                        {{ motel.area }}m²
+                                                    </div>
                                                 </div>
 
-                                                <!-- Details Section -->
-                                                <div class="mb-3">
-                                                    <p class="card-text text-muted">{{ motel.detail }}</p>
+                                                <!-- Địa chỉ -->
+                                                <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                                    <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                                    <span style="color: #666;">{{ motel.ward }}, {{ motel.district
+                                                        }}</span>
                                                 </div>
 
-                                                <!-- Footer Section -->
-                                                <hr class="sidebar-divider">
-                                                <div class="text-end fs-4" style="font-size: 24px;">
-                                                    <span v-if="motel.status === '0'">Đang chờ duyệt</span>
-                                                    <span v-else-if="motel.status === '1'">Đã được duyệt</span>
-                                                </div>
+                                                <!-- Mô tả -->
+                                                <p style="color: #666;
+                         font-size: 14px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                                    {{ motel.detail }}
+                                                </p>
 
-                                                <!-- Button to view details -->
-                                                <button class="btn btn-primary text-end"
-                                                    @click.stop="toMotelDetailPage(motel.id)">
-                                                    Xem Chi Tiết
-                                                </button>
+                                                <!-- Thời gian đăng -->
+                                                <div
+                                                    style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                                    <!-- Ngày đăng -->
+                                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                                        <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                        Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                                    </div>
+                                                    <!-- Ngày chỉnh sửa -->
+                                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                                        <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                        Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </a>
+
+                                            <!-- Nút yêu thích -->
+                                            <div style="position: absolute;
+                       top: 10px;
+                       right: 10px;
+                       width: 32px;
+                       height: 32px;
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       border-radius: 50%;
+                       background: white;
+                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                       cursor: pointer;">
+                                                <i class="far fa-heart" style="color: #666;"></i>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -437,13 +517,12 @@
                             <!-- User Information Section on the Right -->
                             <div class="col-md-4 rental-info">
                                 <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motelUser.fileUrl || defaultImage" @error="e => e.target.src = defaultImage"
-                                    alt="Renter Avatar" class="renter-avatar" />
+                                <img :src="motelUser.fileUrl || defaultImage" alt="Renter Avatar"
+                                    class="renter-avatar" />
                                 <p><strong>Tên:</strong> {{ motelUser.fullName }}</p>
                                 <p><strong>Số điện thoại:</strong> {{ motelUser.phoneNumber }}</p>
-                                <div class="button-container">
-                                    <button class="contact-button">Chat</button>
-                                </div>
+                                <button class="contact-button" v-if='!isSelf'
+                                    @click="toggleChatBox(motelUser.id)">Chat</button>
                             </div>
                         </div>
                     </div>
@@ -466,9 +545,28 @@
             <!-- End of Page Wrapper -->
 
             <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+            <div v-if="isChatBoxVisible" class="chat-box">
+                <div class="chat-header">
+                    <h3>Chat với {{ motelUser.fullName }}</h3>
+                    <button class="close-button" @click="closeToggleChatBox">×</button>
+                </div>
+
+                <div class="chat-messages" ref="chatMessagesContainer">
+                    <div v-for="(message, index) in messages" :key="index" :class="{
+                        'message-sender': message.senderId === this.userInfo.id,
+                        'message-receiver': message.senderId !== this.userInfo.id
+                    }">
+                        <p>{{ message.content }}</p>
+                        <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" v-model="messageContent" @keyup.enter="sendMessage"
+                        placeholder="Nhập tin nhắn..." />
+                    <button @click="sendMessage">Gửi</button>
+                </div>
+            </div>
 
             <!-- Logout Modal-->
             <div class="modal" tabindex="-1" v-if="showModal">
@@ -491,25 +589,24 @@
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" v-if="showModalClick">
+            <div v-if="showSuccessModal" class="modal success-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Xác Nhận</h5>
+                            <h5 class="modal-title">Thành Công</h5>
                         </div>
                         <div class="modal-body">
-                            <p>Bạn Có Muốn Duyệt Các Nhà Trọ Đã Chọn ?</p>
+                            <p>Xử lý bài đăng thành công</p>
                         </div>
                         <div class="modal-footer">
-
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                @click=closeModalClick>Hủy</button>
-                            <button type="button" class="btn btn-success " data-bs-dismiss="modal"
-                                @click="markMotel">OK</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                @click=closeModalSuccess>Ok</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
 
         </div>
     </body>
@@ -517,14 +614,9 @@
 
 <script>
 import axios from 'axios';
-const handleMouseDown = (event) => {
-    // Check if the mousedown occurred on the checkbox
-    const checkbox = event.currentTarget.querySelector('input[type="checkbox"]')
-    if (checkbox && event.target === checkbox) {
-        event.preventDefault()
-        event.stopPropagation()
-    }
-}
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+
 export default {
     name: 'Admin',
     data() {
@@ -533,7 +625,7 @@ export default {
             showModal: false,
             userInfo: {},
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             description: null,
             houseNumber: null,
             ward: null,
@@ -545,7 +637,7 @@ export default {
             priceTo: null,
             interior: null,
             type: null,
-            detailDescription: null,
+            detail: null,
             managerName: null,
             phoneNumber: null,
             page: null,
@@ -557,6 +649,14 @@ export default {
             openListUser: false,
             listUser: {},
             motelUser: {},
+            motel: {},
+            isChatBoxVisible: false,
+            messages: [],
+            messageContent: "",
+            stompClient: null,
+            senderId: null,
+            recipientId: null,
+            showSuccessModal: false,
         };
     },
     mounted() {
@@ -572,6 +672,9 @@ export default {
             this.$router.push("/");
         }
         this.getMotelByNonStatus();
+        if (this.isChatBoxVisible) {
+            this.scrollToBottom();
+        }
     },
     methods: {
         toMotelDetailPage(id) {
@@ -658,14 +761,15 @@ export default {
             console.log(response.data);
             this.listMotel = response.data;
         },
-        async markMotel() {
+        async markMotel(value) {
             this.showModalClick = false;
             console.log(this.selectedMotels)
             const token = localStorage.getItem('token');
 
-            const response = await axios.post(`http://localhost:8081/admin/markMotel`, null, {
+            const response = await axios.post(`http://localhost:8081/admin/markMotel`, value, {
                 params: {
-                    selectedMotels: this.selectedMotels.join(',')
+                    selectedMotels: this.selectedMotels.join(','),
+                    status: value
                 },
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -673,17 +777,13 @@ export default {
             });
 
             if (response.status === 201) {
-                window.location.reload();
+                this.showSuccessModal = true
             }
 
         },
         async getMotelsByUser(user) {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:8081/admin/get-motels-by-user/${user.id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            })
+            const response = await axios.get(`http://localhost:8081/get-motels-by-user/${user.id}`)
             this.listMotel = response.data
             this.motelUser = user
             console.log(this.listMotel)
@@ -740,7 +840,8 @@ export default {
         toAdvancedSearchPage() {
             this.$router.push('/advanced-search')
         },
-        openModalClick() {
+        openModalClick(string) {
+            this.notice = string
             this.showModalClick = true;
         },
         resetData() {
@@ -776,6 +877,93 @@ export default {
         formatDate(date) {
             return new Date(date).toLocaleDateString('vi-VN');
         },
+        handleImageError(e) {
+            e.target.src = this.defaultImage; // Load ảnh mặc định khi lỗi
+        },
+        toggleChatBox(id) {
+            this.isChatBoxVisible = !this.isChatBoxVisible;
+            this.connect();
+            this.fetchMessages(id)
+        },
+        connect() {
+            if (this.stompClient && this.stompClient.connected) {
+                console.log("Already connected");
+                return;
+            }
+            const socket = new SockJS("http://localhost:8081/chat");
+            this.stompClient = Stomp.over(socket);
+            this.stompClient.connect({}, () => {
+                console.log("Connected");
+                this.stompClient.subscribe(
+                    `/user/${this.userInfo.id}/queue/messages`,
+                    this.onMessageReceived
+                );
+            });
+        },
+        closeToggleChatBox() {
+            this.isChatBoxVisible = false;
+            this.disconnect;
+        },
+        disconnect() {
+            if (this.stompClient) {
+                this.stompClient.disconnect();
+                console.log("Disconnected");
+            }
+        },
+        sendMessage() {
+            if (this.messageContent.trim() && this.stompClient) {
+                const chatMessage = {
+                    senderId: this.userInfo.id,
+                    recipientId: this.motelUser.id,
+                    content: this.messageContent.trim(),
+                    timestamp: new Date(),
+                };
+                this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+                this.messages.push({ ...chatMessage });
+                this.messageContent = "";
+                this.scrollToBottom();
+
+            }
+        },
+        fetchMessages(id) {
+            axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${id}`)
+                .then(response => {
+                    this.messages = response.data;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+        },
+        onMessageReceived(payload) {
+            const message = JSON.parse(payload.body);
+            this.messages.push(message);
+            this.scrollToBottom();
+        },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                if (this.$refs.chatMessagesContainer) {
+                    this.$refs.chatMessagesContainer.scrollTop = this.$refs.chatMessagesContainer.scrollHeight;
+                }
+            });
+        },
+        formatTime(timestamp) {
+            const date = new Date(timestamp);
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return `${hours}:${minutes} ${ampm}`;
+        },
+        closeModalSuccess() {
+            this.showSuccessModal = false
+            window.location.reload();
+        }
     },
     computed: {
         isAdmin() {
@@ -783,10 +971,28 @@ export default {
         },
         hasToken() {
             return !!localStorage.getItem('token');
+        },
+        isSelf() {
+            return this.userInfo.id === this.motelUser.id;
         }
-    }
+    },
+    watch: {
+        isChatBoxVisible(newVal) {
+            if (newVal) {
+                this.scrollToBottom();
+            }
+        },
+        messages: {
+            handler() {
+                this.scrollToBottom();
+            },
+
+        }
+    },
 };
 </script>
 <style scoped>
-
+.custom-spacing {
+    margin-right: 15px;
+}
 </style>

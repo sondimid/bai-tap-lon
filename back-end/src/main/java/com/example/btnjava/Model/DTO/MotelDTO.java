@@ -29,5 +29,7 @@ public class MotelDTO {
 
     private String detail;
 
+    private String type;
+
     private List<MultipartFile> files;
 }

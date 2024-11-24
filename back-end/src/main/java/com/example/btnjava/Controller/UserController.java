@@ -7,6 +7,7 @@ import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.DTO.UserLoginDTO;
 import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
+import com.example.btnjava.Service.ChatRoomService;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
@@ -31,10 +32,12 @@ public class UserController {
     private final MotelService motelService;
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
+    private final ChatRoomService chatRoomService;
 
     @GetMapping("/search")
-    public ResponseEntity<?>searchByMotelSearchBuilder( MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
+    public ResponseEntity<?>searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
+
     }
     @GetMapping("/get-all-motels")
     public ResponseEntity<?> getAll() throws MalformedURLException {
@@ -116,9 +119,20 @@ public class UserController {
     }
 
     @GetMapping("/get-motels-by-user/{id}")
-    public ResponseEntity<?> getMotelsByUser(@RequestHeader("Authorization") String authorization,
-                                             @PathVariable(name = "id") Integer id) throws MalformedURLException {
+    public ResponseEntity<?> getMotelsByUser(@PathVariable(name = "id") Integer id) throws MalformedURLException {
         return ResponseEntity.ok().body(motelService.adminFindByUserId(id));
+    }
+
+    @GetMapping("/user/list-user")
+    public ResponseEntity<Object> findAllUsers(@RequestHeader("Authorization") String authorization, List<Integer> recipientIds) throws Exception {
+        return ResponseEntity.ok().body(userService.getAllUsers());
+    }
+
+    @GetMapping("/get-all-ids")
+    public ResponseEntity<?> findAllChatMessages(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        String token = authorization.substring(7);
+        Integer id = jwtTokenUtils.extractUserId(token);
+        return ResponseEntity.ok().body(userService.getByIds(chatRoomService.getRecipientIdsBySenderId(id), id));
     }
 
 }

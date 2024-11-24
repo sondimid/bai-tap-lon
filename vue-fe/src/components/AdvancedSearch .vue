@@ -230,10 +230,10 @@
 
                                     <!-- Tên toà nhà -->
                                     <div class="mb-3 row">
-                                        <label for="buildingName" class="col-3 col-form-label">Tên Toà Nhà</label>
+                                        <label for="buildingName" class="col-3 col-form-label">Tên Nhà Trọ</label>
                                         <div class="col-7">
                                             <input type="text" class="form-control" id="buildingName"
-                                                v-model="description" placeholder="Nhập Tên Toà Nhà" />
+                                                v-model="title" placeholder="Nhập Tên Nhà Trọ" />
                                         </div>
                                     </div>
 
@@ -298,21 +298,15 @@
                                     </div>
 
                                     <!-- Nội thất -->
-                                    <div class="mb-3 row">
-                                        <label for="interior" class="col-3 col-form-label">Nội thất</label>
-                                        <div class="col-7">
-                                            <input type="text" class="form-control" id="interior" v-model="interior"
-                                                placeholder="Nội thất" />
-                                        </div>
-                                    </div>
+
 
                                     <!-- Mô tả chi tiết -->
                                     <div class="mb-3 row">
                                         <label for="detailDescription" class="col-3 col-form-label">Mô tả chi
                                             tiết</label>
                                         <div class="col-7">
-                                            <textarea class="form-control" id="detailDescription"
-                                                v-model="detailDescription" placeholder="Mô tả chi tiết"></textarea>
+                                            <textarea class="form-control" id="detailDescription" v-model="detail"
+                                                placeholder="Mô tả chi tiết"></textarea>
                                         </div>
                                     </div>
 
@@ -346,6 +340,133 @@
 
                                 </fieldset>
                             </form>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-8" v-for="motel in listMotel" :key="motel.id">
+                            <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+                   transition: all 0.3s ease;
+                   cursor: pointer;
+                   display: flex;
+                   flex-direction: row;
+                   border-radius: 12px;
+                   overflow: hidden;
+                   background: white;
+                   height: 220px;">
+
+                                <!-- Phần hình ảnh bên trái -->
+                                <div style="position: relative; 
+            width: 300px; 
+            min-width: 300px; 
+            height: 220px;"> <!-- Đặt chiều cao cố định -->
+                                    <!-- Ảnh chính -->
+                                    <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                        style="width: 100%; 
+                height: 100%; 
+                object-fit: contain;" alt="Motel Image">
+
+                                    <!-- Badge VIP -->
+
+
+                                    <!-- Số lượng ảnh -->
+                                    <div style="position: absolute;
+                           bottom: 10px;
+                           right: 10px;
+                           background: rgba(0, 0, 0, 0.6);
+                           color: white;
+                           padding: 4px 8px;
+                           border-radius: 4px;
+                           font-size: 12px;">
+                                        <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                        }}
+                                    </div>
+                                </div>
+
+                                <!-- Phần nội dung bên phải -->
+                                <div style="flex: 1;
+                        padding: 16px;
+                        display: flex;
+                        flex-direction: column;">
+
+                                    <!-- Tiêu đề -->
+                                    <h5 style="font-size: 18px;
+                          font-weight: 500;
+                          margin-bottom: 12px;
+                          line-height: 1.4;
+                          color: #333;">
+                                        {{ motel.title }}
+                                    </h5>
+
+                                    <!-- Giá và diện tích -->
+                                    <div style="display: flex;
+                           gap: 16px;
+                           margin-bottom: 12px;">
+                                        <div style="color: #f43f5e;
+                               font-weight: 600;
+                               font-size: 18px;">
+                                            {{ formatPrice(motel.price) }} triệu/tháng
+                                        </div>
+                                        <div style="color: #666;
+                               font-size: 16px;">
+                                            {{ motel.area }}m²
+                                        </div>
+                                    </div>
+
+                                    <!-- Địa chỉ -->
+                                    <div style="display: flex;
+                           align-items: center;
+                           gap: 8px;
+                           margin-bottom: 12px;">
+                                        <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                        <span style="color: #666;">{{motel.ward}}, {{ motel.district }}</span>
+                                    </div>
+
+                                    <!-- Mô tả -->
+                                    <p style="color: #666;
+                         font-size: 14px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                        {{ motel.detail }}
+                                    </p>
+
+                                    <!-- Thời gian đăng -->
+                                    <div
+                                        style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                        <!-- Ngày đăng -->
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                            Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                        </div>
+                                        <!-- Ngày chỉnh sửa -->
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                            Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Nút yêu thích -->
+                                <div style="position: absolute;
+                       top: 10px;
+                       right: 10px;
+                       width: 32px;
+                       height: 32px;
+                       display: flex;
+                       align-items: center;
+                       justify-content: center;
+                       border-radius: 50%;
+                       background: white;
+                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                       cursor: pointer;">
+                                    <i class="far fa-heart" style="color: #666;"></i>
+                                </div>
+                            </div>
+                            <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                         </div>
                     </div>
 
@@ -406,7 +527,7 @@ export default {
             showModal: false,
             userInfo: {},
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             description: null,
             houseNumber: null,
             ward: null,
@@ -416,9 +537,9 @@ export default {
             areaTo: null,
             priceFrom: null,
             priceTo: null,
-            interior: null,
+            title: null,
             type: null,
-            detailDescription: null,
+            detail: null,
             managerName: null,
             phoneNumber: null,
             page: null,
@@ -557,15 +678,14 @@ export default {
                 description: this.description,
                 houseNumber: this.houseNumber,
                 ward: this.ward,
-                district: districts.find(district => district.id === this.district).name,
-                province: this.province,
+                district: districts.find(district => district.id === this.district)?.name || null,
                 areaFrom: this.areaFrom,
                 areaTo: this.areaTo,
                 priceFrom: this.priceFrom,
                 priceTo: this.priceTo,
-                interior: this.interior,
+                title: this.title,
                 type: this.type,
-                detailDescription: this.detailDescription,
+                detail: this.detail,
                 managerName: this.managerName,
                 phoneNumber: this.phoneNumber,
                 maxPeople: this.maxPeople,
@@ -599,9 +719,8 @@ export default {
             this.areaTo = null;
             this.priceFrom = null;
             this.priceTo = null;
-            this.interior = null;
+            this.title = null;
             this.type = null;
-            this.detailDescription = null;
             this.managerName = null;
             this.phoneNumber = null;
             this.page = null;
@@ -855,7 +974,27 @@ export default {
         },
         hasToken() {
             return !!localStorage.getItem('token')
-        }
+        },
+        formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price);
+        },
+
+        formatDate(date) {
+            return new Date(date).toLocaleDateString('vi-VN');
+        },
+
+        getStatusBadgeClass(status) {
+            switch (status) {
+                case 'Đã Được Duyệt':
+                case 'Đã Được Duyệt':
+                    return 'bg-success';
+                case 'Chưa Được Duyệt':
+                case 'Chưa Được Duyệt':
+                    return 'bg-danger';
+                default:
+                    return 'bg-secondary';
+            }
+        },
     },
     computed: {
         hasToken() {

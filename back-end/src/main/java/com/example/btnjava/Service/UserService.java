@@ -21,4 +21,5 @@ public interface UserService {
     UserResponse getUserDetail(String token) throws MalformedURLException;
     String uploadAvatar(Integer id, MultipartFile file) throws Exception;
     void changePassword(ChangePasswordDTO changePasswordDTO, String token);
+    List<UserResponse> getByIds(List<Integer> ids, Integer senderId) throws MalformedURLException;
 }

@@ -25,7 +25,10 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
                 field.setAccessible(true);
                 String fieldName = field.getName();
                 Object value = field.get(motelSearchBuilder);
-                if(!fieldName.startsWith("area") && !fieldName.startsWith("price") && !fieldName.equals("page") && !fieldName.equals("maxPageItems")){
+                if(!fieldName.startsWith("area") && !fieldName.startsWith("price")
+                        && !fieldName.equals("page") && !fieldName.equals("maxPageItems")
+                && !fieldName.equals("managerName") && !fieldName.equals("phoneNumber")
+                && !fieldName.equals("maxPeople")){
                     if(NumberUtils.isNumber(value)) {
                         sql.append(" and m." + fieldName + " = " + value + " ");
                     }
@@ -41,10 +44,13 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
     }
 
     public void querySpecial(StringBuilder sql, MotelSearchBuilder motelSearchBuilder){
+        Integer maxPeople = motelSearchBuilder.getMaxPeople();
         Integer priceFrom = motelSearchBuilder.getPriceFrom();
         Integer priceTo = motelSearchBuilder.getPriceTo();
         Integer areaFrom = motelSearchBuilder.getAreaFrom();
         Integer areaTo = motelSearchBuilder.getAreaTo();
+        String managerName = motelSearchBuilder.getManagerName();
+        String phoneNumber = motelSearchBuilder.getPhoneNumber();
 
         if(priceFrom != null){
             sql.append(" and m.price >= " + motelSearchBuilder.getPriceFrom() + " ");
@@ -61,6 +67,15 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
         if(areaTo != null){
             sql.append(" and m.area <= " + motelSearchBuilder.getAreaTo() + " ");
         }
+        if(managerName != null){
+            sql.append(" and user.fullName like '%" + managerName + "%' ");
+        }
+        if(phoneNumber != null){
+            sql.append(" and user.phoneNumber like '%" + phoneNumber + "%' ");
+        }
+        if(maxPeople != null){
+            sql.append(" and m.maxPeople <= " + maxPeople + " ");
+        }
     }
 
     public void pagination(StringBuilder sql, Pageable pageable){
@@ -71,12 +86,19 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
         sql.append(" and m.status = 1 ");
     }
 
+    public void joinTable(StringBuilder sql, MotelSearchBuilder motelSearchBuilder){
+        if(motelSearchBuilder.getManagerName() != null || motelSearchBuilder.getPhoneNumber() != null){
+            sql.append(" join user on m.userid = user.id ");
+        }
+    }
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable) {
         StringBuilder sql = new StringBuilder(" select m.* from motel m ");
+        joinTable(sql, motelSearchBuilder);
         queryNormal(sql, motelSearchBuilder);
         querySpecial(sql, motelSearchBuilder);
         considerStatus(sql);

@@ -38,8 +38,8 @@ public class MotelEntity extends AbstractEntity{
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "interior")
-    private String interior;
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "detail")
     private String detail;

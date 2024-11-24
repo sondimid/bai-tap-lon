@@ -38,7 +38,7 @@ public class WebSecurityConfig{
                     request
                             .requestMatchers("/static/**","/messages/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
-                                    "/search","/motel/**","/get-motels-by-user/**","/chat/**").permitAll()
+                                    "/search/**","/motel/**","/get-motels-by-user/**","/chat/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(POST,
@@ -53,6 +53,12 @@ public class WebSecurityConfig{
                                     "/admin/markMotel").hasRole("ADMIN")
                             .requestMatchers(GET,
                                     "/admin/list-user").hasRole("ADMIN")
+                            .requestMatchers(GET,
+                                    "/user/list-user").hasRole("USER")
+                            .requestMatchers(GET,
+                                    "/get-all-messages").hasRole("USER")
+                            .requestMatchers(GET,
+                                    "/get-all-ids").hasAnyRole("USER","ADMIN")
                             .anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider);

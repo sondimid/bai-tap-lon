@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 public class MotelSearchBuilder {
 
-    private String description;
+    private String title;
 
     private Integer houseNumber;
 
@@ -26,11 +26,9 @@ public class MotelSearchBuilder {
 
     private Integer maxPeople;
 
-    private String interior;
+    private String detail;
 
     private String type;
-
-    private String detailDescription;
 
     private String managerName;
 

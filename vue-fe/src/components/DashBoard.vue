@@ -33,14 +33,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
-                                triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7 triệu</a>
                             <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
@@ -100,19 +96,16 @@
                             <a class="collapse-item" href="#" @click="searchByDistrict('Ba Vì')">Ba Vì</a>
                         </div>
                     </div>
-
                 </li>
+
                 <hr class="sidebar-divider">
 
-                <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" @click="toAdvancedSearchPage">
                         <i class="fas fa-search-plus"></i>
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
                 </li>
-
-
             </ul>
             <!-- End of Sidebar -->
 
@@ -131,45 +124,51 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
+                                    <i class="fas fa-envelope fa-fw"></i>
+                                    <!-- Counter - Messages -->
+                                    <span class="badge badge-danger badge-counter"></span>
+                                    <!-- Biểu tượng tin nhắn mới -->
+                                    <span v-if="hasNewMessages" class="badge badge-success badge-new">Mới</span>
                                 </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
-                                                placeholder="Search for..." aria-label="Search"
-                                                aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="messagesDropdown">
+                                    <h6 class="dropdown-header">
+                                        Tin Nhắn Mới
+                                    </h6>
+                                    <a v-for="user in listUser" :key="user.id"
+                                        class="dropdown-item d-flex align-items-center" href="#"
+                                        @click="toggleChatBox(user)">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle"
+                                                :src="user.fileUrl || '../../assets/img/undraw_profile.svg'"
+                                                alt="Avatar">
+                                        </div>
+                                        <div class="font-weight-bold w-100">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-truncate">{{ user.fullName }}</div>
+                                                <div class="small text-gray-500">{{ formatTime(user.timestamp) }}
+                                                </div>
+                                            </div>
+                                            <div class="text-truncate small text-gray-700">{{ user.content }}
                                             </div>
                                         </div>
-                                    </form>
+                                    </a>
                                 </div>
                             </li>
+
+
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
 
                             <li class="nav-item mx-1 d-flex align-items-center" v-if="isAdmin">
                                 <button type="button" class="btn btn-primary" @click="toAdminPage">
@@ -312,8 +311,8 @@
                            align-items: center;
                            gap: 8px;
                            margin-bottom: 12px;">
-                                            <i class="fas fa-map-marker-alt" style="color: #666;"></i>
-                                            <span style="color: #666;">{{ motel.district }}</span>
+                                            <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
                                         </div>
 
                                         <!-- Mô tả -->
@@ -382,9 +381,27 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+        <div v-if="isChatBoxVisible" class="chat-box">
+            <div class="chat-header">
+                <h3>Chat với {{ nameChat }}</h3>
+                <button class="close-button" @click="closeToggleChatBox">×</button>
+            </div>
+
+            <div class="chat-messages" ref="chatMessagesContainer">
+                <div v-for="(message, index) in messages" :key="index" :class="{
+                    'message-sender': message.senderId === this.userInfo.id,
+                    'message-receiver': message.senderId !== this.userInfo.id
+                }">
+                    <p>{{ message.content }}</p>
+                    <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" v-model="messageContent" @keyup.enter="sendMessage" placeholder="Nhập tin nhắn..." />
+                <button @click="sendMessage">Gửi</button>
+            </div>
+        </div>
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -412,7 +429,8 @@
 
 <script>
 import axios from 'axios';
-
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 export default {
     name: 'DashBoard',
     data() {
@@ -420,7 +438,7 @@ export default {
             showModal: false,
             userInfo: {},
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             description: null,
             houseNumber: null,
             ward: null,
@@ -437,7 +455,16 @@ export default {
             phoneNumber: null,
             page: null,
             maxPageItems: null,
-            avatar: localStorage.getItem('avatar') || ''
+            avatar: localStorage.getItem('avatar') || this.defaultImage,
+            listUser: {},
+            hasNewMessages: false,
+            isChatBoxVisible: false,
+            messages: [],
+            messageContent: "",
+            stompClient: null,
+            senderId: null,
+            recipientId: null,
+            nameChat: null,
         };
     },
     mounted() {
@@ -455,6 +482,12 @@ export default {
         } else {
             this.getAllMotels();
         }
+        this.fetchUers();
+        this.connect();
+        if (this.isChatBoxVisible) {
+            this.scrollToBottom();
+        }
+
     },
     methods: {
         toMotelDetailPage(id) {
@@ -589,6 +622,7 @@ export default {
             this.phoneNumber = null;
             this.page = null;
             this.maxPageItems = null;
+            this.listUser = {};
         },
         addNewMotel() {
             if (this.hasToken) {
@@ -603,19 +637,95 @@ export default {
         formatDate(date) {
             return new Date(date).toLocaleDateString('vi-VN');
         },
-
-        getStatusBadgeClass(status) {
-            switch (status) {
-                case 'Đã Được Duyệt':
-                case 'Đã Được Duyệt':
-                    return 'bg-success';
-                case 'Chưa Được Duyệt':
-                case 'Chưa Được Duyệt':
-                    return 'bg-danger';
-                default:
-                    return 'bg-secondary';
+        async fetchUers() {
+            const response = await axios.get('http://localhost:8081/get-all-ids', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            this.listUser = response.data
+            console.log(this.listUser)
+        },
+        toggleChatBox(user) {
+            this.recipientId = user.id
+            this.connect();
+            this.nameChat = user.fullName
+            this.fetchMessages(user.id)
+            this.isChatBoxVisible = !this.isChatBoxVisible;
+            
+        },
+        connect() {
+            if (this.stompClient && this.stompClient.connected) {
+                console.log("Already connected");
+                return;
             }
-        }
+            const socket = new SockJS("http://localhost:8081/chat");
+            this.stompClient = Stomp.over(socket);
+            this.stompClient.connect({}, () => {
+                console.log("Connected");
+                this.stompClient.subscribe(`/user/${this.userInfo.id}/queue/messages`, (message) => {
+                    const receivedMessage = JSON.parse(message.body);
+                    this.messages.push(receivedMessage);
+                });
+            });
+        },
+        closeToggleChatBox() {
+            this.isChatBoxVisible = false;
+            this.disconnect();
+        },
+        disconnect() {
+            if (this.stompClient) {
+                this.stompClient.disconnect();
+                console.log("Disconnected");
+            }
+        },
+        sendMessage() {
+            if (this.messageContent.trim() && this.stompClient) {
+                const chatMessage = {
+                    senderId: this.userInfo.id,
+                    recipientId: this.recipientId,
+                    content: this.messageContent.trim(),
+                    timestamp: new Date(),
+                };
+                this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+                this.messages.push({ ...chatMessage });
+                this.messageContent = "";
+                this.scrollToBottom();
+
+            }
+        },
+        async fetchMessages(id) {
+            await axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${id}`)
+                .then(response => {
+                    this.messages = response.data;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+        },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                if (this.$refs.chatMessagesContainer) {
+                    this.$refs.chatMessagesContainer.scrollTop = this.$refs.chatMessagesContainer.scrollHeight;
+                }
+            });
+        },
+        formatTime(timestamp) {
+            const date = new Date(timestamp);
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Chuyển đổi sang định dạng 12 giờ
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Nếu hours = 0 thì đổi thành 12
+
+            // Thêm số 0 phía trước nếu cần
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return `${hours}:${minutes} ${ampm}`;
+        },
     },
     computed: {
         isAdmin() {
@@ -623,8 +733,44 @@ export default {
         },
         hasToken() {
             return !!localStorage.getItem('token');
+        },
+    },
+    watch: {
+        isChatBoxVisible(newVal) {
+            if (newVal) {
+                this.scrollToBottom();
+            }
+        },
+        messages: {
+            handler() {
+                this.scrollToBottom();
+            },
+
         }
-    }
+    },
 };
 </script>
-<style scoped></style>
+<style scoped>
+  .collapse-inner {
+      max-height: 300px;
+      overflow-y: auto;
+  }
+
+  .collapse-inner::-webkit-scrollbar {
+      width: 6px;
+  }
+
+  .collapse-inner::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+  }
+
+  .collapse-inner::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 3px;
+  }
+
+  .collapse-inner::-webkit-scrollbar-thumb:hover {
+      background: #555;
+  }
+</style>

@@ -104,11 +104,16 @@ public class MotelServiceImpl implements MotelService {
     }
 
     @Override
-    public void markById(List<Integer> ids) {
+    public void markById(List<Integer> ids, Integer status) {
         for(Integer id: ids){
-            MotelEntity motelEntity = motelRepository.findById(id).get();
-            motelEntity.setStatus(1-motelEntity.getStatus());
-            motelRepository.save(motelEntity);
+            if(status == 1){
+                MotelEntity motelEntity = motelRepository.findById(id).get();
+                motelEntity.setStatus(status);
+                motelRepository.save(motelEntity);
+            }
+            else{
+                motelRepository.deleteById(id);
+            }
         }
     }
 

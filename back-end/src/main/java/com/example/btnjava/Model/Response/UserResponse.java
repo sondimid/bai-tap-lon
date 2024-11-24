@@ -6,11 +6,12 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
-public class UserResponse {
+public class UserResponse implements Comparable<UserResponse> {
     private Integer id;
 
     private String fullName;
@@ -24,4 +25,13 @@ public class UserResponse {
     private String fileUrl;
 
     private String role;
+
+    private LocalDateTime timestamp;
+
+    private String content;
+
+    @Override
+    public int compareTo(UserResponse o) {
+        return -timestamp.compareTo(o.getTimestamp());
+    }
 }

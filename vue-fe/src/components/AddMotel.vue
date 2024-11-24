@@ -106,7 +106,7 @@
 
                 <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
+                    <a class="nav-link" href="#" @click="toAdvancedSearchPage">
                         <i class="fas fa-search-plus"></i>
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
@@ -273,7 +273,7 @@
 
                             <!-- Giá thuê từ - đến -->
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label">Giá thuê (Triệu VND)</label>
+                                <label class="col-3 col-form-label">Giá thuê (Triệu VND /Tháng)</label>
                                 <div class="col-7">
                                     <input type="number" class="form-control" id="price" v-model="price"
                                         placeholder="Giá thuê" required />
@@ -312,7 +312,22 @@
                             <div class="mb-3 row">
                                 <label for="uploadFile" class="col-3 col-form-label">Hình ảnh</label>
                                 <div class="col-7">
-                                    <input class="form-control" type="file" id="formFileMultiple" multiple required />
+                                    <input class="form-control mb-3" type="file" id="formFileMultiple" multiple required
+                                        @change="handleFileSelect" ref="fileInput" />
+
+                                    <!-- Preview container -->
+                                    <div class="mt-3 d-flex flex-wrap gap-3">
+                                        <div v-for="(preview, index) in previews" :key="index"
+                                            class="position-relative preview-container" style="width: 150px;">
+                                            <img :src="preview.url" :alt="'Preview ' + (index + 1)"
+                                                class="img-fluid rounded"
+                                                style="height: 150px; object-fit: cover; width: 100%;" />
+                                            <button @click="handleDelete(index)"
+                                                class="btn btn-danger btn-sm delete-btn" type="button">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -346,10 +361,6 @@
         </div>
         <!-- End of Page Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -410,7 +421,7 @@ export default {
             showModal: false,
             userInfo: {},
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             title: null,
             houseNumber: null,
             ward: null,
@@ -432,8 +443,9 @@ export default {
             area: null,
             price: null,
             modalTitle: null,
-            modelMsg: null, 
+            modelMsg: null,
             isLoading: false,
+            previews: [],
         };
     },
     mounted() {
@@ -444,7 +456,7 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
-        
+
         this.getDistrict()
     },
     methods: {
@@ -579,7 +591,7 @@ export default {
         },
         closeModalSuccess() {
             this.showModalSuccess = false;
-            this.$router.push('/my-motel')
+            window.location.href = '/my-motel'; 
         },
         async addMotel() {
             this.isLoading = true;
@@ -618,7 +630,6 @@ export default {
 
             const formData = new FormData();
 
-            // Add form data fields
             formData.append('title', this.title);
             formData.append('houseNumber', this.houseNumber);
             formData.append('street', this.street);
@@ -626,22 +637,19 @@ export default {
             formData.append('ward', this.ward);
             formData.append('area', this.area);
             formData.append('price', this.price);
-            formData.append('interior', this.interior);
-            formData.append('maxPeople', this.type);
+            formData.append('type', this.type);
+            formData.append('maxPeople', this.maxPeople);
             formData.append('detail', this.detail);
 
-            // Add files to formData
             const fileImg = document.getElementById('formFileMultiple').files;
             for (let i = 0; i < fileImg.length; i++) {
                 formData.append('files', fileImg[i]);
             }
-
             console.log(formData);
-
             const response = await axios.post('http://localhost:8081/create', formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'form-data', 
+                    'Content-Type': 'form-data',
                 }
             });
             if (response.status === 201) {
@@ -874,9 +882,9 @@ export default {
             const districtSelect = document.getElementById('district');
             districts.forEach(district => {
                 const option = document.createElement('option');
-                option.value = district.id; 
+                option.value = district.id;
                 option.textContent = district.name;
-                option.setAttribute("data-name", district.name); 
+                option.setAttribute("data-name", district.name);
                 districtSelect.appendChild(option);
             });
 
@@ -896,7 +904,48 @@ export default {
 
             });
 
-        }
+        },
+        handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+
+            files.forEach(file => {
+                const url = URL.createObjectURL(file);
+                this.previews.push({
+                    file: file,
+                    url: url
+                });
+            });
+
+        },
+        handleDelete(index) {
+            // Revoke URL của preview
+            URL.revokeObjectURL(this.previews[index].url);
+
+            
+            this.previews.splice(index, 1);
+
+            
+            const dataTransfer = new DataTransfer();
+
+            
+            this.previews.forEach(preview => {
+                dataTransfer.items.add(preview.file);
+            });
+
+            
+            this.$refs.fileInput.files = dataTransfer.files;
+        },
+        getFiles() {
+            return this.previews.map(preview => preview.file);
+        },
+        toAdvancedSearchPage() {
+            this.$router.push('/advanced-search')
+        },
+    },
+    beforeDestroy() {
+        this.previews.forEach(preview => {
+            URL.revokeObjectURL(preview.url);
+        });
     },
     computed: {
         hasToken() {
@@ -957,7 +1006,6 @@ export default {
 
 .card-img-right {
     width: 30%;
-    /* Reduced to 30% for a larger card body */
     height: auto;
 }
 
@@ -980,6 +1028,7 @@ export default {
         margin-bottom: 1rem;
     }
 }
+
 .loading-overlay {
     position: fixed;
     top: 0;
@@ -996,5 +1045,21 @@ export default {
 .spinner-border {
     width: 3rem;
     height: 3rem;
+}
+.preview-container {
+    position: relative;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0.25rem 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.preview-container:hover .delete-btn {
+    opacity: 1;
 }
 </style>

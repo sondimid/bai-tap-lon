@@ -121,50 +121,17 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
-                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
-                                                placeholder="Search for..." aria-label="Search"
-                                                aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            <li class="nav-item mx-1 d-flex align-items-center">
+                                <button type="button" class="btn btn-primary" @click="addNewMotel">
+                                    <i class="fas fa-plus fa-fw"></i>
+                                    Thêm nhà trọ mới
+                                </button>
                             </li>
-
-                            <!-- Nav Item - Alerts -->
-
-
-                            <!-- Nav Item - Messages -->
 
 
                             <div class="topbar-divider d-none d-sm-block"></div>
@@ -182,17 +149,13 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
+                                        Thông Tin Cá Nhân
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Activity Log
+                                    <a class="dropdown-item" href="#" @click="toMyMotel">
+                                        <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Nhà Trọ Đã Đăng
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
@@ -202,7 +165,7 @@
 
                                 </div>
                             </li>
-                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="toLoginPage">
+                            <button type="button" class="btn btn-sm" v-if="!hasToken" @click="LogoutUser">
                                 <i class="bi bi-box-arrow-in-right"></i> Login
                             </button>
 
@@ -255,7 +218,7 @@
                            border-radius: 4px;
                            font-size: 12px;">
                                                     <i class="fas fa-image"></i> {{ motel.filesDTO ?
-                                                        motel.filesDTO.length : 0
+                                                    motel.filesDTO.length : 0
                                                     }}
                                                 </div>
                                             </div>
@@ -295,8 +258,8 @@
                            align-items: center;
                            gap: 8px;
                            margin-bottom: 12px;">
-                                                    <i class="fas fa-map-marker-alt" style="color: #666;"></i>
-                                                    <span style="color: #666;">{{ motel.district }}</span>
+                                                    <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                                    <span style="color: #666;">{{ motel.ward }} {{ motel.district }}</span>
                                                 </div>
 
                                                 <!-- Mô tả -->
@@ -309,6 +272,10 @@
                          -webkit-box-orient: vertical;
                          overflow: hidden;">
                                                     {{ motel.detail }}
+                                                </p>
+                                                <p
+                                                    :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
+                                                    <strong>Trạng Thái:</strong> {{ motel.status }}
                                                 </p>
 
                                                 <!-- Thời gian đăng -->
@@ -351,19 +318,17 @@
                             <!-- User Information Section on the Right -->
                             <div class="col-md-4 rental-info">
                                 <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motelUser.fileUrl || defaultImage" @error="e => e.target.src = defaultImage"
-                                    alt="Renter Avatar" class="renter-avatar" />
-                                <p><strong>Tên:</strong> {{ motelUser.fullName }}</p>
-                                <p><strong>Số điện thoại:</strong> {{ motelUser.phoneNumber }}</p>
-                                <div class="button-container">
-                                    <button class="contact-button" @click="toggleChatBox">Chat</button>
-                                </div>
+                                <img :src="motel.owner.fileUrl || defaultImage" alt="Renter Avatar"
+                                    class="renter-avatar" />
+                                <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
+                                <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
+                                <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid main-container" v-else style="overflow: auto;">
+                    <div class="container-fluid " v-else style="overflow: auto;">
                         <div class="row">
                             <div v-if="motel" class="col-md-8 motel-info">
                                 <div class="motel-image-container">
@@ -389,15 +354,17 @@
                            align-items: center;
                            gap: 8px;
                            margin-bottom: 12px;">
-                                        <i class="fas fa-map-marker-alt" style="color: #666;"></i>
-                                        <span style="color: #666;">{{ motel.address }}</span>
+                                        <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                        <span style="color: #666;">{{ motel.ward }} {{ motel.address }}</span>
                                     </div>
                                     <p style="color:green;"><strong>Giá:</strong> {{ motel.price }} triệu/tháng</p>
                                     <p style="color:black;"><strong>Diện tích:</strong> {{ motel.area }} m²</p>
-                                    <p><strong>Nội thất:</strong> {{ motel.interior }}</p>
-                                    <p><strong>Loại phòng:</strong> {{ motel.type }}</p>
+                                    <p><strong>Số Người Ở Tối Đa:</strong> {{ motel.maxPeople }}</p>
+                                    <p><strong>Loại hình:</strong> {{ motel.type }}</p>
                                     <p><strong>Chi tiết:</strong> {{ motel.detail }}</p>
-                                    <p style="color:red;"><strong>Trạng Thái:</strong> {{ motel.status }}</p>
+                                    <p :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
+                                        <strong>Trạng Thái:</strong> {{ motel.status }}
+                                    </p>
                                     <div
                                         style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
                                         <!-- Ngày đăng -->
@@ -415,8 +382,7 @@
                             </div>
                             <div class="col-md-4 rental-info">
                                 <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motel.owner.fileUrl || defaultImage"
-                                    @error="e => e.target.src = defaultImage" alt="Renter Avatar"
+                                <img :src="motel.owner.fileUrl || defaultImage" alt="Renter Avatar"
                                     class="renter-avatar" />
                                 <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
                                 <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
@@ -424,31 +390,8 @@
                                     <button class="contact-button" style="margin-right: 15px;"
                                         @click="getMotelsByUser(motel.owner)">Xem Thêm Nhà Trọ
                                     </button>
-                                    <button class="contact-button" @click="toggleChatBox">Chat</button>
+                                    <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
                                 </div>
-
-                                <div v-if="isChatBoxVisible" class="chat-box">
-                                    <div class="chat-header">
-                                        <h3>Chat với {{ motel.owner.fullName }}</h3>
-                                        <button class="close-button" @click="toggleChatBox">×</button>
-                                    </div>
-
-                                    <div class="chat-messages" ref="chatMessagesContainer">
-                                        <div v-for="(message, index) in messages" :key="index" :class="{
-                                            'message-sender': message.senderId === this.userInfo.id,
-                                            'message-receiver': message.senderId !== this.userInfo.id
-                                        }">
-                                            <p>{{ message.content }}</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="chat-input">
-                                        <input type="text" v-model="messageContent" @keyup.enter="sendMessage"
-                                            placeholder="Nhập tin nhắn..." />
-                                        <button @click="sendMessage">Gửi</button>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -470,9 +413,27 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+        <div v-if="isChatBoxVisible" class="chat-box">
+            <div class="chat-header">
+                <h3>Chat với {{ motel.owner.fullName }}</h3>
+                <button class="close-button" @click="closeToggleChatBox">×</button>
+            </div>
+
+            <div class="chat-messages" ref="chatMessagesContainer">
+                <div v-for="(message, index) in messages" :key="index" :class="{
+                    'message-sender': message.senderId === this.userInfo.id,
+                    'message-receiver': message.senderId !== this.userInfo.id
+                }">
+                    <p>{{ message.content }}</p>
+                    <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" v-model="messageContent" @keyup.enter="sendMessage" placeholder="Nhập tin nhắn..." />
+                <button @click="sendMessage">Gửi</button>
+            </div>
+        </div>
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -494,6 +455,13 @@
                 </div>
             </div>
         </div>
+        <div v-if="showSuccessModal" class="modal success-modal">
+            <div class="modal-content">
+                <h2>Thành công!</h2>
+                <p>Bài đăng đã được xử lý thành công.</p>
+                <button class="btn btn-primary" @click="closeModalSuccess">Đóng</button>
+            </div>
+        </div>
 
     </body>
 </template>
@@ -510,7 +478,7 @@ export default {
             userInfo: {},
             motel: null,
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             description: null,
             houseNumber: null,
             ward: null,
@@ -530,22 +498,17 @@ export default {
             currentImageIndex: 0,
             avatar: localStorage.getItem('avatar') || '',
             motelUser: {},
+            isLoading: false,
+            namePage: null,
             openMotelUser: false,
-            isChatBoxVisible: true,
+            isChatBoxVisible: false,
             messages: [],
             messageContent: "",
             stompClient: null,
             senderId: null,
             recipientId: null,
+            showSuccessModal: false,
         };
-    },
-    watch: {
-        messages: {
-            handler() {
-                this.scrollToBottom();
-            },
-            deep: true // Theo dõi các thay đổi sâu bên trong mảng
-        }
     },
     created() {
         const motelId = this.$route.params.id;
@@ -569,11 +532,26 @@ export default {
         } else {
             console.error('Motel ID is missing');
         }
-        this.connect();
         this.fetchMessages();
-        this.scrollToBottom();
-    },
+        this.connect();
+        if (this.isChatBoxVisible) {
+            this.scrollToBottom();
 
+        }
+    },
+    watch: {
+        isChatBoxVisible(newVal) {
+            if (newVal) {
+                this.scrollToBottom();
+            }
+        },
+        messages: {
+            handler() {
+                this.scrollToBottom();
+            },
+
+        }
+    },
     methods: {
         toDashBoardPage() {
             this.resetData();
@@ -659,7 +637,8 @@ export default {
             this.motelUser = user.data
             this.recipientId = user.id
             console.log(this.listMotel)
-            this.openMotelUser = true;
+            this.namePage = "Xem Thêm Nhà Trọ";
+            this.openMotelUser = true
         },
         createSearchData(overrides) {
             return {
@@ -728,22 +707,26 @@ export default {
         },
         toggleChatBox() {
             this.isChatBoxVisible = !this.isChatBoxVisible;
-            if (this.isChatBoxVisible) {
-                this.connect();
-            } else {
-                this.disconnect();
-            }
+            this.connect();
         },
         connect() {
+            if (this.stompClient && this.stompClient.connected) {
+                console.log("Already connected");
+                return;
+            }
             const socket = new SockJS("http://localhost:8081/chat");
             this.stompClient = Stomp.over(socket);
             this.stompClient.connect({}, () => {
                 console.log("Connected");
-                this.stompClient.subscribe(
-                    `/user/${this.userInfo.id}/queue/messages`,
-                    this.onMessageReceived
-                );
+                this.stompClient.subscribe(`/user/${this.userInfo.id}/queue/messages`, (message) => {
+                    const receivedMessage = JSON.parse(message.body);
+                    this.messages.push(receivedMessage);
+                });
             });
+        },
+        closeToggleChatBox() {
+            this.isChatBoxVisible = false;
+            this.disconnect();
         },
         disconnect() {
             if (this.stompClient) {
@@ -757,49 +740,90 @@ export default {
                     senderId: this.userInfo.id,
                     recipientId: this.motel.owner.id,
                     content: this.messageContent.trim(),
+                    timestamp: new Date(),
                 };
                 this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
                 this.messages.push({ ...chatMessage });
                 this.messageContent = "";
+                this.scrollToBottom();
 
-               
-                    this.scrollToBottom();
-            
             }
         },
-        fetchMessages() {
-            axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${this.motel.owner.id}`)
-                .then(response => {
-                    this.messages = response.data;
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error('Error fetching messages:', error);
-                });
-        },
-        onMessageReceived(payload) {
-            const message = JSON.parse(payload.body);
-            this.messages.push(message);
-            this.scrollToBottom();
+        async fetchMessages() {
+            if (this.userInfo.id != this.motel.owner.id) {
+                await axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${this.motel.owner.id}`)
+                    .then(response => {
+                        this.messages = response.data;
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching messages:', error);
+                    });
+            }
         },
         scrollToBottom() {
             this.$nextTick(() => {
-                setTimeout(() => {
-                    const chatMessagesContainer = this.$refs.chatMessagesContainer;
-                    if (chatMessagesContainer) {
-                        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
-                    }
-                }, 50); // Đặt độ trễ 50ms
+                if (this.$refs.chatMessagesContainer) {
+                    this.$refs.chatMessagesContainer.scrollTop = this.$refs.chatMessagesContainer.scrollHeight;
+                }
             });
         },
-        toggleChatBox() {
-            this.isChatBoxVisible = !this.isChatBoxVisible;
+        formatTime(timestamp) {
+            const date = new Date(timestamp);
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // Chuyển đổi sang định dạng 12 giờ
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Nếu hours = 0 thì đổi thành 12
+
+            // Thêm số 0 phía trước nếu cần
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return `${hours}:${minutes} ${ampm}`;
         },
+        toProfilePage() {
+            this.$router.push('/profile')
+        },
+        toMyMotel() {
+            this.$router.push('/my-motel')
+        },
+        addNewMotel() {
+            if (this.hasToken) {
+                this.$router.push('/add-motel')
+            }
+            else this.$router.push('/login')
+        },
+        async markMotel() {
+            const token = localStorage.getItem('token');
+            const response = await axios.post(`http://localhost:8081/admin/markMotel`, null, {
+                params: {
+                    selectedMotels: this.selectedMotels.join(',')
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+
+            this.showSuccessModal = true
+
+        },
+        closeModalSuccess() {
+            this.showSuccessModal = false
+            window.location.reload();
+        }
+
+
     },
 
     computed: {
         hasToken() {
             return !!localStorage.getItem('token')
+        },
+        isSelf() {
+            console.log(this.userInfo.id + this.motel.owner.id)
+            return this.userInfo.id === this.motel.owner.id;
         }
     },
 
@@ -1145,7 +1169,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     /* Smooth scrolling */
 }
 
@@ -1206,5 +1230,12 @@ export default {
 
 .chat-input button:hover {
     background-color: #1d4ed8;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #65676b;
+    display: block;
+    margin-top: 0.25rem;
 }
 </style>

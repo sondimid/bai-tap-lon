@@ -1,5 +1,6 @@
 package com.example.btnjava.Service.Implement;
 
+import com.example.btnjava.ChatRoom.ChatRoom;
 import com.example.btnjava.Converter.UserResponseConverter;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
@@ -8,9 +9,12 @@ import com.example.btnjava.Model.Entity.UserEntity;
 import com.example.btnjava.Model.Response.UserResponse;
 import com.example.btnjava.Repository.RoleRepository;
 import com.example.btnjava.Repository.UserRepository;
+import com.example.btnjava.Service.ChatMessageService;
+import com.example.btnjava.Service.ChatRoomService;
 import com.example.btnjava.Service.CloudinaryService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -28,9 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
     private final CloudinaryService cloudinaryService;
+    private final ChatMessageService chatMessageService;
 
     @Override
     public List<UserResponse> getAllUsers(Integer page) {
@@ -143,6 +146,20 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassWord(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
         userRepository.save(user);
+    }
+
+    @Override
+    public List<UserResponse> getByIds(List<Integer> ids, Integer senderId) throws MalformedURLException {
+        List<UserResponse> userResponses = new ArrayList<>();
+        for (Integer id : ids) {
+            UserEntity userEntity = userRepository.findById(id).get();
+            UserResponse user = userResponseConverter.toUserResponse(userEntity);
+            user.setTimestamp(chatMessageService.getLeastTime(senderId, id));
+            user.setContent(chatMessageService.getLeastMessage(senderId, id));
+            userResponses.add(user);
+        }
+        Collections.sort(userResponses);
+        return userResponses;
     }
 
 }

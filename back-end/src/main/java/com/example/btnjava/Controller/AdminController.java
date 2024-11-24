@@ -27,8 +27,9 @@ public class AdminController {
 
     @PostMapping("/admin/markMotel")
     public ResponseEntity<String> markMotel(@RequestHeader("Authorization") String authorization,
-                                            @RequestParam("selectedMotels") List<Integer> ids) {
-            motelService.markById(ids);
+                                            @RequestParam("selectedMotels") List<Integer> ids,
+                                            @RequestParam("status") Integer status) throws MalformedURLException {
+            motelService.markById(ids, status);
         return ResponseEntity.status(HttpStatus.CREATED).body("Đã xác nhận thành công!");
     }
 

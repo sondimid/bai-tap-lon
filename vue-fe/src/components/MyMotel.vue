@@ -218,20 +218,26 @@
 
                     </nav>
                     <!-- End of Topbar -->
+                    <div class="col-12 mb-3 d-flex justify-content-end" v-if="selectedMotels.length">
+                        <button class="btn btn-primary" @click="openModalClick">
+                            Duyệt Các Nhà Trọ Đã Chọn
+                        </button>
+                    </div>
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid py-4">
                         <!-- Page Heading với animation nhẹ -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800 border-bottom border-primary pb-2">
-                                Trang Chủ
+                                Nhà Trọ Của Bạn
                             </h1>
                         </div>
 
-                        <!-- Grid Layout cho danh sách phòng trọ -->
                         <div class="row g-4">
                             <div class="col-8" v-for="motel in listMotel" :key="motel.id">
-                                <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+                                <div class="card" @click="toMotelDetailPage(motel.id)" @mousedown.stop="handleMouseDown"
+                                    style="border: none; 
+                                    
                    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
                    transition: all 0.3s ease;
                    cursor: pointer;
@@ -241,6 +247,15 @@
                    overflow: hidden;
                    background: white;
                    height: 220px;">
+                                    <div style="position: absolute; 
+                top: 10px; 
+                left: 10px; 
+                z-index: 10;">
+                                        <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
+                                            style="width: 18px; 
+         height: 18px; 
+         cursor: pointer;">
+                                    </div>
 
                                     <!-- Phần hình ảnh bên trái -->
                                     <div style="position: relative; 
@@ -265,7 +280,9 @@
                            padding: 4px 8px;
                            border-radius: 4px;
                            font-size: 12px;">
-                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ?
+                                            motel.filesDTO.length :
+                                            0
                                             }}
                                         </div>
                                     </div>
@@ -305,8 +322,8 @@
                            align-items: center;
                            gap: 8px;
                            margin-bottom: 12px;">
-                                            <i class="fas fa-map-marker-alt" style="color: #666;"></i>
-                                            <span style="color: #666;">{{ motel.district }}</span>
+                                            <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
                                         </div>
 
                                         <!-- Mô tả -->
@@ -320,6 +337,10 @@
                          overflow: hidden;">
                                             {{ motel.detail }}
                                         </p>
+                                        <p :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
+                                            <strong>Trạng Thái:</strong> {{ motel.status }}
+                                        </p>
+
 
                                         <!-- Thời gian đăng -->
                                         <div
@@ -356,6 +377,10 @@
                                 <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
+
+
+
+
                     </div>
                     <!-- /.container-fluid -->
 
@@ -411,7 +436,7 @@ export default {
             showModal: false,
             userInfo: {},
             listMotel: {},
-            defaultImage: new URL('../../assets/img/unnamed.png', import.meta.url).href,
+            defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
             description: null,
             houseNumber: null,
             ward: null,
@@ -428,7 +453,8 @@ export default {
             phoneNumber: null,
             page: null,
             maxPageItems: null,
-            avatar: localStorage.getItem('avatar') || ''
+            avatar: localStorage.getItem('avatar') || '',
+            selectedMotels: [],
         };
     },
     mounted() {
