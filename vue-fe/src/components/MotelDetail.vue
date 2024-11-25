@@ -173,164 +173,22 @@
 
                     </nav>
                     <!-- End of Topbar -->
-                    <div class="container-fluid" v-if="openMotelUser">
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">{{ namePage }}</h1>
-                        </div>
-                        <!-- Main Row -->
-                        <div class="row">
-                            <!-- Motel Listing Section on the Left -->
-                            <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-md-12 mb-4" v-for="motel in listMotel" :key="motel.id">
-                                        <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
-                   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
-                   transition: all 0.3s ease;
-                   cursor: pointer;
-                   display: flex;
-                   flex-direction: row;
-                   border-radius: 12px;
-                   overflow: hidden;
-                   background: white;
-                   height: 220px;">
-
-                                            <!-- Phần hình ảnh bên trái -->
-                                            <div style="position: relative; 
-            width: 300px; 
-            min-width: 300px; 
-            height: 220px;"> <!-- Đặt chiều cao cố định -->
-                                                <!-- Ảnh chính -->
-                                                <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
-                                                    style="width: 100%; 
-                height: 100%; 
-                object-fit: contain;" alt="Motel Image">
-
-                                                <!-- Badge VIP -->
-
-
-                                                <!-- Số lượng ảnh -->
-                                                <div style="position: absolute;
-                           bottom: 10px;
-                           right: 10px;
-                           background: rgba(0, 0, 0, 0.6);
-                           color: white;
-                           padding: 4px 8px;
-                           border-radius: 4px;
-                           font-size: 12px;">
-                                                    <i class="fas fa-image"></i> {{ motel.filesDTO ?
-                                                    motel.filesDTO.length : 0
-                                                    }}
-                                                </div>
-                                            </div>
-
-                                            <!-- Phần nội dung bên phải -->
-                                            <div style="flex: 1;
-                        padding: 16px;
-                        display: flex;
-                        flex-direction: column;">
-
-                                                <!-- Tiêu đề -->
-                                                <h5 style="font-size: 18px;
-                          font-weight: 500;
-                          margin-bottom: 12px;
-                          line-height: 1.4;
-                          color: #333;">
-                                                    {{ motel.title }}
-                                                </h5>
-
-                                                <!-- Giá và diện tích -->
-                                                <div style="display: flex;
-                           gap: 16px;
-                           margin-bottom: 12px;">
-                                                    <div style="color: #f43f5e;
-                               font-weight: 600;
-                               font-size: 18px;">
-                                                        {{ formatPrice(motel.price) }} triệu/tháng
-                                                    </div>
-                                                    <div style="color: #666;
-                               font-size: 16px;">
-                                                        {{ motel.area }}m²
-                                                    </div>
-                                                </div>
-
-                                                <!-- Địa chỉ -->
-                                                <div style="display: flex;
-                           align-items: center;
-                           gap: 8px;
-                           margin-bottom: 12px;">
-                                                    <i class="fas fa-map-marker-alt" style="color: red;"></i>
-                                                    <span style="color: #666;">{{ motel.ward }} {{ motel.district }}</span>
-                                                </div>
-
-                                                <!-- Mô tả -->
-                                                <p style="color: #666;
-                         font-size: 14px;
-                         line-height: 1.5;
-                         margin-bottom: 12px;
-                         display: -webkit-box;
-                         -webkit-line-clamp: 2;
-                         -webkit-box-orient: vertical;
-                         overflow: hidden;">
-                                                    {{ motel.detail }}
-                                                </p>
-                                                <p
-                                                    :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
-                                                    <strong>Trạng Thái:</strong> {{ motel.status }}
-                                                </p>
-
-                                                <!-- Thời gian đăng -->
-                                                <div
-                                                    style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
-                                                    <!-- Ngày đăng -->
-                                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                                        <i class="fas fa-clock" style="color: #00b4d8;"></i>
-                                                        Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
-                                                    </div>
-                                                    <!-- Ngày chỉnh sửa -->
-                                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                                        <i class="fas fa-edit" style="color: #f43f5e;"></i>
-                                                        Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Nút yêu thích -->
-                                            <div style="position: absolute;
-                       top: 10px;
-                       right: 10px;
-                       width: 32px;
-                       height: 32px;
-                       display: flex;
-                       align-items: center;
-                       justify-content: center;
-                       border-radius: 50%;
-                       background: white;
-                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                       cursor: pointer;">
-                                                <i class="far fa-heart" style="color: #666;"></i>
-                                            </div>
-                                        </div>
-                                        <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- User Information Section on the Right -->
-                            <div class="col-md-4 rental-info">
-                                <div class="retal-info-header">Thông tin người cho thuê</div>
-                                <img :src="motel.owner.fileUrl || defaultImage" alt="Renter Avatar"
-                                    class="renter-avatar" />
-                                <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
-                                <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
-                                <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid " v-else style="overflow: auto;">
+
+
+                    <div class="container-fluid " style="overflow: auto;">
                         <div class="row">
                             <div v-if="motel" class="col-md-8 motel-info">
+                                <div v-if="isSelf" class="edit-container d-flex justify-content-end"
+                                    style="margin-left: 16px;">
+                                    <button class="btn btn-info d-flex align-items-center gap-2"
+                                        @click="toEditMotel(motel.id)">
+                                        <i class="fas fa-cog" style="margin-right: 10px;"></i>
+                                        <span> Sửa Thông Tin Nhà Trọ</span>
+                                    </button>
+                                </div>
+
                                 <div class="motel-image-container">
                                     <img :src="motel.filesDTO[currentImageIndex].fileUrl"
                                         @error="e => e.target.src = defaultImage" alt="Motel Image"
@@ -350,10 +208,7 @@
                                 </div>
                                 <div class="motel-details">
                                     <h2 class="motel-title">{{ motel.title }}</h2>
-                                    <div style="display: flex;
-                           align-items: center;
-                           gap: 8px;
-                           margin-bottom: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                                         <i class="fas fa-map-marker-alt" style="color: red;"></i>
                                         <span style="color: #666;">{{ motel.ward }} {{ motel.address }}</span>
                                     </div>
@@ -378,7 +233,11 @@
                                             Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
                                         </div>
                                     </div>
+
+                                    <!-- Nút chỉnh sửa nếu là chủ nhà -->
+
                                 </div>
+
                             </div>
                             <div class="col-md-4 rental-info">
                                 <div class="retal-info-header">Thông tin người cho thuê</div>
@@ -538,6 +397,7 @@ export default {
             this.scrollToBottom();
 
         }
+        
     },
     watch: {
         isChatBoxVisible(newVal) {
@@ -812,9 +672,10 @@ export default {
         closeModalSuccess() {
             this.showSuccessModal = false
             window.location.reload();
+        },
+        toEditMotel(id) {
+            this.$router.push({ name: 'EditMotel', params: { id } });
         }
-
-
     },
 
     computed: {

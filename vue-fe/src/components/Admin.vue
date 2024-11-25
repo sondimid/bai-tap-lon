@@ -7,8 +7,7 @@
 
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#"
-                    @click="toDashBoardPage">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#" @click="toAdminPage">
                     <div class="sidebar-brand-icon rotate-n-20">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -27,14 +26,14 @@
                 <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" @click="getMotelByNonStatus">
-                        <i class="fas fa-search"></i>
+                        <i class="fa-solid fa-lock"></i>
                         <span>Nhà Trọ Đang Chờ Duyệt</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#" @click="getAllUsers">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-user"></i>
                         <span>Danh Sách Người Dùng</span>
                     </a>
                 </li>
@@ -201,7 +200,7 @@
                            border-radius: 4px;
                            font-size: 12px;">
                                             <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length :
-                                                0
+                                            0
                                             }}
                                         </div>
                                     </div>
@@ -308,16 +307,17 @@
 
                             <div class="col-lg-4">
                                 <div class="card mb-4">
-                                    <div class="card-body text-center">
+                                    <div class="card-body text-center d-flex flex-column align-items-center">
                                         <img :src="user.fileUrl || '../../assets/img/undraw_profile.svg'" alt="avatar"
-                                            class="rounded-circle img-fluid" style="width: 89px;">
-
+                                            class="rounded-circle img-fluid" style="width: 89px; display: block;">
                                         <h5 class="my-3">{{ user.fullName }}</h5>
                                         <div class="d-flex justify-content-center mb-2">
-                                            <label class="btn btn-outline-primary" @click="getMotelsByUser(user)">Nhà
-                                                Trọ Đã Đăng</label>
+                                            <label class="btn btn-outline-primary" @click="getMotelsByUser(user)">
+                                                Nhà Trọ Đã Đăng
+                                            </label>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="col-lg-8">
@@ -384,7 +384,7 @@
                    border-radius: 12px;
                    overflow: hidden;
                    background: white;
-                   height: 220px;">
+                   height: 250px;">
 
                                             <div style="position: absolute; 
                 top: 10px; 
@@ -420,7 +420,7 @@
                            border-radius: 4px;
                            font-size: 12px;">
                                                     <i class="fas fa-image"></i> {{ motel.filesDTO ?
-                                                        motel.filesDTO.length : 0
+                                                    motel.filesDTO.length : 0
                                                     }}
                                                 </div>
                                             </div>
@@ -441,16 +441,19 @@
                                                 </h5>
 
                                                 <!-- Giá và diện tích -->
-                                                <div style="display: flex;
-                           gap: 16px;
-                           margin-bottom: 12px;">
-                                                    <div style="color: #f43f5e;
-                               font-weight: 600;
-                               font-size: 18px;">
+                                                <div style="display: flex; 
+            gap: 16px; 
+            margin-bottom: 12px; 
+            align-items: center;">
+                                                    <div style="color: #f43f5e; 
+                font-weight: 600; 
+                font-size: 18px; 
+                line-height: 1.2;">
                                                         {{ formatPrice(motel.price) }} triệu/tháng
                                                     </div>
-                                                    <div style="color: #666;
-                               font-size: 16px;">
+                                                    <div style="color: #666; 
+                font-size: 16px; 
+                line-height: 1.2;">
                                                         {{ motel.area }}m²
                                                     </div>
                                                 </div>
@@ -465,16 +468,12 @@
                                                         }}</span>
                                                 </div>
 
+                                                <p><strong>{{ motel.type }}</strong> </p>
+
                                                 <!-- Mô tả -->
-                                                <p style="color: #666;
-                         font-size: 14px;
-                         line-height: 1.5;
-                         margin-bottom: 12px;
-                         display: -webkit-box;
-                         -webkit-line-clamp: 2;
-                         -webkit-box-orient: vertical;
-                         overflow: hidden;">
-                                                    {{ motel.detail }}
+                                                <p
+                                                    :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
+                                                    <strong>Trạng Thái:</strong> {{ motel.status }}
                                                 </p>
 
                                                 <!-- Thời gian đăng -->
@@ -675,6 +674,9 @@ export default {
         if (this.isChatBoxVisible) {
             this.scrollToBottom();
         }
+        this.openListMotel = true
+        this.openListUser = false
+        this.openMotelUser = false
     },
     methods: {
         toMotelDetailPage(id) {
@@ -738,6 +740,7 @@ export default {
             this.namePage = 'Danh Sách Nhà Trọ Chờ Duyệt'
             this.openListMotel = true;
             this.openListUser = false;
+            this.openMotelUser = false;
         },
         async searchByArea(areaFrom, areaTo) {
             const data = this.buildSearchData();
@@ -833,6 +836,7 @@ export default {
             })
             this.listUser = response.data
             this.openListUser = true
+            this.openMotelUser = false
         },
         toMyMotel() {
             this.$router.push('/my-motel')
@@ -962,6 +966,9 @@ export default {
         },
         closeModalSuccess() {
             this.showSuccessModal = false
+            window.location.reload();
+        },
+        toAdminPage() {
             window.location.reload();
         }
     },

@@ -1,5 +1,6 @@
 package com.example.btnjava.Model.DTO;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,8 @@ public class MotelDTO {
     private String detail;
 
     private String type;
+
+    private List<Integer> listFileId;
 
     private List<MultipartFile> files;
 }

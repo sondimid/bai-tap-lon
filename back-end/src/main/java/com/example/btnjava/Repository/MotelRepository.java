@@ -14,4 +14,5 @@ import java.util.Optional;
 
 public interface MotelRepository extends JpaRepository<MotelEntity, Integer>, MotelRepositoryCustom, PagingAndSortingRepository<MotelEntity, Integer> {
     Optional<List<MotelEntity>> findByUserId(Integer id);
+    void deleteById(Integer id);
 }

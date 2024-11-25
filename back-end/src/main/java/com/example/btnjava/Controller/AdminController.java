@@ -3,6 +3,7 @@ package com.example.btnjava.Controller;
 import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
+import com.example.btnjava.Utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 public class AdminController {
     private final MotelService motelService;
     private final UserService userService;
+    private final JwtTokenUtils jwtTokenUtils;
 
     @GetMapping("/pagination/review")
     public ResponseEntity<Object> findAllReviews(@RequestParam(name = "page", defaultValue = "1") Integer page) throws MalformedURLException {
@@ -44,4 +46,11 @@ public class AdminController {
         return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
+    @DeleteMapping("/admin/delete-motels")
+    public ResponseEntity<?> deleteMotel(@RequestHeader("Authorization") String authorization,
+                                         @RequestParam("selectedMotels") List<Integer> ids,
+                                         @RequestParam("isDelete") Boolean isDelete) throws MalformedURLException {
+        Integer userId = jwtTokenUtils.extractUserId(authorization.substring(7));
+        return ResponseEntity.ok().body(motelService.deleteOrUnpublishMotel(ids, isDelete));
+    }
 }

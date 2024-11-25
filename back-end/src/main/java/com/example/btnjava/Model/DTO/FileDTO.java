@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class FileDTO {
+    private Integer id;
 
     private String name;
 

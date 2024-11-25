@@ -224,6 +224,15 @@
 
                     </nav>
                     <!-- End of Topbar -->
+                    <div class="col-12 mb-3 d-flex justify-content-start" v-if="selectedMotels.length && isAdmin">
+                        <button class="btn btn-danger" @click="deleteMotels(1)">
+                            Xóa Bài Đăng
+                        </button>
+                        <button class="btn btn-warning" style="margin-left: 20px;" @click="deleteMotels(0)">
+                            Gỡ Bài Đăng
+                        </button>
+                    </div>
+
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid py-4">
@@ -246,7 +255,15 @@
                    border-radius: 12px;
                    overflow: hidden;
                    background: white;
-                   height: 220px;">
+                   height: 240px;">
+                                    <div style="position: absolute; 
+                top: 10px; 
+                left: 10px; 
+                z-index: 10;">
+                                        <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
+                                            style="width: 20px;  height: 18px;   cursor: pointer;" v-if="isAdmin">
+                                    </div>
+
 
                                     <!-- Phần hình ảnh bên trái -->
                                     <div style="position: relative; 
@@ -292,19 +309,23 @@
                                         </h5>
 
                                         <!-- Giá và diện tích -->
-                                        <div style="display: flex;
-                           gap: 16px;
-                           margin-bottom: 12px;">
-                                            <div style="color: #f43f5e;
-                               font-weight: 600;
-                               font-size: 18px;">
+                                        <div style="display: flex; 
+            gap: 16px; 
+            margin-bottom: 12px; 
+            align-items: center;">
+                                            <div style="color: #f43f5e; 
+                font-weight: 600; 
+                font-size: 18px; 
+                line-height: 1.2;">
                                                 {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
-                                            <div style="color: #666;
-                               font-size: 16px;">
+                                            <div style="color: #666; 
+                font-size: 16px; 
+                line-height: 1.2;">
                                                 {{ motel.area }}m²
                                             </div>
                                         </div>
+
 
                                         <!-- Địa chỉ -->
                                         <div style="display: flex;
@@ -315,9 +336,11 @@
                                             <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
                                         </div>
 
+                                        <p><strong>{{ motel.type }}</strong> </p>
+
                                         <!-- Mô tả -->
                                         <p style="color: #666;
-                         font-size: 14px;
+                         font-size: 20px;
                          line-height: 1.5;
                          margin-bottom: 12px;
                          display: -webkit-box;
@@ -424,6 +447,23 @@
             </div>
         </div>
 
+        <div v-if="showMoalDelete" class="modal success-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Báo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ messageDelete }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            @click=closeModalDelete>OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </template>
 
@@ -465,6 +505,9 @@ export default {
             senderId: null,
             recipientId: null,
             nameChat: null,
+            selectedMotels: [],
+            showMoalDelete: false,
+            messageDelete: null,
         };
     },
     mounted() {
@@ -487,6 +530,7 @@ export default {
         if (this.isChatBoxVisible) {
             this.scrollToBottom();
         }
+
 
     },
     methods: {
@@ -652,7 +696,7 @@ export default {
             this.nameChat = user.fullName
             this.fetchMessages(user.id)
             this.isChatBoxVisible = !this.isChatBoxVisible;
-            
+
         },
         connect() {
             if (this.stompClient && this.stompClient.connected) {
@@ -726,6 +770,26 @@ export default {
 
             return `${hours}:${minutes} ${ampm}`;
         },
+        async deleteMotels(value) {
+            console.log(this.selectedMotels)
+            const token = localStorage.getItem('token');
+
+            const response = await axios.delete(`http://localhost:8081/admin/delete-motels`, {
+                params: {
+                    selectedMotels: this.selectedMotels.join(','),
+                    isDelete: value
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            this.messageDelete = response.data
+            this.showMoalDelete = true
+        },
+        closeModalDelete() {
+            this.showMoalDelete = false
+            window.location.reload();
+        }
     },
     computed: {
         isAdmin() {
@@ -751,26 +815,26 @@ export default {
 };
 </script>
 <style scoped>
-  .collapse-inner {
-      max-height: 300px;
-      overflow-y: auto;
-  }
+.collapse-inner {
+    max-height: 300px;
+    overflow-y: auto;
+}
 
-  .collapse-inner::-webkit-scrollbar {
-      width: 6px;
-  }
+.collapse-inner::-webkit-scrollbar {
+    width: 6px;
+}
 
-  .collapse-inner::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 3px;
-  }
+.collapse-inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
 
-  .collapse-inner::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 3px;
-  }
+.collapse-inner::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
 
-  .collapse-inner::-webkit-scrollbar-thumb:hover {
-      background: #555;
-  }
+.collapse-inner::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 </style>

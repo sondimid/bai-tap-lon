@@ -15,6 +15,7 @@ import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+
 public class MotelServiceImpl implements MotelService {
     private final MotelRepository motelRepository;
     private final MotelResponseConverter motelResponseConverter;
@@ -54,34 +56,67 @@ public class MotelServiceImpl implements MotelService {
 
     @Override
     public void save(MotelDTO motelDTO, String token) throws IOException {
-        if(motelDTO.getId() != null) {
-
-        }
-        Integer id = jwtTokenUtils.extractUserId(token);
-        Optional<UserEntity> userEntityOptional = userService.findById(id);
-        if(userEntityOptional.isEmpty()) throw new NotFoundException("User not found");
-        MotelEntity motelEntity = modelMapper.map(motelDTO, MotelEntity.class);
-        motelEntity.setUserId(id);
-        motelEntity.setUser(userEntityOptional.get());
-        motelRepository.save(motelEntity);
-
-        List<MultipartFile> files = motelDTO.getFiles();
-        if(files != null && !files.isEmpty()) {
-            for(MultipartFile file : files) {
-                Map result = cloudinaryService.uploadFile(file);
-                FileEntity fileEntity = FileEntity
-                        .builder()
-                        .name(result.get("original_filename").toString())
-                        .fileUrl(result.get("url").toString())
-                        .fileId(result.get("public_id").toString())
-                        .motelId(motelEntity.getId())
-                        .motelEntity(motelEntity)
-                        .build();
-                motelEntity.getFileEntities().add(fileEntity);
+        if(motelDTO.getId() != null){
+            MotelEntity motelEntity = motelRepository.findById(motelDTO.getId()).get();
+            motelEntity.setTitle(motelDTO.getTitle());
+            motelEntity.setArea(motelDTO.getArea());
+            motelEntity.setPrice(motelDTO.getPrice());
+            motelEntity.setMaxPeople(motelDTO.getMaxPeople());
+            motelEntity.setType(motelDTO.getType());
+            motelEntity.setDetail(motelDTO.getDetail());
+            motelRepository.save(motelEntity);
+            List<Integer> listFileId = motelDTO.getListFileId();
+            if(listFileId != null){
+                for(Integer fileId : listFileId){
+                    FileEntity fileEntity = fileService.findById(fileId);
+                    motelEntity.getFileEntities().remove(fileEntity);
+                    fileEntity.setMotelEntity(null);
+                    fileService.deleteById(fileId);
+                }
             }
+            List<MultipartFile> files = motelDTO.getFiles();
+            if(files != null && !files.isEmpty()) {
+                for(MultipartFile file : files) {
+                    Map result = cloudinaryService.uploadFile(file);
+                    FileEntity fileEntity = FileEntity
+                            .builder()
+                            .name(result.get("original_filename").toString())
+                            .fileUrl(result.get("url").toString())
+                            .fileId(result.get("public_id").toString())
+                            .motelId(motelEntity.getId())
+                            .motelEntity(motelEntity)
+                            .build();
+                    motelEntity.getFileEntities().add(fileEntity);
+                }
+            }
+            motelRepository.save(motelEntity);
         }
+        else{
+            Integer id = jwtTokenUtils.extractUserId(token);
+            Optional<UserEntity> userEntityOptional = userService.findById(id);
+            if(userEntityOptional.isEmpty()) throw new NotFoundException("User not found");
+            MotelEntity motelEntity = modelMapper.map(motelDTO, MotelEntity.class);
+            motelEntity.setUserId(id);
+            motelEntity.setUser(userEntityOptional.get());
+            motelRepository.save(motelEntity);
 
-        motelRepository.save(motelEntity);
+            List<MultipartFile> files = motelDTO.getFiles();
+            if(files != null && !files.isEmpty()) {
+                for(MultipartFile file : files) {
+                    Map result = cloudinaryService.uploadFile(file);
+                    FileEntity fileEntity = FileEntity
+                            .builder()
+                            .name(result.get("original_filename").toString())
+                            .fileUrl(result.get("url").toString())
+                            .fileId(result.get("public_id").toString())
+                            .motelId(motelEntity.getId())
+                            .motelEntity(motelEntity)
+                            .build();
+                    motelEntity.getFileEntities().add(fileEntity);
+                }
+            }
+            motelRepository.save(motelEntity);
+        }
     }
 
     @Override
@@ -142,5 +177,55 @@ public class MotelServiceImpl implements MotelService {
     public List<MotelResponse> adminFindByUserId(Integer userId) throws MalformedURLException {
         UserEntity user = userService.findById(userId).get();
         return motelResponseConverter.toMotelResponse(user.getMotelEntities());
+    }
+
+    @Override
+    @Transactional
+    public String deleteMotels(Integer userId, List<Integer> ids) throws MalformedURLException {
+        UserEntity user = userService.findById(userId).get();
+
+        for(Integer id: ids) {
+            Optional<MotelEntity> motelOpt = motelRepository.findById(id);
+            if(!motelOpt.isPresent()) {
+                return "Không Tồn Tại Nhà Trọ Id: " + id;
+            }
+
+            MotelEntity motel = motelOpt.get();
+            if(!motel.getUserId().equals(userId)) {
+                return "Không Có Quyền Xóa Nhà Trọ Id: " + id;
+            }
+
+            user.getMotelEntities().remove(motel);
+            motel.setUser(null);
+
+            motelRepository.delete(motel);
+        }
+
+        return "Xóa Nhà Trọ Thành Công";
+    }
+
+    @Override
+    public String deleteOrUnpublishMotel(List<Integer> ids, Boolean isDelete) {
+        if(isDelete){
+            for(Integer id: ids) {
+                Optional<MotelEntity> motelOpt = motelRepository.findById(id);
+                if(!motelOpt.isPresent()) {
+                    return "Không Tồn Tại Nhà Trọ Id: " + id;
+                }
+                MotelEntity motel = motelOpt.get();
+                UserEntity user = userService.findById(motel.getUserId()).get();
+                user.getMotelEntities().remove(motel);
+                motel.setUser(null);
+
+                motelRepository.delete(motel);
+            }
+            return "Xóa Nhà Trọ Thành Công";
+        }
+        for(Integer id: ids) {
+            MotelEntity motelEntity = motelRepository.findById(id).get();
+            motelEntity.setStatus(0);
+            motelRepository.save(motelEntity);
+        }
+        return "Gỡ Bài Đăng Thành Công";
     }
 }

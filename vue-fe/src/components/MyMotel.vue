@@ -219,8 +219,8 @@
                     </nav>
                     <!-- End of Topbar -->
                     <div class="col-12 mb-3 d-flex justify-content-end" v-if="selectedMotels.length">
-                        <button class="btn btn-primary" @click="openModalClick">
-                            Duyệt Các Nhà Trọ Đã Chọn
+                        <button class="btn btn-danger" @click="deleteMotels">
+                            Xóa Bài Đăng
                         </button>
                     </div>
 
@@ -246,13 +246,13 @@
                    border-radius: 12px;
                    overflow: hidden;
                    background: white;
-                   height: 220px;">
+                   height: 240px;">
                                     <div style="position: absolute; 
                 top: 10px; 
                 left: 10px; 
                 z-index: 10;">
                                         <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
-                                            style="width: 18px; 
+                                            style="width: 20px; 
          height: 18px; 
          cursor: pointer;">
                                     </div>
@@ -303,16 +303,19 @@
                                         </h5>
 
                                         <!-- Giá và diện tích -->
-                                        <div style="display: flex;
-                           gap: 16px;
-                           margin-bottom: 12px;">
-                                            <div style="color: #f43f5e;
-                               font-weight: 600;
-                               font-size: 18px;">
+                                        <div style="display: flex; 
+            gap: 16px; 
+            margin-bottom: 12px; 
+            align-items: center;">
+                                            <div style="color: #f43f5e; 
+                font-weight: 600; 
+                font-size: 18px; 
+                line-height: 1.2;">
                                                 {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
-                                            <div style="color: #666;
-                               font-size: 16px;">
+                                            <div style="color: #666; 
+                font-size: 16px; 
+                line-height: 1.2;">
                                                 {{ motel.area }}m²
                                             </div>
                                         </div>
@@ -326,17 +329,11 @@
                                             <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
                                         </div>
 
+                                        <p><strong>{{ motel.type }}</strong> </p>
+
                                         <!-- Mô tả -->
-                                        <p style="color: #666;
-                         font-size: 14px;
-                         line-height: 1.5;
-                         margin-bottom: 12px;
-                         display: -webkit-box;
-                         -webkit-line-clamp: 2;
-                         -webkit-box-orient: vertical;
-                         overflow: hidden;">
-                                            {{ motel.detail }}
-                                        </p>
+                                        <!--  -->
+
                                         <p :style="{ color: motel.status === 'Đã Được Duyệt' ? 'green' : 'red' }">
                                             <strong>Trạng Thái:</strong> {{ motel.status }}
                                         </p>
@@ -423,11 +420,29 @@
             </div>
         </div>
 
+        <div v-if="showMoalDelete" class="modal success-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Báo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ messageDelete }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            @click=closeModalDelete>Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </template>
 
 <script>
 import axios from 'axios';
+
 
 export default {
     name: 'DashBoard',
@@ -455,6 +470,8 @@ export default {
             maxPageItems: null,
             avatar: localStorage.getItem('avatar') || '',
             selectedMotels: [],
+            showMoalDelete: false,
+            messageDelete: null,
         };
     },
     mounted() {
@@ -465,6 +482,7 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
+        
         this.getMyMotel();
     },
     methods: {
@@ -620,6 +638,26 @@ export default {
         formatDate(date) {
             return new Date(date).toLocaleDateString('vi-VN');
         },
+        async deleteMotels() {
+            console.log(this.selectedMotels)
+            const token = localStorage.getItem('token');
+
+            const response = await axios.delete(`http://localhost:8081/delete-motels`, {
+                params: {
+                    selectedMotels: this.selectedMotels.join(','),
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            this.messageDelete = response.data
+            this.showMoalDelete = true
+
+        },
+        closeModalDelete() {
+            this.showMoalDelete = false
+            window.location.reload();
+        }
     },
     computed: {
         hasToken() {
@@ -669,32 +707,7 @@ export default {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.card {
-    display: flex;
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin-right: 10px;
-}
 
-.card-img-right {
-    width: 30%;
-    /* Reduced to 30% for a larger card body */
-    height: auto;
-}
-
-.card-body {
-    padding: 4.5rem;
-    width: 70%;
-}
-
-.card-title {
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    color: #6c757d;
-}
 
 @media (max-width: 768px) {
     .col-lg-6 {

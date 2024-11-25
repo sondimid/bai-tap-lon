@@ -11,4 +11,6 @@ public interface FileService {
     void save(Map result);
     List<FileEntity> findByMotelId(Integer id);
     void save(FileEntity file);
+    void deleteById(Integer id);
+    FileEntity findById(Integer id);
 }

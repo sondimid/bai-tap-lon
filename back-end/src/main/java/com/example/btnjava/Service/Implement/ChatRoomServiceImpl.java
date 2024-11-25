@@ -46,10 +46,11 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         return chatId;
     }
     public List<Integer> getRecipientIdsBySenderId(Integer id){
-        List<ChatRoom> listChatRoom = chatRoomRepository.findAllBySenderId(id).get();
+        Optional<List<ChatRoom>> listChatRoom = chatRoomRepository.findAllBySenderId(id);
+        if(listChatRoom.isEmpty()) return null;
         List<Integer> recipientIds = new ArrayList<>();
-        for(ChatRoom chatRoom : listChatRoom){
-            if(!Objects.equals(id, chatRoom.getRecipientId()) && chatRoom.getRecipientId()  != null){
+        for(ChatRoom chatRoom : listChatRoom.get()){
+            if(!Objects.equals(chatRoom.getSenderId(), chatRoom.getRecipientId()) && chatRoom.getRecipientId()  != null){
                 recipientIds.add(chatRoom.getRecipientId());
             }
 

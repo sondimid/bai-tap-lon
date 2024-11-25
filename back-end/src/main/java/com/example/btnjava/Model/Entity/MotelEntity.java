@@ -1,13 +1,13 @@
 package com.example.btnjava.Model.Entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 @Getter
 @Setter
 @Entity
@@ -57,7 +57,7 @@ public class MotelEntity extends AbstractEntity{
     @JoinColumn(name = "userid", insertable = false, updatable = false)
     private UserEntity user = new UserEntity();
 
-    @OneToMany(mappedBy = "motelEntity", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+    @OneToMany(mappedBy = "motelEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL
             , orphanRemoval = true)
     private List<FileEntity> fileEntities = new ArrayList<>();
 }

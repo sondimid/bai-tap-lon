@@ -135,4 +135,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getByIds(chatRoomService.getRecipientIdsBySenderId(id), id));
     }
 
+    @DeleteMapping("/delete-motels")
+    public ResponseEntity<?> deleteMotel(@RequestHeader("Authorization") String authorization,
+                                         @RequestParam("selectedMotels") List<Integer> ids) throws MalformedURLException {
+        Integer userId = jwtTokenUtils.extractUserId(authorization.substring(7));
+        return ResponseEntity.ok().body(motelService.deleteMotels(userId, ids));
+    }
+
+
+
 }

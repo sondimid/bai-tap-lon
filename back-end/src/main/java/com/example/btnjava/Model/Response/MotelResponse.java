@@ -22,6 +22,8 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private Integer maxPeople;
 
+    private String street;
+
     private String ward;
 
     private String district;

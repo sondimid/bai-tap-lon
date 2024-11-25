@@ -33,6 +33,7 @@ public class MotelResponseConverter {
             for(FileEntity fileEntity : fileEntities){
                 FileDTO fileDTO = FileDTO
                         .builder()
+                        .id(fileEntity.getId())
                         .name(fileEntity.getName())
                         .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
@@ -59,6 +60,7 @@ public class MotelResponseConverter {
             for(FileEntity fileEntity : fileEntities){
                 FileDTO fileDTO = FileDTO
                         .builder()
+                        .id(fileEntity.getId())
                         .name(fileEntity.getName())
                         .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
@@ -84,6 +86,7 @@ public class MotelResponseConverter {
             for(FileEntity fileEntity : fileEntities){
                 FileDTO fileDTO = FileDTO
                         .builder()
+                        .id(fileEntity.getId())
                         .name(fileEntity.getName())
                         .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
@@ -91,8 +94,8 @@ public class MotelResponseConverter {
                 filesDTO.add(fileDTO);
             }
             motelResponse.setFilesDTO(filesDTO);
-            motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội");
+            motelResponse.setAddress("Số " + motelEntity.getHouseNumber() + " Đường " + motelEntity.getStreet() + " Phường "
+                    + motelEntity.getWard() + " Quận " + motelEntity.getDistrict() + " Thành phố Hà Nội");
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("Đã Được Duyệt");
                 result.add(motelResponse);
@@ -111,6 +114,7 @@ public class MotelResponseConverter {
             for(FileEntity fileEntity : fileEntities){
                 FileDTO fileDTO = FileDTO
                         .builder()
+                        .id(fileEntity.getId())
                         .name(fileEntity.getName())
                         .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())

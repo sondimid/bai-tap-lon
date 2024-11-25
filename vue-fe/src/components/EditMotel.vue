@@ -211,7 +211,7 @@
                     <form class="container-fluid" @submit.prevent="addMotel">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">
-                                Thêm Nhà Trọ
+                                Sửa Thông Tin Nhà Trọ
                             </h1>
                         </div>
                         <fieldset class="border p-3">
@@ -226,40 +226,6 @@
                             </div>
 
                             <!-- Số nhà -->
-                            <div class="mb-3 row">
-                                <label for="houseNumber" class="col-3 col-form-label">Số nhà</label>
-                                <div class="col-7">
-                                    <input type="number" class="form-control" id="houseNumber" v-model="houseNumber"
-                                        placeholder="Số nhà" required />
-                                </div>
-                            </div>
-
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label">Đường</label>
-                                <div class="col-7">
-                                    <input type="text" class="form-control" id="street" v-model="street"
-                                        placeholder="Đường" required />
-                                </div>
-
-                            </div>
-
-                            <!-- Khu vực (Quận/Huyện, Phường/Xã) -->
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label">Khu vực</label>
-
-                                <div class="col-3">
-                                    <select id="district" class="form-select" v-model="district">
-                                        <option value="" selected required>Chọn quận huyện</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <select id="ward" class="form-select" v-model="ward">
-                                        <option value="" selected required>Chọn phường xã</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
 
                             <!-- Diện tích từ - đến -->
                             <div class="mb-3 row">
@@ -310,9 +276,28 @@
                             </div>
 
                             <div class="mb-3 row">
-                                <label for="uploadFile" class="col-3 col-form-label">Hình ảnh</label>
+                                <label for="uploadFile" class="col-3 col-form-label">Hình ảnh đã lưu</label>
                                 <div class="col-7">
-                                    <input class="form-control mb-3" type="file" id="formFileMultiple" multiple required
+                                    <!-- Preview container -->
+                                    <div class="mt-3 d-flex flex-wrap gap-3">
+                                        <div v-for="(preview, index) in currents" :key="index"
+                                            class="position-relative preview-container" style="width: 150px;">
+                                            <img :src="preview.fileUrl" :alt="'Preview ' + (index + 1)"
+                                                class="img-fluid rounded"
+                                                style="height: 150px; object-fit: cover; width: 100%;" />
+                                            <button @click="handleDeleteImg(preview.id)"
+                                                class="btn btn-danger btn-sm delete-btn" type="button">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label for="uploadFile" class="col-3 col-form-label">Thêm ảnh</label>
+                                <div class="col-7">
+                                    <input class="form-control mb-3" type="file" id="formFileMultiple" multiple
                                         @change="handleFileSelect" ref="fileInput" />
 
                                     <!-- Preview container -->
@@ -335,7 +320,7 @@
                             <div class="mb-3 row">
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary w-50" style="font-size: 1.25rem;">
-                                        Đăng Bài
+                                        Sửa Thông Tin
                                     </button>
                                 </div>
                             </div>
@@ -414,7 +399,7 @@
 import axios from 'axios';
 
 export default {
-    name: 'AddMotel',
+    name: 'EditMotel',
     data() {
         return {
             showModalSuccess: false,
@@ -446,6 +431,9 @@ export default {
             modelMsg: null,
             isLoading: false,
             previews: [],
+            currents: [],
+            listFileId: [],
+            motelEdit: null,
         };
     },
     mounted() {
@@ -456,8 +444,10 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
-
-        this.getDistrict()
+        else this.$router.push('/')
+        this.fetchMotelEdit(this.$route.params.id)
+        // this.getDistrict()
+        
     },
     methods: {
         toMotelDetailPage(id) {
@@ -591,61 +581,35 @@ export default {
         },
         closeModalSuccess() {
             this.showModalSuccess = false;
-            window.location.href = '/my-motel'; 
+            window.location.href = '/my-motel';
         },
         async addMotel() {
             this.isLoading = true;
-            const districts = [
-                { id: 'district1', name: 'Ba Đình' },
-                { id: 'district2', name: 'Hoàn Kiếm' },
-                { id: 'district3', name: 'Tây Hồ' },
-                { id: 'district4', name: 'Long Biên' },
-                { id: 'district5', name: 'Cầu Giấy' },
-                { id: 'district6', name: 'Đống Đa' },
-                { id: 'district7', name: 'Hai Bà Trưng' },
-                { id: 'district8', name: 'Hoàng Mai' },
-                { id: 'district9', name: 'Nam Từ Liêm' },
-                { id: 'district10', name: 'Bắc Từ Liêm' },
-                { id: 'district11', name: 'Đông Anh' },
-                { id: 'district12', name: 'Hà Đông' },
-                { id: 'district13', name: 'Sóc Sơn' },
-                { id: 'district14', name: 'Chương Mỹ' },
-                { id: 'district15', name: 'Thanh Xuân' },
-                { id: 'district16', name: 'Gia Lâm' },
-                { id: 'district17', name: 'Thanh Trì' },
-                { id: 'district18', name: 'Thường Tín' },
-                { id: 'district19', name: 'Hoài Đức' },
-                { id: 'district20', name: 'Mê Linh' },
-                { id: 'district21', name: 'Phú Xuyên' },
-                { id: 'district22', name: 'Thanh Oai' },
-                { id: 'district23', name: 'Thạch Thất' },
-                { id: 'district24', name: 'Ứng Hòa' },
-                { id: 'district25', name: 'Mỹ Đức' },
-                { id: 'district26', name: 'Quốc Oai' },
-                { id: 'district27', name: 'Phúc Thọ' },
-                { id: 'district28', name: 'Đan Phượng' },
-                { id: 'district29', name: 'Sơn Tây' }
-
-            ];
-
             const formData = new FormData();
-
+            console.log(this.title)
+            formData.append('id', this.$route.params.id)
             formData.append('title', this.title);
             formData.append('houseNumber', this.houseNumber);
             formData.append('street', this.street);
-            formData.append('district', districts.find(district => district.id === this.district).name);
+            formData.append('district', this.district);
             formData.append('ward', this.ward);
             formData.append('area', this.area);
             formData.append('price', this.price);
             formData.append('type', this.type);
             formData.append('maxPeople', this.maxPeople);
             formData.append('detail', this.detail);
+            this.listFileId.forEach(id => {
+                formData.append('listFileId[]', id); 
+            });
 
             const fileImg = document.getElementById('formFileMultiple').files;
             for (let i = 0; i < fileImg.length; i++) {
                 formData.append('files', fileImg[i]);
             }
-            console.log(formData);
+            console.log(this.street);
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}: ${value}`);
+            }
             const response = await axios.post('http://localhost:8081/create', formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -658,7 +622,7 @@ export default {
             else {
                 this.modalTitle = "Thất Bại"
             }
-            this.modelMsg = response.data
+            this.modelMsg = "Sửa Thành Công"
             this.showModalSuccess = true
             this.isLoading = false
         },
@@ -921,18 +885,18 @@ export default {
             // Revoke URL của preview
             URL.revokeObjectURL(this.previews[index].url);
 
-            
+
             this.previews.splice(index, 1);
 
-            
+
             const dataTransfer = new DataTransfer();
 
-            
+
             this.previews.forEach(preview => {
                 dataTransfer.items.add(preview.file);
             });
 
-            
+
             this.$refs.fileInput.files = dataTransfer.files;
         },
         getFiles() {
@@ -941,6 +905,25 @@ export default {
         toAdvancedSearchPage() {
             this.$router.push('/advanced-search')
         },
+        async fetchMotelEdit(id) {
+            const response = await axios.get(`http://localhost:8081/motel/${id}`)
+            this.title = response.data.title
+            this.houseNumber = response.data.houseNumber
+            this.street = response.data.street
+            this.ward = response.data.ward
+            this.district = response.data.district
+            this.area = response.data.area
+            this.price = response.data.price
+            this.maxPeople = response.data.maxPeople
+            this.type = response.data.type
+            this.detail = response.data.detail
+            this.currents = response.data.filesDTO
+            if (this.userInfo.id != response.data.owner.id) this.$router.push('/')
+        },
+        async handleDeleteImg(fileId) {
+            this.listFileId.push(fileId)
+            this.currents = this.currents.filter(preview => preview.id !== fileId);
+        }
     },
     beforeDestroy() {
         this.previews.forEach(preview => {
@@ -1046,6 +1029,7 @@ export default {
     width: 3rem;
     height: 3rem;
 }
+
 .preview-container {
     position: relative;
 }

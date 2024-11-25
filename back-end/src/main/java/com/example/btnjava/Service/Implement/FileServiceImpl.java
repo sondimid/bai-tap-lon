@@ -35,4 +35,14 @@ public class FileServiceImpl implements FileService {
     public void save(FileEntity file) {
         fileRepository.save(file);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        fileRepository.deleteById(id);
+    }
+
+    @Override
+    public FileEntity findById(Integer id) {
+        return fileRepository.findById(id).get();
+    }
 }

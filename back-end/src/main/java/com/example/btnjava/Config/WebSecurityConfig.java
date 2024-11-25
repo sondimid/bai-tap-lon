@@ -20,8 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +37,7 @@ public class WebSecurityConfig{
                     request
                             .requestMatchers("/static/**","/messages/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
-                                    "/search/**","/motel/**","/get-motels-by-user/**","/chat/**").permitAll()
+                                    "/search/**","/motel/**","/get-motels-by-user/**","/chat/**","/send-email/**").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(POST,
@@ -59,6 +58,10 @@ public class WebSecurityConfig{
                                     "/get-all-messages").hasRole("USER")
                             .requestMatchers(GET,
                                     "/get-all-ids").hasAnyRole("USER","ADMIN")
+                            .requestMatchers(DELETE,
+                                    "/delete-motels").hasAnyRole("USER","ADMIN")
+                            .requestMatchers(DELETE,
+                                    "/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider);
