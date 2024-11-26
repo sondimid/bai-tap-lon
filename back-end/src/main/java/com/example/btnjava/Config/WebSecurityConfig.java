@@ -38,7 +38,7 @@ public class WebSecurityConfig{
                             .requestMatchers("/static/**","/messages/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
                                     "/search/**","/motel/**","/get-motels-by-user/**","/chat/**",
-                                    "/forgot-password/**","/reset-password").permitAll()
+                                    "/forgot-password/**","/reset-password","/find-by-radius").permitAll()
                             .requestMatchers(GET,
                                     "/admin/**").hasRole("ADMIN")
                             .requestMatchers(POST,

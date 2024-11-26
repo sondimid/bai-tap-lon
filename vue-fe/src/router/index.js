@@ -13,6 +13,7 @@ import ChatComponent from "@/components/ChatComponent.vue";
 import EditMotel from "@/components/EditMotel.vue";
 import ResetPassword from "@/components/ResetPassword.vue";
 import ForgotPassword from "@/components/ForgotPassword.vue";
+import FindMotelsByRadius from "@/components/FindMotelsByRadius.vue";
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -76,6 +77,11 @@ const router = createRouter({
       path: "/forgot-password",
       name: "ForgotPassword",
       component: ForgotPassword,
+    },
+    {
+      path: "/find-by-radius",
+      name: "FindMotelsByRadius",
+      component: FindMotelsByRadius,
     },
   ],
 });

@@ -2,6 +2,9 @@ package com.example.btnjava.Service.Implement;
 
 import com.example.btnjava.Converter.MotelResponseConverter;
 import com.example.btnjava.CustomException.NotFoundException;
+import com.example.btnjava.Model.ApiDistance.Distance;
+import com.example.btnjava.Model.ApiDistance.Leg;
+import com.example.btnjava.Model.ApiDistance.RouterResponse;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.Entity.FileEntity;
 import com.example.btnjava.Model.Entity.MotelEntity;
@@ -26,6 +29,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
 
 
 import java.io.IOException;
@@ -34,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -227,5 +232,40 @@ public class MotelServiceImpl implements MotelService {
             motelRepository.save(motelEntity);
         }
         return "Gỡ Bài Đăng Thành Công";
+    }
+
+    @Override
+    public List<MotelResponse> findByRadius(String destination, Integer radius) throws MalformedURLException {
+        List<MotelResponse> motelResponses = findByStatus();
+        List<MotelResponse> result = new ArrayList<>();
+
+        for(MotelResponse motelResponse: motelResponses) {
+            String url = String.format(
+                    "https://maps.gomaps.pro/maps/api/directions/json?origin=%s&destination=%s&key=AlzaSyA1UtKa9JeDxtzG1i0Z3iJcvrUz27X4nqf",
+                    destination,
+                    motelResponse.getAddress()
+            );
+
+            WebClient.Builder builder = WebClient.builder();
+            List<Distance> list = builder.build()
+                    .get()
+                    .uri(url)
+                    .header("Accept", "application/json")
+                    .retrieve()
+                    .bodyToMono(RouterResponse.class)
+                    .map(response -> {
+                        return response.getRoutes().stream()
+                                .flatMap(route -> route.getLegs().stream())
+                                .map(Leg::getDistance)
+                                .collect(Collectors.toList());
+                    })
+                    .block();
+
+            if(radius >= list.getFirst().getValue()){
+                motelResponse.setDistance(list.getFirst().getText());
+                result.add(motelResponse);
+            }
+        }
+        return result;
     }
 }

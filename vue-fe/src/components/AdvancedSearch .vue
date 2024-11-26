@@ -232,8 +232,8 @@
                                     <div class="mb-3 row">
                                         <label for="buildingName" class="col-3 col-form-label">Tên Nhà Trọ</label>
                                         <div class="col-7">
-                                            <input type="text" class="form-control" id="buildingName"
-                                                v-model="title" placeholder="Nhập Tên Nhà Trọ" />
+                                            <input type="text" class="form-control" id="buildingName" v-model="title"
+                                                placeholder="Nhập Tên Nhà Trọ" />
                                         </div>
                                     </div>
 
@@ -405,6 +405,7 @@
                                         <div style="color: #f43f5e;
                                font-weight: 600;
                                font-size: 18px;">
+                                            <i class="fa-solid fa-dollar-sign"></i>
                                             {{ formatPrice(motel.price) }} triệu/tháng
                                         </div>
                                         <div style="color: #666;

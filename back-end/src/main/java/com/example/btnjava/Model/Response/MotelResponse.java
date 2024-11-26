@@ -42,6 +42,8 @@ public class MotelResponse implements Comparable<MotelResponse>{
 
     private String status;
 
+    private String distance;
+
     List<FileDTO> filesDTO;
 
     private LocalDateTime createdAt;

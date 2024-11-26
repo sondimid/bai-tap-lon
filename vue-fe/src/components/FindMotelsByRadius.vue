@@ -33,10 +33,14 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
+                                triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
+                                triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
+                                triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
+                                triệu</a>
                             <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
@@ -96,16 +100,19 @@
                             <a class="collapse-item" href="#" @click="searchByDistrict('Ba Vì')">Ba Vì</a>
                         </div>
                     </div>
-                </li>
 
+                </li>
                 <hr class="sidebar-divider">
 
+                <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="toAdvancedSearchPage">
+                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
                         <i class="fas fa-search-plus"></i>
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
                 </li>
+
+
             </ul>
             <!-- End of Sidebar -->
 
@@ -124,58 +131,46 @@
                         </button>
 
                         <!-- Topbar Search -->
+                        <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small"
+                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-envelope fa-fw"></i>
-                                    <!-- Counter - Messages -->
-                                    <span class="badge badge-danger badge-counter"></span>
-                                    <!-- Biểu tượng tin nhắn mới -->
-                                    <span v-if="hasNewMessages" class="badge badge-success badge-new">Mới</span>
+                                    <i class="fas fa-search fa-fw"></i>
                                 </a>
-                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="messagesDropdown">
-                                    <h6 class="dropdown-header">
-                                        Tin Nhắn Mới
-                                    </h6>
-                                    <a v-for="user in listUser" :key="user.id"
-                                        class="dropdown-item d-flex align-items-center" href="#"
-                                        @click="toggleChatBox(user)">
-                                        <div class="dropdown-list-image mr-3">
-                                            <img class="rounded-circle"
-                                                :src="user.fileUrl || '../../assets/img/undraw_profile.svg'"
-                                                alt="Avatar">
-                                        </div>
-                                        <div class="font-weight-bold w-100">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="text-truncate">{{ user.fullName }}</div>
-                                                <div class="small text-gray-500">{{ formatTime(user.timestamp) }}
-                                                </div>
-                                            </div>
-                                            <div class="text-truncate small text-gray-700">{{ user.content }}
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                    aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Search for..." aria-label="Search"
+                                                aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
                                             </div>
                                         </div>
-                                    </a>
+                                    </form>
                                 </div>
                             </li>
 
-
-
-                            <div class="topbar-divider d-none d-sm-block"></div>
-
-
-                            <li class="nav-item mx-1 d-flex align-items-center" v-if="isAdmin">
-                                <button type="button" class="btn btn-primary" @click="toAdminPage">
-                                    <i class="fas fa-sync-alt fa-fw"></i>
-                                    Trang Quản Trị
-                                </button>
-                            </li>
                             <li class="nav-item mx-1 d-flex align-items-center">
                                 <button type="button" class="btn btn-primary" @click="addNewMotel">
                                     <i class="fas fa-plus fa-fw"></i>
@@ -183,13 +178,11 @@
                                 </button>
                             </li>
 
-
-
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow" v-if="hasToken">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.fullName }}</span>
@@ -224,26 +217,29 @@
 
                     </nav>
                     <!-- End of Topbar -->
-                    <div class="col-12 mb-3 d-flex justify-content-start" v-if="selectedMotels.length && isAdmin">
-                        <button class="btn btn-danger" @click="deleteMotels(1)">
-                            Xóa Bài Đăng
-                        </button>
-                        <button class="btn btn-warning" style="margin-left: 20px;" @click="deleteMotels(0)">
-                            Gỡ Bài Đăng
-                        </button>
-                    </div>
+                    <div id="app" class="container mt-5">
+                        <h2 class="text-left mb-4">Tìm kiếm nhà trọ theo bán kính</h2>
+                        <form @submit.prevent="findByRadius" class="border p-4 rounded shadow-sm mb-5">
+                            <!-- Destination Input -->
+                            <div class="mb-3">
+                                <label for="destination" class="form-label">Điểm đến</label>
+                                <input type="text" id="destination" v-model="destination" class="form-control"
+                                    placeholder="Nhập địa chỉ, trường học hoặc khu vực" required>
+                            </div>
 
+                            <!-- Radius Input -->
+                            <div class="mb-3">
+                                <label for="radius" class="form-label">Bán kính (km)</label>
+                                <input type="number" id="radius" v-model="radius" class="form-control"
+                                    placeholder="Nhập bán kính tìm kiếm" required min="1">
+                            </div>
 
-                    <!-- Begin Page Content -->
-                    <div class="container-fluid py-4">
-                        <!-- Page Heading với animation nhẹ -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800 border-bottom border-primary pb-2">
-                                Trang Chủ
-                            </h1>
-                        </div>
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </form>
 
-                        <!-- Grid Layout cho danh sách phòng trọ -->
                         <div class="row g-4">
                             <div class="col-8" v-for="motel in listMotel" :key="motel.id">
                                 <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
@@ -325,6 +321,15 @@
                 line-height: 1.2;">
                                                 {{ motel.area }}m²
                                             </div>
+                                            <div style="display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: #666; 
+            font-size: 16px; 
+            line-height: 1.2;">
+                                                <i class="fas fa-location" style="color: #00b4d8;"></i>
+                                                {{ motel.distance }}
+                                            </div>
                                         </div>
 
 
@@ -340,16 +345,6 @@
                                         <p><strong>{{ motel.type }}</strong> </p>
 
                                         <!-- Mô tả -->
-                                        <p style="color: #666;
-                         font-size: 20px;
-                         line-height: 1.5;
-                         margin-bottom: 12px;
-                         display: -webkit-box;
-                         -webkit-line-clamp: 2;
-                         -webkit-box-orient: vertical;
-                         overflow: hidden;">
-                                            {{ motel.detail }}
-                                        </p>
 
                                         <!-- Thời gian đăng -->
                                         <div
@@ -389,6 +384,10 @@
                     </div>
 
 
+
+                    <!-- Begin Page Content -->
+
+
                     <!-- /.container-fluid -->
 
                 </div>
@@ -405,27 +404,6 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <div v-if="isChatBoxVisible" class="chat-box">
-            <div class="chat-header">
-                <h3>Chat với {{ nameChat }}</h3>
-                <button class="close-button" @click="closeToggleChatBox">×</button>
-            </div>
-
-            <div class="chat-messages" ref="chatMessagesContainer">
-                <div v-for="(message, index) in messages" :key="index" :class="{
-                    'message-sender': message.senderId === this.userInfo.id,
-                    'message-receiver': message.senderId !== this.userInfo.id
-                }">
-                    <p>{{ message.content }}</p>
-                    <span class="message-time">{{ formatTime(message.timestamp) }}</span>
-                </div>
-            </div>
-
-            <div class="chat-input">
-                <input type="text" v-model="messageContent" @keyup.enter="sendMessage" placeholder="Nhập tin nhắn..." />
-                <button @click="sendMessage">Gửi</button>
-            </div>
-        </div>
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -448,67 +426,23 @@
             </div>
         </div>
 
-        <div v-if="showMoalDelete" class="modal success-modal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thông Báo</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{ messageDelete }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                            @click=closeModalDelete>OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </body>
 </template>
 
 <script>
 import axios from 'axios';
-import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
+
 export default {
-    name: 'DashBoard',
+    name: 'FindMotelsByRadius',
     data() {
         return {
             showModal: false,
             userInfo: {},
             listMotel: {},
             defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
-            description: null,
-            houseNumber: null,
-            ward: null,
-            district: null,
-            province: null,
-            areaFrom: null,
-            areaTo: null,
-            priceFrom: null,
-            priceTo: null,
-            interior: null,
-            type: null,
-            detailDescription: null,
-            managerName: null,
-            phoneNumber: null,
-            page: null,
-            maxPageItems: null,
-            avatar: localStorage.getItem('avatar') || this.defaultImage,
-            listUser: {},
-            hasNewMessages: false,
-            isChatBoxVisible: false,
-            messages: [],
-            messageContent: "",
-            stompClient: null,
-            senderId: null,
-            recipientId: null,
-            nameChat: null,
-            selectedMotels: [],
-            showMoalDelete: false,
-            messageDelete: null,
+            avatar: localStorage.getItem('avatar') || '',
+            destination: null,
+            radius: null,
         };
     },
     mounted() {
@@ -519,19 +453,6 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
-        if (localStorage.getItem('queryMotel')) {
-            const queryMotel = JSON.parse(localStorage.getItem('queryMotel'));
-            this.search(queryMotel);
-            localStorage.removeItem('queryMotel');
-        } else {
-            this.getAllMotels();
-        }
-        this.fetchUers();
-        this.connect();
-        if (this.isChatBoxVisible) {
-            this.scrollToBottom();
-        }
-
 
     },
     methods: {
@@ -572,59 +493,7 @@ export default {
                 }
             }
         },
-        async getAllMotels() {
-            const response = await axios.get('http://localhost:8081/get-all-motels');
-            console.log(response);
-            this.listMotel = response.data;
-        },
-        async searchByPrice(priceFrom, priceTo) {
-            const data = this.buildSearchData();
-            data.priceFrom = priceFrom;
-            data.priceTo = priceTo;
-            this.search(data);
-        },
-        async searchByArea(areaFrom, areaTo) {
-            const data = this.buildSearchData();
-            data.areaFrom = areaFrom;
-            data.areaTo = areaTo;
-            this.search(data);
-        },
-        async searchByDistrict(district) {
-            const data = this.buildSearchData();
-            data.district = district;
-            this.search(data);
-        },
-        async search(data) {
-            console.log(data);
-            const response = await axios.get('http://localhost:8081/search', {
-                params: data,
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response.data);
-            this.listMotel = response.data;
-        },
-        buildSearchData() {
-            return {
-                description: this.description,
-                houseNumber: this.houseNumber,
-                ward: this.ward,
-                district: this.district,
-                province: this.province,
-                areaFrom: this.areaFrom,
-                areaTo: this.areaTo,
-                priceFrom: this.priceFrom,
-                priceTo: this.priceTo,
-                interior: this.interior,
-                type: this.type,
-                detailDescription: this.detailDescription,
-                managerName: this.managerName,
-                phoneNumber: this.phoneNumber,
-                page: this.page || 1,
-                maxPageItems: this.maxPageItems || 10
-            };
-        },
+
         async toDashBoardPage() {
             this.$router.push('/').then(() => {
                 window.location.reload();
@@ -638,42 +507,14 @@ export default {
                 window.location.reload();
             });
         },
-        toAdminPage() {
-            this.$router.push('/admin')
-        },
-        toMyMotel() {
-            this.$router.push('/my-motel')
-        },
-        toAdvancedSearchPage() {
-            this.$router.push('/advanced-search')
-        },
-        resetData() {
-            this.showModal = false;
-            this.userInfo = {};
-            this.listMotel = {};
-            this.description = null;
-            this.houseNumber = null;
-            this.ward = null;
-            this.district = null;
-            this.province = null;
-            this.areaFrom = null;
-            this.areaTo = null;
-            this.priceFrom = null;
-            this.priceTo = null;
-            this.interior = null;
-            this.type = null;
-            this.detailDescription = null;
-            this.managerName = null;
-            this.phoneNumber = null;
-            this.page = null;
-            this.maxPageItems = null;
-            this.listUser = {};
-        },
         addNewMotel() {
             if (this.hasToken) {
                 this.$router.push('/add-motel')
             }
             else this.$router.push('/login')
+        },
+        hasToken() {
+            return !!localStorage.getItem('token')
         },
         formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price);
@@ -682,160 +523,112 @@ export default {
         formatDate(date) {
             return new Date(date).toLocaleDateString('vi-VN');
         },
-        async fetchUers() {
-            const response = await axios.get('http://localhost:8081/get-all-ids', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            this.listUser = response.data
-            console.log(this.listUser)
-        },
-        toggleChatBox(user) {
-            this.recipientId = user.id
-            this.connect();
-            this.nameChat = user.fullName
-            this.fetchMessages(user.id)
-            this.isChatBoxVisible = !this.isChatBoxVisible;
 
-        },
-        connect() {
-            if (this.stompClient && this.stompClient.connected) {
-                console.log("Already connected");
-                return;
-            }
-            const socket = new SockJS("http://localhost:8081/chat");
-            this.stompClient = Stomp.over(socket);
-            this.stompClient.connect({}, () => {
-                console.log("Connected");
-                this.stompClient.subscribe(`/user/${this.userInfo.id}/queue/messages`, (message) => {
-                    const receivedMessage = JSON.parse(message.body);
-                    this.messages.push(receivedMessage);
-                });
-            });
-        },
-        closeToggleChatBox() {
-            this.isChatBoxVisible = false;
-            this.disconnect();
-        },
-        disconnect() {
-            if (this.stompClient) {
-                this.stompClient.disconnect();
-                console.log("Disconnected");
+        getStatusBadgeClass(status) {
+            switch (status) {
+                case 'Đã Được Duyệt':
+                case 'Đã Được Duyệt':
+                    return 'bg-success';
+                case 'Chưa Được Duyệt':
+                case 'Chưa Được Duyệt':
+                    return 'bg-danger';
+                default:
+                    return 'bg-secondary';
             }
         },
-        sendMessage() {
-            if (this.messageContent.trim() && this.stompClient) {
-                const chatMessage = {
-                    senderId: this.userInfo.id,
-                    recipientId: this.recipientId,
-                    content: this.messageContent.trim(),
-                    timestamp: new Date(),
-                };
-                this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-                this.messages.push({ ...chatMessage });
-                this.messageContent = "";
-                this.scrollToBottom();
-
-            }
+        toMyMotel() {
+            this.$router.push('/my-motel')
         },
-        async fetchMessages(id) {
-            await axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${id}`)
-                .then(response => {
-                    this.messages = response.data;
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error('Error fetching messages:', error);
-                });
-        },
-        scrollToBottom() {
-            this.$nextTick(() => {
-                if (this.$refs.chatMessagesContainer) {
-                    this.$refs.chatMessagesContainer.scrollTop = this.$refs.chatMessagesContainer.scrollHeight;
-                }
-            });
-        },
-        formatTime(timestamp) {
-            const date = new Date(timestamp);
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-
-            // Chuyển đổi sang định dạng 12 giờ
-            hours = hours % 12;
-            hours = hours ? hours : 12; // Nếu hours = 0 thì đổi thành 12
-
-            // Thêm số 0 phía trước nếu cần
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-
-            return `${hours}:${minutes} ${ampm}`;
-        },
-        async deleteMotels(value) {
-            console.log(this.selectedMotels)
-            const token = localStorage.getItem('token');
-
-            const response = await axios.delete(`http://localhost:8081/admin/delete-motels`, {
+        async findByRadius() {
+            const response = await axios.get('http://localhost:8081/find-by-radius', {
                 params: {
-                    selectedMotels: this.selectedMotels.join(','),
-                    isDelete: value
-                },
-                headers: {
-                    'Authorization': `Bearer ${token}`,
+                    destination: this.destination,
+                    radius: this.radius
                 }
-            });
-            this.messageDelete = response.data
-            this.showMoalDelete = true
-        },
-        closeModalDelete() {
-            this.showMoalDelete = false
-            window.location.reload();
+            })
+            this.listMotel = response.data
         }
     },
     computed: {
-        isAdmin() {
-            return this.userInfo?.role === 'ADMIN';
-        },
         hasToken() {
             return !!localStorage.getItem('token');
-        },
-    },
-    watch: {
-        isChatBoxVisible(newVal) {
-            if (newVal) {
-                this.scrollToBottom();
-            }
-        },
-        messages: {
-            handler() {
-                this.scrollToBottom();
-            },
-
         }
-    },
+    }
 };
+
 </script>
 <style scoped>
-.collapse-inner {
-    max-height: 300px;
-    overflow-y: auto;
+.re__btn {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 80px;
+    max-width: 100px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.collapse-inner::-webkit-scrollbar {
-    width: 6px;
+.re__btn-se-border--md {
+    border: 2px solid #3498db;
+    background-color: transparent;
 }
 
-.collapse-inner::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
+.re__btn-se-ghost--md {
+    color: #3498db;
+    background-color: transparent;
 }
 
-.collapse-inner::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
+.login-btn {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.collapse-inner::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.re__btn:hover {
+    background-color: #3498db;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.re__btn:active {
+    transform: scale(0.98);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    display: flex;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.card-img-right {
+    width: 30%;
+    /* Reduced to 30% for a larger card body */
+    height: auto;
+}
+
+.card-body {
+    padding: 4.5rem;
+    width: 70%;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    color: #6c757d;
+}
+
+@media (max-width: 768px) {
+    .col-lg-6 {
+        flex: 0 0 100%;
+        margin-bottom: 1rem;
+    }
 }
 </style>

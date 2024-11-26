@@ -322,6 +322,7 @@
          font-weight: 600; 
          font-size: 18px; 
          line-height: 1.2;">
+                                                <i class="fa-solid fa-dollar-sign"></i>
                                                 {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
                                             <div style="color: #666; 
@@ -391,7 +392,7 @@
                             <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
                             <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
                             <div class="button-container">
-                                
+
                                 <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
                             </div>
                         </div>

@@ -114,13 +114,12 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    
-                                    <a class="dropdown-item" href="#" @click="toProfilePage">
+
+                                    <a class="dropdown-item" href @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Thông Tin Cá Nhân
                                     </a>
-                                    <router-link to="Register" class="small">Tạo tài khoản mới!</router-link>
-                                    <a class="dropdown-item" @click="toMyMotel">
+                                    <a class="dropdown-item" href @click="toMyMotel">
                                         <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Nhà Trọ Đã Đăng
                                     </a>
@@ -229,6 +228,7 @@
                                             <div style="color: #f43f5e;
                                font-weight: 600;
                                font-size: 18px;">
+                                                <i class="fa-solid fa-dollar-sign"></i>
                                                 {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
                                             <div style="color: #666;
@@ -243,7 +243,7 @@
                            gap: 8px;
                            margin-bottom: 12px;">
                                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
-                                            <span style="color: #666;">{{ motel.ward }}{{ motel.district }}</span>
+                                            <span style="color: #666;">{{ motel.ward }} {{ motel.district }}</span>
                                         </div>
 
                                         <!-- Mô tả -->
@@ -451,6 +451,7 @@
                 font-weight: 600; 
                 font-size: 18px; 
                 line-height: 1.2;">
+                                                        <i class="fa-solid fa-dollar-sign"></i>
                                                         {{ formatPrice(motel.price) }} triệu/tháng
                                                     </div>
                                                     <div style="color: #666; 

@@ -1,6 +1,9 @@
 package com.example.btnjava.Controller;
 
 
+import com.example.btnjava.Model.ApiDistance.Distance;
+import com.example.btnjava.Model.ApiDistance.Leg;
+import com.example.btnjava.Model.ApiDistance.RouterResponse;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
@@ -18,11 +21,15 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -151,6 +158,12 @@ public class UserController {
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/find-by-radius")
+    public ResponseEntity<?> findByDistance(@RequestParam("destination") String destination,
+                                            @RequestParam("radius") Double radius) throws MalformedURLException {
+        return ResponseEntity.ok().body(motelService.findByRadius(destination, (int) (radius * 1000)));
     }
 
 }

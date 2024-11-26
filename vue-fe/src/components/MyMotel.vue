@@ -311,6 +311,7 @@
                 font-weight: 600; 
                 font-size: 18px; 
                 line-height: 1.2;">
+                                                <i class="fa-solid fa-dollar-sign"></i>
                                                 {{ formatPrice(motel.price) }} triệu/tháng
                                             </div>
                                             <div style="color: #666; 
