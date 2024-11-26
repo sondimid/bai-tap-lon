@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -160,6 +161,42 @@ public class UserServiceImpl implements UserService {
         }
         Collections.sort(userResponses);
         return userResponses;
+    }
+
+    @Override
+    public void saveResetToken(String email, String resetToken) throws Exception {
+        Optional<UserEntity> userEntityOptional = userRepository.findByEmail(email);
+        if(!userEntityOptional.isPresent()){
+            throw new Exception("Email không tồn tại");
+        }
+        else{
+            UserEntity userEntity = userEntityOptional.get();
+            userEntity.setResetToken(resetToken);
+            userEntity.setTokenExpiryDate(LocalDateTime.now().plusMinutes(30));
+            userRepository.save(userEntity);
+        }
+
+    }
+
+    @Override
+    public void resetPassword(String token, String newPassword) throws Exception {
+        Optional<UserEntity> userEntityOptional = userRepository.findByResetToken(token);
+        if(!userEntityOptional.isPresent()){
+            throw new UsernameNotFoundException("Không tìm thấy tài khoản");
+        }
+        else{
+            UserEntity userEntity = userEntityOptional.get();
+            LocalDateTime now = LocalDateTime.now();
+            if(now.isBefore(userEntity.getTokenExpiryDate())){
+                userEntity.setPassWord(passwordEncoder.encode(newPassword));
+                userEntity.setTokenExpiryDate(now);
+                userRepository.save(userEntity);
+            }
+            else{
+                throw new Exception("Token đã hết hạn. Vui lòng yêu cầu gửi lại email.");
+            }
+
+        }
     }
 
 }

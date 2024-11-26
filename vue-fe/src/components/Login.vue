@@ -61,10 +61,10 @@
                     </form>
                     <hr />
                     <div class="text-center">
-                      <a class="small" href="forgot-password.html">Quên Mật Khẩu?</a>
+                      <router-link to="/forgot-password" class="small">Quên Mật Khẩu?</router-link>
                     </div>
                     <div class="text-center">
-                      <a class="small" href="" @click="toRegisterPage">Tạo Tài Khoản Mới!</a>
+                      <router-link to="/register" class="small">Tạo Tài Khoản Mới!</router-link>
                     </div>
                   </div>
                 </div>

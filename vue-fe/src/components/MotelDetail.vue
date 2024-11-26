@@ -177,9 +177,11 @@
                     <!-- Begin Page Content -->
 
 
-                    <div class="container-fluid " style="overflow: auto;">
+                    <div class="container-fluid " style="overflow: auto;" v-if="!openMotelUser">
+
                         <div class="row">
                             <div v-if="motel" class="col-md-8 motel-info">
+
                                 <div v-if="isSelf" class="edit-container d-flex justify-content-end"
                                     style="margin-left: 16px;">
                                     <button class="btn btn-info d-flex align-items-center gap-2"
@@ -254,6 +256,148 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" v-else>
+                        <div class="col-8">
+                            <div v-for="motel in listMotel" :key="motel.id">
+                                <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
+       box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); 
+       transition: all 0.3s ease;
+       cursor: pointer;
+       display: flex;
+       flex-direction: row;
+       border-radius: 12px;
+       overflow: hidden;
+       background: white;
+       height: 240px;">
+                                    <div style="position: absolute; 
+         top: 10px; 
+         left: 10px; 
+         z-index: 10;">
+                                        <input type="checkbox" :value="motel.id" v-model="selectedMotels" @click.stop
+                                            style="width: 20px;  height: 18px;   cursor: pointer;" v-if="isAdmin">
+                                    </div>
+                                    <!-- Phần hình ảnh bên trái -->
+                                    <div style="position: relative; 
+         width: 300px; 
+         min-width: 300px; 
+         height: 220px;">
+                                        <!-- Ảnh chính -->
+                                        <img :src="motel.filesDTO && motel.filesDTO[0] ? motel.filesDTO[0].fileUrl : defaultImage"
+                                            style="width: 100%; 
+         height: 100%; 
+         object-fit: contain;" alt="Motel Image">
+                                        <!-- Badge VIP -->
+                                        <!-- Số lượng ảnh -->
+                                        <div style="position: absolute;
+           bottom: 10px;
+           right: 10px;
+           background: rgba(0, 0, 0, 0.6);
+           color: white;
+           padding: 4px 8px;
+           border-radius: 4px;
+           font-size: 12px;">
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                            }}
+                                        </div>
+                                    </div>
+                                    <!-- Phần nội dung bên phải -->
+                                    <div style="flex: 1;
+         padding: 16px;
+         display: flex;
+         flex-direction: column;">
+                                        <!-- Tiêu đề -->
+                                        <h5 style="font-size: 18px;
+           font-weight: 500;
+           margin-bottom: 12px;
+           line-height: 1.4;
+           color: #333;">
+                                            {{ motel.title }}
+                                        </h5>
+                                        <!-- Giá và diện tích -->
+                                        <div style="display: flex; 
+         gap: 16px; 
+         margin-bottom: 12px; 
+         align-items: center;">
+                                            <div style="color: #f43f5e; 
+         font-weight: 600; 
+         font-size: 18px; 
+         line-height: 1.2;">
+                                                {{ formatPrice(motel.price) }} triệu/tháng
+                                            </div>
+                                            <div style="color: #666; 
+         font-size: 16px; 
+         line-height: 1.2;">
+                                                {{ motel.area }}m²
+                                            </div>
+                                        </div>
+                                        <!-- Địa chỉ -->
+                                        <div style="display: flex;
+           align-items: center;
+           gap: 8px;
+           margin-bottom: 12px;">
+                                            <i class="fas fa-map-marker-alt" style="color: red;"></i>
+                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
+                                        </div>
+                                        <p><strong>{{ motel.type }}</strong></p>
+                                        <!-- Mô tả -->
+                                        <p style="color: #666;
+           font-size: 20px;
+           line-height: 1.5;
+           margin-bottom: 12px;
+           display: -webkit-box;
+           -webkit-line-clamp: 2;
+           -webkit-box-orient: vertical;
+           overflow: hidden;">
+                                            {{ motel.detail }}
+                                        </p>
+                                        <!-- Thời gian đăng -->
+                                        <div
+                                            style="margin-top: auto; font-size: 14px; color: #666; display: flex; align-items: center; gap: 16px;">
+                                            <!-- Ngày đăng -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-clock" style="color: #00b4d8;"></i>
+                                                Ngày Đăng Bài: {{ formatDate(motel.createdAt) }}
+                                            </div>
+                                            <!-- Ngày chỉnh sửa -->
+                                            <div style="display: flex; align-items: center; gap: 8px;">
+                                                <i class="fas fa-edit" style="color: #f43f5e;"></i>
+                                                Ngày Chỉnh Sửa: {{ formatDate(motel.updatedAt) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Nút yêu thích -->
+                                    <div style="position: absolute;
+         top: 10px;
+         right: 10px;
+         width: 32px;
+         height: 32px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 50%;
+         background: white;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+         cursor: pointer;">
+                                        <i class="far fa-heart" style="color: #666;"></i>
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
+                            </div>
+
+                        </div>
+                        <div class="col-4 rental-info">
+                            <div class="retal-info-header">Thông tin người cho thuê</div>
+                            <img :src="motel.owner.fileUrl || defaultImage" alt="Renter Avatar" class="renter-avatar" />
+                            <p><strong>Tên:</strong> {{ motel.owner.fullName }}</p>
+                            <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
+                            <div class="button-container">
+                                
+                                <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
                     <!-- /.container-fluid -->
@@ -397,7 +541,7 @@ export default {
             this.scrollToBottom();
 
         }
-        
+
     },
     watch: {
         isChatBoxVisible(newVal) {
@@ -499,6 +643,7 @@ export default {
             console.log(this.listMotel)
             this.namePage = "Xem Thêm Nhà Trọ";
             this.openMotelUser = true
+            this.openList
         },
         createSearchData(overrides) {
             return {

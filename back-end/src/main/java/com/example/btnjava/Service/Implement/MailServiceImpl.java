@@ -2,26 +2,26 @@ package com.example.btnjava.Service.Implement;
 
 import com.example.btnjava.Model.Email.MailStructure;
 import com.example.btnjava.Service.MailService;
+import com.example.btnjava.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
     private final JavaMailSender mailSender;
+    private final UserService userService;
 
-    public void sendEmail(String mail, MailStructure mailStructure) {
+    public void sendEmail(String mail) throws Exception {
 
-        // Tạo reset token ngẫu nhiên và lưu vào database
-//        String resetToken = generateResetToken();
-//        saveResetToken(mail, resetToken); // Lưu token và email vào DB
+        String resetToken = generateResetToken();
+        userService.saveResetToken(mail, resetToken);
 
-        // Tạo reset link
-        String resetLink = "http://localhost:8081/dashboard";
+        String resetLink = "http://localhost:8080/reset-password?token=" + resetToken;
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("daongocson12022004@gmail.com");
@@ -32,10 +32,9 @@ public class MailServiceImpl implements MailService {
         mailSender.send(simpleMailMessage);
     }
 
-//    private String generateResetToken() {
-//        // Tạo token ngẫu nhiên, có thể dùng UUID
-//        return UUID.randomUUID().toString();
-//    }
+    private String generateResetToken() {
+        return UUID.randomUUID().toString();
+    }
 
 
 }

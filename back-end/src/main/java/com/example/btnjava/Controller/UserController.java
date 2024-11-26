@@ -142,6 +142,15 @@ public class UserController {
         return ResponseEntity.ok().body(motelService.deleteMotels(userId, ids));
     }
 
-
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestParam("token") String token,
+                                           @RequestParam("newPassword") String newPassword) {
+        try{
+            userService.resetPassword(token, newPassword);
+            return ResponseEntity.ok().body("Success");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 }

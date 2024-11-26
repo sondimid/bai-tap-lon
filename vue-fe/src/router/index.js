@@ -11,6 +11,8 @@ import MyMotel from "@/components/MyMotel.vue";
 import Admin from "@/components/Admin.vue";
 import ChatComponent from "@/components/ChatComponent.vue";
 import EditMotel from "@/components/EditMotel.vue";
+import ResetPassword from "@/components/ResetPassword.vue";
+import ForgotPassword from "@/components/ForgotPassword.vue";
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -61,6 +63,19 @@ const router = createRouter({
       path: "/edit-motel/:id",
       name: "EditMotel",
       component: EditMotel,
+    },
+    {
+      path: "/reset-password",
+      name: "ResetPassword",
+      component: ResetPassword,
+      props: (route) => ({
+        token: route.query.token,
+      }),
+    },
+    {
+      path: "/forgot-password",
+      name: "ForgotPassword",
+      component: ForgotPassword,
     },
   ],
 });

@@ -114,11 +114,13 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
+                                    
                                     <a class="dropdown-item" href="#" @click="toProfilePage">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Thông Tin Cá Nhân
                                     </a>
-                                    <a class="dropdown-item" href="#" @click="toMyMotel">
+                                    <router-link to="Register" class="small">Tạo tài khoản mới!</router-link>
+                                    <a class="dropdown-item" @click="toMyMotel">
                                         <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Nhà Trọ Đã Đăng
                                     </a>
@@ -839,7 +841,7 @@ export default {
             this.openMotelUser = false
         },
         toMyMotel() {
-            this.$router.push('/my-motel')
+            this.$router.replace('/my-motel')
         },
         toAdvancedSearchPage() {
             this.$router.push('/advanced-search')
@@ -996,6 +998,11 @@ export default {
 
         }
     },
+    created() {
+        window.onpopstate = function (event) {
+            window.history.pushState(null, document.title, window.location.href)
+        }
+    }
 };
 </script>
 <style scoped>

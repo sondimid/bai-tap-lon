@@ -22,4 +22,7 @@ public interface UserService {
     String uploadAvatar(Integer id, MultipartFile file) throws Exception;
     void changePassword(ChangePasswordDTO changePasswordDTO, String token);
     List<UserResponse> getByIds(List<Integer> ids, Integer senderId) throws MalformedURLException;
+    void saveResetToken(String email, String resetToken) throws Exception;
+
+    void resetPassword(String token, String newPassword) throws Exception;
 }
