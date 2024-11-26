@@ -41,8 +41,6 @@ public class MotelResponseConverter {
                 filesDTO.add(fileDTO);
             }
             motelResponse.setFilesDTO(filesDTO);
-            motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                                        + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội");
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("Đã Được Duyệt");
             }
@@ -68,8 +66,6 @@ public class MotelResponseConverter {
                 filesDTO.add(fileDTO);
             }
             motelResponse.setFilesDTO(filesDTO);
-            motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội" );
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("Đã Được Duyệt");
             }
@@ -94,8 +90,6 @@ public class MotelResponseConverter {
                 filesDTO.add(fileDTO);
             }
             motelResponse.setFilesDTO(filesDTO);
-            motelResponse.setAddress("Số " + motelEntity.getHouseNumber() + " Đường " + motelEntity.getStreet() + " Phường "
-                    + motelEntity.getWard() + " Quận " + motelEntity.getDistrict() + " Thành phố Hà Nội");
             if(motelEntity.getStatus() == 1){
                 motelResponse.setStatus("Đã Được Duyệt");
                 result.add(motelResponse);
@@ -121,10 +115,7 @@ public class MotelResponseConverter {
                         .build();
                 filesDTO.add(fileDTO);
             }
-//            motelResponse.setCreatedAt(motelEntity.getCreatedAt());
             motelResponse.setFilesDTO(filesDTO);
-            motelResponse.setAddress("số " + motelEntity.getHouseNumber() + " đường " + motelEntity.getStreet() + " phường "
-                    + motelEntity.getWard() + " quận " + motelEntity.getDistrict() + " thành phố Hà Nội");
             if(motelEntity.getStatus() == 0){
                 motelResponse.setStatus("Đang Chờ Duyệt");
                 result.add(motelResponse);

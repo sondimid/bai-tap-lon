@@ -225,42 +225,17 @@
                                 </div>
                             </div>
 
-                            <!-- Số nhà -->
+                            <!-- dsfsgdfhhhhhhhhhhhhhhhhhhhhhhhhdfgd -->
                             <div class="mb-3 row">
-                                <label for="houseNumber" class="col-3 col-form-label">Số nhà</label>
+                                <label for="houseNumber" class="col-3 col-form-label">Địa Chỉ</label>
                                 <div class="col-7">
-                                    <input type="number" class="form-control" id="houseNumber" v-model="houseNumber"
-                                        placeholder="Số nhà" required />
+                                    <input type="text" class="form-control" id="address" v-model="address"
+                                        placeholder="Địa chỉ" autocomplete="off" required />
+                                    <div id="suggestions" class="suggestions"></div>
                                 </div>
                             </div>
 
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label">Đường</label>
-                                <div class="col-7">
-                                    <input type="text" class="form-control" id="street" v-model="street"
-                                        placeholder="Đường" required />
-                                </div>
-
-                            </div>
-
-                            <!-- Khu vực (Quận/Huyện, Phường/Xã) -->
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label">Khu vực</label>
-
-                                <div class="col-3">
-                                    <select id="district" class="form-select" v-model="district">
-                                        <option value="" selected required>Chọn quận huyện</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <select id="ward" class="form-select" v-model="ward">
-                                        <option value="" selected required>Chọn phường xã</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
+                           
                             <!-- Diện tích từ - đến -->
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label">Diện tích (m²)</label>
@@ -446,6 +421,8 @@ export default {
             modelMsg: null,
             isLoading: false,
             previews: [],
+            address: null,
+            province: null,
         };
     },
     mounted() {
@@ -457,7 +434,63 @@ export default {
             }
         }
 
-        this.getDistrict()
+        const apiKey = '9Zd3qashu6zFvhgoWz02tjycaK4dH0qEfKlfCogk'; // https://account.goong.io/keys
+        const addressInput = document.getElementById('address');
+        const suggestionsContainer = document.getElementById('suggestions');
+        let sessionToken = crypto.randomUUID();
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedSearch = debounce((query) => {
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            fetch(`https://rsapi.goong.io/Place/AutoComplete?api_key=${apiKey}&input=${encodeURIComponent(query)}&sessiontoken=${sessionToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK') {
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'block';
+
+                        data.predictions.forEach(prediction => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = prediction.description;
+                            div.addEventListener('click', () => {
+                                addressInput.value = prediction.description;
+                                this.address = prediction.description
+                                this.district = prediction.compound.district
+                                this.ward = prediction.compound.commune
+                                this.province = prediction.compound.province
+                                suggestionsContainer.style.display = 'none';
+
+                            });
+                            suggestionsContainer.appendChild(div);
+                        });
+                    }
+                })
+                .catch(error => console.error('Lỗi:', error));
+        }, 300);
+
+        addressInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
+
+        document.addEventListener('click', function (e) {
+            if (!suggestionsContainer.contains(e.target) && e.target !== addressInput) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+
     },
     methods: {
         toMotelDetailPage(id) {
@@ -595,45 +628,14 @@ export default {
         },
         async addMotel() {
             this.isLoading = true;
-            const districts = [
-                { id: 'district1', name: 'Ba Đình' },
-                { id: 'district2', name: 'Hoàn Kiếm' },
-                { id: 'district3', name: 'Tây Hồ' },
-                { id: 'district4', name: 'Long Biên' },
-                { id: 'district5', name: 'Cầu Giấy' },
-                { id: 'district6', name: 'Đống Đa' },
-                { id: 'district7', name: 'Hai Bà Trưng' },
-                { id: 'district8', name: 'Hoàng Mai' },
-                { id: 'district9', name: 'Nam Từ Liêm' },
-                { id: 'district10', name: 'Bắc Từ Liêm' },
-                { id: 'district11', name: 'Đông Anh' },
-                { id: 'district12', name: 'Hà Đông' },
-                { id: 'district13', name: 'Sóc Sơn' },
-                { id: 'district14', name: 'Chương Mỹ' },
-                { id: 'district15', name: 'Thanh Xuân' },
-                { id: 'district16', name: 'Gia Lâm' },
-                { id: 'district17', name: 'Thanh Trì' },
-                { id: 'district18', name: 'Thường Tín' },
-                { id: 'district19', name: 'Hoài Đức' },
-                { id: 'district20', name: 'Mê Linh' },
-                { id: 'district21', name: 'Phú Xuyên' },
-                { id: 'district22', name: 'Thanh Oai' },
-                { id: 'district23', name: 'Thạch Thất' },
-                { id: 'district24', name: 'Ứng Hòa' },
-                { id: 'district25', name: 'Mỹ Đức' },
-                { id: 'district26', name: 'Quốc Oai' },
-                { id: 'district27', name: 'Phúc Thọ' },
-                { id: 'district28', name: 'Đan Phượng' },
-                { id: 'district29', name: 'Sơn Tây' }
-
-            ];
+            
 
             const formData = new FormData();
 
             formData.append('title', this.title);
-            formData.append('houseNumber', this.houseNumber);
-            formData.append('street', this.street);
-            formData.append('district', districts.find(district => district.id === this.district).name);
+            formData.append('address', this.address);
+            formData.append('province', this.province);
+            formData.append('district', this.district);
             formData.append('ward', this.ward);
             formData.append('area', this.area);
             formData.append('price', this.price);
@@ -661,249 +663,6 @@ export default {
             this.modelMsg = response.data
             this.showModalSuccess = true
             this.isLoading = false
-        },
-        getDistrict() {
-            const districts = [
-                { id: 'district1', name: 'Ba Đình' },
-                { id: 'district2', name: 'Hoàn Kiếm' },
-                { id: 'district3', name: 'Tây Hồ' },
-                { id: 'district4', name: 'Long Biên' },
-                { id: 'district5', name: 'Cầu Giấy' },
-                { id: 'district6', name: 'Đống Đa' },
-                { id: 'district7', name: 'Hai Bà Trưng' },
-                { id: 'district8', name: 'Hoàng Mai' },
-                { id: 'district9', name: 'Nam Từ Liêm' },
-                { id: 'district10', name: 'Bắc Từ Liêm' },
-                { id: 'district11', name: 'Đông Anh' },
-                { id: 'district12', name: 'Hà Đông' },
-                { id: 'district13', name: 'Sóc Sơn' },
-                { id: 'district14', name: 'Chương Mỹ' },
-                { id: 'district15', name: 'Thanh Xuân' },
-                { id: 'district16', name: 'Gia Lâm' },
-                { id: 'district17', name: 'Thanh Trì' },
-                { id: 'district18', name: 'Thường Tín' },
-                { id: 'district19', name: 'Hoài Đức' },
-                { id: 'district20', name: 'Mê Linh' },
-                { id: 'district21', name: 'Phú Xuyên' },
-                { id: 'district22', name: 'Thanh Oai' },
-                { id: 'district23', name: 'Thạch Thất' },
-                { id: 'district24', name: 'Ứng Hòa' },
-                { id: 'district25', name: 'Mỹ Đức' },
-                { id: 'district26', name: 'Quốc Oai' },
-                { id: 'district27', name: 'Phúc Thọ' },
-                { id: 'district28', name: 'Đan Phượng' },
-                { id: 'district29', name: 'Sơn Tây' }
-
-            ];
-
-            const wards = {
-                district1: [
-                    'Cống Vị', 'Điện Biên', 'Đội Cấn', 'Giảng Võ', 'Kim Mã',
-                    'Liễu Giai', 'Ngọc Hà', 'Ngọc Khánh', 'Nguyễn Trung Trực',
-                    'Phúc Xá', 'Quán Thánh', 'Thành Công', 'Trúc Bạch', 'Vĩnh Phúc'
-                ],
-                district2: [
-                    ' Chương Dương', ' Cửa Đông', ' Cửa Nam', ' Đồng Xuân', ' Hàng Bạc',
-                    'Hàng Bài', 'Hàng Bồ', 'Hàng Bông', 'Hàng Buồm', 'Hàng Đào',
-                    'Hàng Gai', 'Hàng Mã', 'Hàng Trống', 'Lý Thái Tổ', 'Phan Chu Trinh',
-                    'Phúc Tân', 'Trần Hưng Đạo', 'Tràng Tiền'
-                ],
-                district3: [
-                    'Bưởi', 'Nhật Tân', 'Phú Thượng', 'Quảng An',
-                    'Thụy Khuê', 'Tứ Liên', 'Xuân La', 'Yên Phụ'
-                ],
-                district4: [
-                    'Bồ Đề', 'Cự Khối', 'Đức Giang', 'Gia Thụy',
-                    'Giang Biên', 'Long Biên', 'Ngọc Lâm', 'Ngọc Thụy',
-                    'Phúc Đồng', 'Phúc Lợi', 'Sài Đồng', 'Thạch Bàn',
-                    'Thượng Thanh', 'Việt Hưng'
-                ],
-                district5: [
-                    'Dịch Vọng', 'Dịch Vọng Hậu', 'Mai Dịch', 'Nghĩa Đô',
-                    'Nghĩa Tân', 'Quan Hoa', 'Trung Hòa', 'Yên Hòa'
-                ],
-                district6: [
-                    'Cát Linh', 'Hàng Bột', 'Khâm Thiên', 'Khương Thượng', 'Kim Liên',
-                    'Láng Hạ', 'Láng Thượng', 'Nam Đồng', 'Ngã Tư Sở', 'Ô Chợ Dừa',
-                    'Phương Liên', 'Phương Mai', 'Quang Trung', 'Quốc Tử Giám', 'Thịnh Quan',
-                    'Thổ Quan', 'Trung Liệt', 'Trung Phụng', 'Trung Tự', 'Văn Chương',
-                    'Văn Miếu'
-                ],
-                district7: [
-                    'Bách Khoa', 'Bạch Đằng', 'Bạch Mai', 'Cầu Dền', 'Đống Mác',
-                    'Đồng Nhân', 'Đồng Tâm', 'Lê Đại Hành', 'Minh Khai', 'Nguyễn Du',
-                    'Phạm Đình Hổ', 'Phố Huế', 'Quỳnh Lôi', 'Quỳnh Mai', 'Thanh Lương',
-                    'Thanh Nhàn', 'Trương Định', 'Vĩnh Tuy'
-                ],
-                district8: [
-                    'Đại Kim', 'Định Công', 'Giáp Bát', 'Hoàng Liệt', 'Hoàng Văn Thụ',
-                    'Lĩnh Nam', 'Mai Động', 'Tân Mai', 'Thanh Trì', 'Thịnh Liệt',
-                    'Trần Phú', 'Tương Mai', 'Vĩnh Hưng', 'Yên Sở'
-                ],
-                district9: [
-                    'Cầu Diễn', 'Mỹ Đình 1', 'Mỹ Đình 2', 'Phú Đô', 'Mễ Trì',
-                    'Trung Văn', 'Đại Mỗ', 'Tây Mỗ', 'Phương Canh', 'Xuân Phương'
-                ],
-                district10: [
-                    'Cổ Nhuế 1', 'Cổ Nhuế 2', 'Đức Thắng', 'Đông Ngạc',
-                    'Thụy Phương', 'Liên Mạc', 'Thượng Cát', 'Tây Tựu',
-                    'Minh Khai', 'Phú Diễn', 'Phúc Diễn', 'Xuân Đỉnh', 'Xuân Tảo'
-                ],
-                district11: [
-                    'Thị trấn Đông Anh', 'Xã Bắc Hồng', 'Xã Cổ Loa', 'Xã Đại Mạch', 'Xã Đông Hội',
-                    'Xã Dục Tú', 'Xã Hải Bối', 'Xã Kim Chung', 'Xã Kim Nỗ', 'Xã Liên Hà',
-                    'Xã Mai Lâm', 'Xã Nam Hồng', 'Xã Nguyên Khê', 'Xã Tàm Xá', 'Xã Thụy Lâm',
-                    'Xã Tiên Dương', 'Xã Uy Nỗ', 'Xã Vân Hà', 'Xã Vân Nội', 'Xã Việt Hùng',
-                    'Xã Vĩnh Ngọc', 'Xã Võng La', 'Xã Xuân Canh', 'Xã Xuân Nộn'
-                ],
-                district12: [
-                    'Biên Giang', 'Đồng Mai', 'Yên Nghĩa', 'Dương Nội', 'Hà Cầu',
-                    'La Khê', 'Mộ Lao', 'Nguyễn Trãi', 'Phú La', 'Phú Lãm',
-                    'Phú Lương', 'Kiến Hưng', 'Phúc La', 'Quang Trung', 'Vạn Phúc',
-                    'Văn Quán', 'Yết Kiêu'
-                ],
-                district13: [
-                    'Thị trấn Sóc Sơn', 'Xã Bắc Phú', 'Xã Bắc Sơn', 'Xã Đông Xuân', 'Xã Đức Hòa', 'Xã Hiền Ninh',
-                    'Xã Hồng Kỳ', 'Xã Kim Lũ', 'Xã Mai Đình', 'Xã Minh Phú', 'Xã Minh Trí', 'Xã Nam Sơn',
-                    'Xã Phú Cường', 'Xã Phù Linh', 'Xã Phù Lỗ', 'Xã Phú Minh', 'Xã Quang Tiến', 'Xã Tân Dân',
-                    'Xã Tân Hưng', 'Xã Tân Minh', 'Xã Thanh Xuân', 'Xã Tiên Dược', 'Xã Trung Giã', 'Xã Việt Long',
-                    'Xã Xuân Giang', 'Xã Xuân Thu'
-                ],
-                district14: [
-                    'Thị trấn Chúc Sơn', 'Thị trấn Xuân Mai', 'Xã Đại Yên', 'Xã Đông Phương Yên', 'Xã Đông Sơn',
-                    'Xã Đồng Lạc', 'Xã Đồng Phú', 'Xã Hòa Chính', 'Xã Hoàng Diệu', 'Xã Hoàng Văn Thụ', 'Xã Hồng Phong',
-                    'Xã Hợp Đồng', 'Xã Hữu Văn', 'Xã Lam Điền', 'Xã Mỹ Lương', 'Xã Nam Phương Tiến', 'Xã Ngọc Hòa',
-                    'Xã Phú Nam An', 'Xã Phú Nghĩa', 'Xã Phụng Châu', 'Xã Quảng Bị', 'Xã Tân Tiến', 'Xã Tiên Phương',
-                    'Xã Tốt Động', 'Xã Thanh Bình', 'Xã Thủy Xuân Tiên', 'Xã Thụy Hương', 'Xã Thượng Vực', 'Xã Trần Phú',
-                    'Xã Trung Hòa', 'Xã Trường Yên', 'Xã Văn Võ'
-                ],
-                district15: [
-                    'Hạ Đình', 'Khương Đình', 'Khương Mai', 'Khương Trung', 'Kim Giang',
-                    'Nhân Chính', 'Phương Liệt', 'Thanh Xuân Bắc', 'Thanh Xuân Nam',
-                    'Thanh Xuân Trung', 'Thượng Đình'
-                ],
-                district16: [
-                    'Thị trấn Trâu Quỳ', 'Thị trấn Yên Viên', 'Xã Cổ Bi', 'Xã Đặng Xá', 'Xã Dương Xá',
-                    'Xã Phú Thị', 'Xã Dương Quang', 'Xã Kim Sơn', 'Xã Lệ Chi', 'Xã Đông Dư',
-                    'Xã Bát Tràng', 'Xã Kim Lan', 'Xã Văn Đức', 'Xã Đa Tốn', 'Xã Kiêu Kỵ',
-                    'Xã Yên Thường', 'Xã Yên Viên', 'Xã Dương Hà', 'Xã Ninh Hiệp', 'Xã Đình Xuyên',
-                    'Xã Phù Đổng', 'Xã Trung Mầu'
-                ],
-                district17: [
-                    'Thị trấn Văn Điển', 'Xã Đại Áng', 'Xã Đông Mỹ', 'Xã Duyên Hà', 'Xã Hữu Hòa',
-                    'Xã Liên Ninh', 'Xã Ngọc Hồi', 'Xã Ngũ Hiệp', 'Xã Tả Thanh Oai', 'Xã Tam Hiệp',
-                    'Xã Tân Triều', 'Xã Thanh Liệt', 'Xã Tứ Hiệp', 'Xã Vạn Phúc', 'Xã Vĩnh Quỳnh',
-                    'Xã Yên Mỹ'
-                ],
-                district18: [
-                    'Thị trấn Thường Tín', 'Xã Chương Dương', 'Xã Dũng Tiến', 'Xã Duyên Thái', 'Xã Hà Hồi',
-                    'Xã Hiền Giang', 'Xã Hòa Bình', 'Xã Khánh Hà', 'Xã Hồng Vân', 'Xã Lê Lợi',
-                    'Xã Liên Phương', 'Xã Minh Cường', 'Xã Nghiêm Xuyên', 'Xã Nguyễn Trãi', 'Xã Nhị Khê',
-                    'Xã Ninh Sở', 'Xã Quất Động', 'Xã Tân Minh', 'Xã Thắng Lợi', 'Xã Thống Nhất',
-                    'Xã Thư Phú', 'Xã Tiền Phong', 'Xã Tô Hiệu', 'Xã Tự Nhiên', 'Xã Vạn Điểm',
-                    'Xã Văn Bình', 'Xã Văn Phú', 'Xã Văn Tự', 'Xã Vân Tảo'
-                ],
-                district19: [
-                    'Thị trấn Trạm Trôi', 'Xã An Khánh', 'Xã An Thượng', 'Xã Cát Quế', 'Xã Đắc Sở',
-                    'Xã Di Trạch', 'Xã Đông La', 'Xã Đức Giang', 'Xã Đức Thượng', 'Xã Dương Liễu',
-                    'Xã Kim Chung', 'Xã La Phù', 'Xã Lại Yên', 'Xã Minh Khai', 'Xã Sơn Đồng',
-                    'Xã Song Phương', 'Xã Tiền Yên', 'Xã Vân Canh', 'Xã Vân Côn', 'Xã Yên Sở'
-                ],
-                district20: [
-                    'Thị trấn Chi Đông', 'Thị trấn Quang Minh', 'Xã Chu Phan', 'Xã Đại Thịnh',
-                    'Xã Hoàng Kim', 'Xã Kim Hoa', 'Xã Liên Mạc', 'Xã Mê Linh', 'Xã Tam Đồng',
-                    'Xã Thạch Đà', 'Xã Thanh Lâm', 'Xã Tiền Phong', 'Xã Tiến Thắng', 'Xã Tiến Thịnh',
-                    'Xã Tráng Việt', 'Xã Tự Lập', 'Xã Vạn Yên', 'Xã Văn Khê'
-                ],
-                district21: [
-                    'Thị trấn Phú Xuyên', 'Thị trấn Phú Minh', 'Xã Bạch Hạ', 'Xã Châu Can',
-                    'Xã Chuyên Mỹ', 'Xã Đại Thắng', 'Xã Đại Xuyên', 'Xã Hoàng Long', 'Xã Hồng Minh',
-                    'Xã Hồng Thái', 'Xã Khai Thái', 'Xã Minh Tân', 'Xã Nam Phong', 'Xã Nam Tiến',
-                    'Xã Nam Triều', 'Xã Phú Túc', 'Xã Phú Yên', 'Xã Phúc Tiến', 'Xã Phượng Dực',
-                    'Xã Quang Lãng', 'Xã Quang Trung', 'Xã Sơn Hà', 'Xã Tân Dân', 'Xã Tri Thủy',
-                    'Xã Tri Trung', 'Xã Văn Hoàng', 'Xã Vân Từ'
-                ],
-                district22: [
-                    'Thị trấn Kim Bài', 'Xã Bích Hòa', 'Xã Bình Minh', 'Xã Cao Dương', 'Xã Cao Viên',
-                    'Xã Cự Khê', 'Xã Dân Hòa', 'Xã Đỗ Động', 'Xã Hồng Dương', 'Xã Kim An',
-                    'Xã Kim Thư', 'Xã Liên Châu', 'Xã Mỹ Hưng', 'Xã Phương Trung', 'Xã Tam Hưng',
-                    'Xã Tân Ước', 'Xã Thanh Cao', 'Xã Thanh Mai', 'Xã Thanh Thùy', 'Xã Thanh Văn',
-                    'Xã Xuân Dương'
-                ],
-                district23: [
-                    'Thị trấn Liên Quan', 'Xã Bình Phú', 'Xã Bình Yên', 'Xã Cẩm Yên', 'Xã Cần Kiệm',
-                    'Xã Canh Nậu', 'Xã Chàng Sơn', 'Xã Đại Đồng', 'Xã Dị Nậu', 'Xã Đồng Trúc',
-                    'Xã Hạ Bằng', 'Xã Hương Ngải', 'Xã Hữu Bằng', 'Xã Kim Quan', 'Xã Lại Thượng',
-                    'Xã Phú Kim', 'Xã Phùng Xá', 'Xã Tân Xã', 'Xã Thạch Hòa', 'Xã Thạch Xá',
-                    'Xã Tiến Xuân', 'Xã Yên Bình', 'Xã Yên Trung'
-                ],
-                district24: [
-                    'Thị trấn Vân Đình', 'Xã Cao Thành', 'Xã Đại Cường', 'Xã Đại Hùng', 'Xã Đội Bình',
-                    'Xã Đông Lỗ', 'Xã Đồng Tiến', 'Xã Đồng Tân', 'Xã Hoa Sơn', 'Xã Hòa Lâm',
-                    'Xã Hòa Nam', 'Xã Hòa Phú', 'Xã Hòa Xá', 'Xã Hồng Quang', 'Xã Kim Đường',
-                    'Xã Liên Bạt', 'Xã Lưu Hoàng', 'Xã Minh Đức', 'Xã Phù Lưu', 'Xã Phương Tú',
-                    'Xã Quảng Phú Cầu', 'Xã Sơn Công', 'Xã Tảo Dương Văn', 'Xã Trầm Lộng', 'Xã Trung Tú',
-                    'Xã Trường Thịnh', 'Xã Vạn Thái', 'Xã Viên An', 'Xã Viên Nội'
-                ],
-                district25: [
-                    'Thị trấn Đại Nghĩa', 'Xã An Mỹ', 'Xã An Phú', 'Xã An Tiến', 'Xã Bột Xuyên',
-                    'Xã Đại Hưng', 'Xã Đốc Tín', 'Xã Đồng Tâm', 'Xã Hồng Sơn', 'Xã Hợp Thanh',
-                    'Xã Hợp Tiến', 'Xã Hùng Tiến', 'Xã Hương Sơn', 'Xã Lê Thanh', 'Xã Mỹ Thành',
-                    'Xã Phù Lưu Tế', 'Xã Phúc Lâm', 'Xã Phùng Xá', 'Xã Thượng Lâm', 'Xã Tuy Lai',
-                    'Xã Vạn Kim', 'Xã Xuy Xá'
-                ],
-                district26: [
-                    'Thị trấn Quốc Oai', 'Xã Cấn Hữu', 'Xã Cộng Hòa', 'Xã Đại Thành', 'Xã Đồng Quang',
-                    'Xã Đông Yên', 'Xã Hòa Thạch', 'Xã Liệp Tuyết', 'Xã Nghĩa Hương', 'Xã Ngọc Liệp',
-                    'Xã Ngọc Mỹ', 'Xã Phú Cát', 'Xã Phú Mãn', 'Xã Phượng Cách', 'Xã Sài Sơn',
-                    'Xã Tân Hòa', 'Xã Tân Phú', 'Xã Thạch Thán', 'Xã Tuyết Nghĩa', 'Xã Yên Sơn',
-                    'Xã Đông Xuân'
-                ],
-                district27: [
-                    'Thị trấn Phúc Thọ', 'Xã Hát Môn', 'Xã Hiệp Thuận', 'Xã Liên Hiệp', 'Xã Long Xuyên',
-                    'Xã Ngọc Tảo', 'Xã Phúc Hòa', 'Xã Phụng Thượng', 'Xã Sen Phương', 'Xã Tam Hiệp',
-                    'Xã Tam Thuấn', 'Xã Thanh Đa', 'Xã Thọ Lộc', 'Xã Thượng Cốc', 'Xã Tích Giang',
-                    'Xã Trạch Mỹ Lộc', 'Xã Vân Hà', 'Xã Vân Nam', 'Xã Vân Phúc', 'Xã Võng Xuyên',
-                    'Xã Xuân Đình'
-                ],
-                district28: [
-                    'Thị trấn Phùng', 'Xã Đan Phượng', 'Xã Đồng Tháp', 'Xã Hạ Mỗ', 'Xã Hồng Hà',
-                    'Xã Liên Hà', 'Xã Liên Hồng', 'Xã Liên Trung', 'Xã Phương Đình', 'Xã Song Phượng',
-                    'Xã Tân Hội', 'Xã Tân Lập', 'Xã Thọ An', 'Xã Thọ Xuân', 'Xã Thượng Mỗ',
-                    'Xã Trung Châu'
-                ],
-                district29: [
-                    'Lê Lợi', 'Ngô Quyền', 'Phú Thịnh', 'Quang Trung', 'Sơn Lộc',
-                    'Trung Hưng', 'Trung Sơn Trầm', 'Viên Sơn', 'Xuân Khanh',
-                    'Xã Cổ Đông', 'Xã Đường Lâm', 'Xã Kim Sơn', 'Xã Sơn Đông', 'Xã Thanh Mỹ', 'Xã Xuân Sơn'
-                ]
-            };
-
-            const districtSelect = document.getElementById('district');
-            districts.forEach(district => {
-                const option = document.createElement('option');
-                option.value = district.id;
-                option.textContent = district.name;
-                option.setAttribute("data-name", district.name);
-                districtSelect.appendChild(option);
-            });
-
-            districtSelect.addEventListener('change', function () {
-                const wardSelect = document.getElementById('ward');
-                wardSelect.innerHTML = '<option value="" selected>Chọn phường xã</option>'; // Reset phường xã
-
-                const selectedDistrictId = this.value; // Lấy id quận huyện
-                if (wards[selectedDistrictId]) {
-                    wards[selectedDistrictId].forEach(ward => {
-                        const option = document.createElement('option');
-                        option.value = ward;
-                        option.textContent = ward;
-                        wardSelect.appendChild(option);
-                    });
-                }
-
-            });
-
         },
         handleFileSelect(event) {
             const files = Array.from(event.target.files);
@@ -1061,5 +820,86 @@ export default {
 
 .preview-container:hover .delete-btn {
     opacity: 1;
+}
+.suggestions {
+    position: absolute;
+    background: #1a1d24;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+    margin-top: 3px;
+    border: 1px solid #3f4451;
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #3f4451;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: #292e3a;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:before {
+    content: "📍";
+    margin-right: 10px;
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.suggestion-item:hover {
+    background: #3a4150;
+    color: #ffffff;
+    padding-left: 24px;
+    cursor: text;
+}
+
+.suggestion-item:hover:before {
+    transform: scale(1.2);
+}
+
+.suggestion-item:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--primary);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.suggestion-item:hover:after {
+    transform: scaleY(1);
+}
+
+.suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: #1a1d24;
+    border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #3f4451;
+    border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+    background: #4f5565;
 }
 </style>

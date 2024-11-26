@@ -24,6 +24,8 @@ public class MotelDTO {
 
     private String district;
 
+    private String province;
+
     private Integer area;
 
     private Integer price;
@@ -33,6 +35,8 @@ public class MotelDTO {
     private String type;
 
     private List<Integer> listFileId;
+
+    private String address;
 
     private List<MultipartFile> files;
 }

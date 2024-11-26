@@ -222,16 +222,17 @@
                         <form @submit.prevent="findByRadius" class="border p-4 rounded shadow-sm mb-5">
                             <!-- Destination Input -->
                             <div class="mb-3">
-                                <label for="destination" class="form-label">Điểm đến</label>
-                                <input type="text" id="destination" v-model="destination" class="form-control"
-                                    placeholder="Nhập địa chỉ, trường học hoặc khu vực" required>
+                                <label for="destination" class="form-label">Địa chỉ</label>
+                                <input type="text" id="address" v-model="destination" class="form-control"
+                                    placeholder="Trường học, bệnh viện hoặc địa chỉ cụ thể bất kỳ" autocomplete="off">
+                                <div id="suggestions" class="suggestions"></div>
                             </div>
 
                             <!-- Radius Input -->
                             <div class="mb-3">
                                 <label for="radius" class="form-label">Bán kính (km)</label>
                                 <input type="number" id="radius" v-model="radius" class="form-control"
-                                    placeholder="Nhập bán kính tìm kiếm" required min="1">
+                                    placeholder="Nhập bán kính tìm kiếm" required>
                             </div>
 
                             <!-- Submit Button -->
@@ -430,6 +431,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 
 export default {
@@ -453,6 +455,64 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
+        const apiKey = '9Zd3qashu6zFvhgoWz02tjycaK4dH0qEfKlfCogk'; // https://account.goong.io/keys
+        const addressInput = document.getElementById('address');
+        const suggestionsContainer = document.getElementById('suggestions');
+        let sessionToken = crypto.randomUUID();
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedSearch = debounce((query) => {
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+
+            fetch(`https://rsapi.goong.io/Place/AutoComplete?api_key=${apiKey}&input=${encodeURIComponent(query)}&sessiontoken=${sessionToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK') {
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'block';
+
+                        data.predictions.forEach(prediction => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = prediction.description;
+                            div.addEventListener('click', () => {
+                                addressInput.value = prediction.description;
+                                this.destination = prediction.description
+                                suggestionsContainer.style.display = 'none';
+
+                               
+                            });
+                            suggestionsContainer.appendChild(div);
+                        });
+                    }
+                })
+                .catch(error => console.error('Lỗi:', error));
+        }, 300);
+
+        addressInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
+
+        document.addEventListener('click', function (e) {
+            if (!suggestionsContainer.contains(e.target) && e.target !== addressInput) {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+
+       
 
     },
     methods: {
@@ -631,4 +691,86 @@ export default {
         margin-bottom: 1rem;
     }
 }
+.suggestions {
+    position: absolute;
+    background: #1a1d24;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+    margin-top: 3px;
+    border: 1px solid #3f4451;
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #3f4451;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: #292e3a;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:before {
+    content: "📍";
+    margin-right: 10px;
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.suggestion-item:hover {
+    background: #3a4150;
+    color: #ffffff;
+    padding-left: 24px;
+    cursor: text;
+}
+
+.suggestion-item:hover:before {
+    transform: scale(1.2);
+}
+
+.suggestion-item:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--primary);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.suggestion-item:hover:after {
+    transform: scaleY(1);
+}
+.suggestions::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: #1a1d24;
+    border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #3f4451;
+    border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+    background: #4f5565;
+}
+
+
 </style>

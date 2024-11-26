@@ -20,14 +20,14 @@ public class MotelEntity extends AbstractEntity{
     @Column(name = "title")
     private String title;
 
-    @Column(name = "housenumber")
-    private String houseNumber;
-
-    @Column(name = "street")
-    private String street;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "ward")
     private  String ward;
+
+    @Column(name = "province")
+    private String province;
 
     @Column(name = "district")
     private String district;

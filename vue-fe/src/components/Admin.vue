@@ -166,7 +166,7 @@
                    border-radius: 12px;
                    overflow: hidden;
                    background: white;
-                   height: 220px;">
+                   height: 240px;">
                                     <div style="position: absolute; 
                 top: 10px; 
                 left: 10px; 
@@ -245,6 +245,8 @@
                                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
                                             <span style="color: #666;">{{ motel.ward }} {{ motel.district }}</span>
                                         </div>
+
+                                        <p><strong>{{ motel.type }}</strong> </p>
 
                                         <!-- Mô tả -->
                                         <p style="color: #666;
