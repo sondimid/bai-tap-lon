@@ -35,7 +35,7 @@ public class WebSecurityConfig{
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> {
                     request
-                            .requestMatchers("/static/**","/messages/**").permitAll()
+                            .requestMatchers("/static/**","/messages/**","/uploads/**").permitAll()
                             .requestMatchers("/get-all-motels","/login","/register",
                                     "/search/**","/motel/**","/get-motels-by-user/**","/chat/**",
                                     "/forgot-password/**","/reset-password","/find-by-radius").permitAll()

@@ -35,7 +35,6 @@ public class MotelResponseConverter {
                         .builder()
                         .id(fileEntity.getId())
                         .name(fileEntity.getName())
-                        .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
                         .build();
                 filesDTO.add(fileDTO);
@@ -60,7 +59,6 @@ public class MotelResponseConverter {
                         .builder()
                         .id(fileEntity.getId())
                         .name(fileEntity.getName())
-                        .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
                         .build();
                 filesDTO.add(fileDTO);
@@ -84,7 +82,6 @@ public class MotelResponseConverter {
                         .builder()
                         .id(fileEntity.getId())
                         .name(fileEntity.getName())
-                        .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
                         .build();
                 filesDTO.add(fileDTO);
@@ -110,7 +107,6 @@ public class MotelResponseConverter {
                         .builder()
                         .id(fileEntity.getId())
                         .name(fileEntity.getName())
-                        .fileId(fileEntity.getFileId())
                         .fileUrl(fileEntity.getFileUrl())
                         .build();
                 filesDTO.add(fileDTO);

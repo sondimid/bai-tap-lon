@@ -178,8 +178,10 @@
 
 
                     <div class="container-fluid " style="overflow: auto;" v-if="!openMotelUser">
+                        
 
                         <div class="row">
+                            
                             <div v-if="motel" class="col-md-8 motel-info">
 
                                 <div v-if="isSelf" class="edit-container d-flex justify-content-end"
@@ -256,6 +258,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row" v-else>
                         <div class="col-8">
                             <div v-for="motel in listMotel" :key="motel.id">
@@ -393,7 +396,7 @@
                             <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
                             <div class="button-container">
 
-                                <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
+                                <button class="contact-button" v-if="!isSelf && hasToken" @click="toggleChatBox">Chat</button>
                             </div>
                         </div>
                     </div>

@@ -30,8 +30,8 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Đăng Ký</h1>
@@ -73,7 +73,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Quên Mật Khẩu?</a>
+                                    <router-link to="/forgot-password" class="small">Quên Mật Khẩu?</router-link>
                                 </div>
                                 <div class="text-center">
                                     <a class="small" href="#" @click="toLoginPage">Đã Có Tài Khoản,

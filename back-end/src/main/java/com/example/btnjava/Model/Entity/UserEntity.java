@@ -50,6 +50,9 @@ public class UserEntity extends AbstractEntity implements UserDetails{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MotelEntity> motelEntities = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MotelBookMarkEntity> motelBookMarkEntities = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "roleid", nullable = false, updatable = false)
     private RoleEntity roleEntity = new RoleEntity();

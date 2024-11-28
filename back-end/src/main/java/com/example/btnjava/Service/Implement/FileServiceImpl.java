@@ -21,7 +21,6 @@ public class FileServiceImpl implements FileService {
                 .builder()
                 .name(result.get("original_filename").toString())
                 .fileUrl(result.get("url").toString())
-                .fileId(result.get("public_id").toString())
                 .build();
         fileRepository.save(fileEntity);
     }

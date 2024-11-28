@@ -1,12 +1,14 @@
 <template>
-    <body id="page-top" >
+
+    <body id="page-top">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
 
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#" @click="toDashBoardPage">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#"
+                    @click="toDashBoardPage">
                     <div class="sidebar-brand-icon rotate-n-20">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
@@ -21,21 +23,7 @@
 
                 <hr class="sidebar-divider">
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePrice"
-                        aria-expanded="true" aria-controls="collapsePrice">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>Quản Lý Tin</span>
-                    </a>
-                    <div id="collapsePrice" class="collapse" aria-labelledby="headingPrice"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#" @click="GetMotel">Tin Đã Đăng</a>
-                            <a class="collapse-item" href="#" @click="GetMotelMarked">Tin Đã Đánh Dấu</a>
-                            <a class="collapse-item" href="#" @click="PostMotel">Đăng Tin</a>
-                        </div>
-                    </div>
-                </li>
+                <!--  -->
             </ul>
             <!-- End of Sidebar -->
 
@@ -54,7 +42,8 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
                                 <input type="text" class="form-control bg-light border-0 small"
                                     placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -81,7 +70,8 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ userInfo.fullName }} </span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ userInfo.fullName }}
+                                    </span>
 
                                     <img class="img-profile rounded-circle"
                                         :src="this.avatar || '../../assets/img/undraw_profile.svg'">
@@ -89,10 +79,6 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#" @click="GetMotel">
-                                        <i class="fas fa-building fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Nhà Trọ Đã Đăng
-                                    </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" @click="openLogoutModal" style="cursor: pointer;">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-red-400"></i>
@@ -117,25 +103,35 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="card mb-4">
-                                    <div class="card-body text-center">
+                                    <div class="card-body text-center" style="margin-left: 60px;">
                                         <img :src="this.avatar || '../../assets/img/undraw_profile.svg'" alt="avatar"
-                                            class="rounded-circle img-fluid" style="width: 89px; border: 2px solid #ddd;">
+                                            class="rounded-circle img-fluid"
+                                            style="width: 200px; border: 2px solid #ddd;">
 
-                                        <h5 class="my-3" style="font-size: 1.2rem; color: #333;">{{ userInfo.fullName }}</h5>
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <label for="customFile1" class="btn btn-outline-primary" style="cursor: pointer;">Thay Đổi Ảnh Đại
-                                                Diện</label>
+                                        <h5 class="my-3" style="font-size: 1.2rem; color: #333;">{{ userInfo.fullName }}
+                                        </h5>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label for="customFile1" class="btn btn-outline-primary btn-sm mr-2"
+                                                style="cursor: pointer; border: 1px">
+                                                Đổi Ảnh Đại Diện
+                                            </label>
                                             <input type="file" @change="onFileSelected" class="form-control d-none"
                                                 id="customFile1" />
-                                            <label class="btn btn-outline-primary" @click="toChangePasswsordPage" style="cursor: pointer;">Đổi
-                                                Mật Khẩu</label>
+                                            <label class="btn btn-outline-primary btn-sm" @click="toChangePasswsordPage"
+                                                style="cursor: pointer; border: 1px">
+                                                Đổi Mật Khẩu
+                                            </label>
                                         </div>
+                                        <label class="btn btn-outline-primary btn-sm" @click="GetMotel"
+                                            style="cursor: pointer; border: 1px">
+                                            Nhà Trọ Đã Đăng
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <div class="card mb-4">
-                                    <div class="card-body">
+                                    <div class="card-body" style="height: 378px;">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <p class="mb-0">Họ và Tên</p>
@@ -169,6 +165,15 @@
                                             </div>
                                             <div class="col-sm-9">
                                                 <p class="text-muted mb-0">{{ userInfo.email }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p class="mb-0">Số Nhà Trọ Đã Đăng</p>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <p class="text-muted mb-0">{{ listMotel.length }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -216,12 +221,19 @@
                 </div>
             </div>
         </div>
+        <div v-if="isLoading" class="loading-overlay">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div>
 
 
     </body>
 </template>
 <script>
 import axios from 'axios';
+import listMotel from '../../motels';
+
 
 export default {
     name: 'Profile',
@@ -229,8 +241,13 @@ export default {
         return {
             showModal: false,
             userInfo: {},
-            avatar: localStorage.getItem('avatar')
+            avatar: localStorage.getItem('avatar'),
+            listMotel: {},
+            isLoading: false,
         };
+    },
+    mounted() {
+        this.getMotelsByUser(this.userInfo.id)
     },
     methods: {
         async toDashBoardPage() {
@@ -262,6 +279,7 @@ export default {
             console.log(this.userInfo)
         },
         async onFileSelected(event) {
+            this.isLoading = true
             const file = event.target.files[0];
             if (file) {
                 const formData = new FormData();
@@ -276,6 +294,7 @@ export default {
                 localStorage.setItem('avatar', response.data);
                 window.location.reload();
             }
+            this.isLoading = false
         },
         toChangePasswsordPage(){
             this.$router.push('/change-password')
@@ -294,7 +313,16 @@ export default {
         },
         PostMotel() {
             this.$router.push('/add-motel');
-        }
+        },
+        async getMotelsByUser(id) {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://localhost:8081/get-motels-by-user/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            })
+            this.listMotel = response.data
+        },
 
     },
     created() {
@@ -504,5 +532,17 @@ export default {
 
 .scroll-to-top:hover {
     background-color: #224abe;
+}
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 </style>

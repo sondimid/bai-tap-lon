@@ -311,7 +311,8 @@
 
                             <div class="col-lg-4">
                                 <div class="card mb-4">
-                                    <div class="card-body text-center d-flex flex-column align-items-center">
+                                    <div class="card-body text-center d-flex flex-column align-items-center"
+                                        style="margin-left: 50px;">
                                         <img :src="user.fileUrl || '../../assets/img/undraw_profile.svg'" alt="avatar"
                                             class="rounded-circle img-fluid" style="width: 89px; display: block;">
                                         <h5 class="my-3">{{ user.fullName }}</h5>

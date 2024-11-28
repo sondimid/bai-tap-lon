@@ -21,9 +21,6 @@ public class FileEntity extends AbstractEntity {
     @Column(name = "file_url")
     private String fileUrl;
 
-    @Column(name = "file_id")
-    private String fileId;
-
     @Column(name = "motelid")
     private Integer motelId;
 

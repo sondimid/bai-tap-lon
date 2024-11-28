@@ -586,13 +586,8 @@ export default {
         async addMotel() {
             this.isLoading = true;
             const formData = new FormData();
-            console.log(this.title)
             formData.append('id', this.$route.params.id)
             formData.append('title', this.title);
-            formData.append('houseNumber', this.houseNumber);
-            formData.append('street', this.street);
-            formData.append('district', this.district);
-            formData.append('ward', this.ward);
             formData.append('area', this.area);
             formData.append('price', this.price);
             formData.append('type', this.type);
@@ -606,7 +601,6 @@ export default {
             for (let i = 0; i < fileImg.length; i++) {
                 formData.append('files', fileImg[i]);
             }
-            console.log(this.street);
             for (let [key, value] of formData.entries()) {
                 console.log(`${key}: ${value}`);
             }
@@ -908,16 +902,13 @@ export default {
         async fetchMotelEdit(id) {
             const response = await axios.get(`http://localhost:8081/motel/${id}`)
             this.title = response.data.title
-            this.houseNumber = response.data.houseNumber
-            this.street = response.data.street
-            this.ward = response.data.ward
-            this.district = response.data.district
             this.area = response.data.area
             this.price = response.data.price
             this.maxPeople = response.data.maxPeople
             this.type = response.data.type
             this.detail = response.data.detail
             this.currents = response.data.filesDTO
+        
             if (this.userInfo.id != response.data.owner.id) this.$router.push('/')
         },
         async handleDeleteImg(fileId) {

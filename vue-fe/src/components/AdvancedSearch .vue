@@ -215,12 +215,11 @@
                     <!-- End of Topbar -->
                     <div class="card shadow mb-4">
                         <!-- Card Header - Accordion -->
-                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                            role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                        <div class="d-block card-header py-3" @click="toggleCollapse">
                             <h4 class="m-0 font-weight-bold text-primary">Tìm Kiếm Nâng Cao</h4>
-                        </a>
+                        </div>
                         <!-- Card Content - Collapse -->
-                        <div class="collapse show" id="collapseCardExample">
+                        <div v-bind:class="{ collapse: !isCollapsed, show: isCollapsed }" id="collapseCardExample">
                             <form class="container-fluid" @submit.prevent="searchAdvance">
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800"></h1>
@@ -249,7 +248,6 @@
                                     <!-- Khu vực (Quận/Huyện, Phường/Xã) -->
                                     <div class="mb-3 row">
                                         <label class="col-3 col-form-label">Khu vực</label>
-
                                         <div class="col-3">
                                             <select id="district" class="form-select" v-model="district">
                                                 <option value="" selected>Chọn quận huyện</option>
@@ -470,6 +468,22 @@
                             <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                         </div>
                     </div>
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item" :class="{ disabled: this.currentPage === 1 }"
+                                @click="changePage(this.currentPage - 1)">
+                                <a class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item" :class="{ active: page === this.currentPage }"
+                                v-for="page in totalPages" :key="page" @click="changePage(page)">
+                                <a class="page-link">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{ disabled: this.currentPage === this.totalPages }"
+                                @click="changePage(this.currentPage + 1)">
+                                <a class="page-link">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
 
                     <!-- Begin Page Content -->
 
@@ -490,9 +504,7 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -520,7 +532,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
     name: 'AdvanceSearch',
     data() {
@@ -546,7 +557,12 @@ export default {
             page: null,
             maxPageItems: null,
             maxPeople: null,
-            avatar: localStorage.getItem('avatar') || ''
+            avatar: localStorage.getItem('avatar') || '',
+            isCollapsed: true,
+            currentPage: 1,
+            pageSize: null,
+            totalPages: null,
+            formSearch: null,
         };
     },
     mounted() {
@@ -570,8 +586,10 @@ export default {
         toMotelDetailPage(id) {
             this.$router.push({ name: 'MotelDetail', params: { id } });
         },
-        toProfilePage() {
-            this.$router.push('/profile')
+        async toProfilePage() {
+            
+            this.$router.push('/profile');
+            
         },
         LogoutUser() {
             this.showModal = false;
@@ -610,37 +628,43 @@ export default {
             this.listMotel = response.data;
         },
         async searchByPrice(priceFrom, priceTo) {
-            const data = this.buildSearchData();
-            data.priceFrom = priceFrom;
-            data.priceTo = priceTo;
-            this.search(data);
+            this.totalPages = null
+            this.formSearch = this.buildSearchData();
+            this.formSearch.priceFrom = priceFrom;
+            this.formSearch.priceTo = priceTo;
+            this.search();
         },
         async searchByArea(areaFrom, areaTo) {
-            const data = this.buildSearchData();
-            data.areaFrom = areaFrom;
-            data.areaTo = areaTo;
-            this.search(data);
+            this.totalPages = null
+            this.formSearch = this.buildSearchData();
+            this.formSearch.areaFrom = areaFrom;
+            this.formSearch.areaTo = areaTo;
+            this.search();
         },
         async searchByDistrict(district) {
-            const data = this.buildSearchData();
-            data.district = district;
-            this.search(data);
+            this.totalPages = null
+            this.formSearch = this.buildSearchData();
+            this.formSearch.district = district;
+            this.search();
         },
-        async searchAdvance() {
-            const data = this.buildSearchData();
-            console.log(data)
-            this.search(data);
+        searchAdvance() {
+            this.totalPages = null
+            this.formSearch = this.buildSearchData()
+            this.search();
         },
-        async search(data) {
-            console.log(data);
+        async search() {
+            this.formSearch.page = this.currentPage
             const response = await axios.get('http://localhost:8081/search', {
-                params: data,
+                params: this.formSearch,
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
-            this.listMotel = response.data;
+            this.listMotel = response.data.content;
+            if (this.totalPages == null) {
+                this.totalPages = response.data.totalPages
+            }
+            this.pageSize = response.data.pageSize
         },
         buildSearchData() {
             const districts = [
@@ -677,7 +701,6 @@ export default {
             ];
             return {
                 description: this.description,
-                houseNumber: this.houseNumber,
                 ward: this.ward,
                 district: districts.find(district => district.id === this.district)?.name || null,
                 areaFrom: this.areaFrom,
@@ -690,8 +713,7 @@ export default {
                 managerName: this.managerName,
                 phoneNumber: this.phoneNumber,
                 maxPeople: this.maxPeople,
-                page: this.page || 1,
-                maxPageItems: this.maxPageItems || 10
+                page: this.currentPage,
             };
         },
         async toDashBoardPage() {
@@ -951,7 +973,7 @@ export default {
                 option.textContent = district.name;
                 districtSelect.appendChild(option);
             });
-
+            
             districtSelect.addEventListener('change', function () {
                 const wardSelect = document.getElementById('ward');
                 wardSelect.innerHTML = '<option value="" selected>Chọn phường xã</option>'; // Reset phường xã
@@ -994,6 +1016,15 @@ export default {
                     return 'bg-danger';
                 default:
                     return 'bg-secondary';
+            }
+        },
+        toggleCollapse() {
+            this.isCollapsed = !this.isCollapsed;
+        },
+        changePage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.currentPage = page
+                this.search()
             }
         },
     },
@@ -1078,5 +1109,28 @@ export default {
         flex: 0 0 100%;
         margin-bottom: 1rem;
     }
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.page-item.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.page-item.active {
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
 }
 </style>

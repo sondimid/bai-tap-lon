@@ -9,15 +9,14 @@ import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.Entity.FileEntity;
 import com.example.btnjava.Model.Entity.MotelEntity;
 import com.example.btnjava.Model.Entity.UserEntity;
+import com.example.btnjava.Model.PageResponse.PageResponse;
 import com.example.btnjava.Repository.MotelRepository;
 import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Search.MotelSearchBuilder;
-import com.example.btnjava.Service.CloudinaryService;
 import com.example.btnjava.Service.FileService;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,19 +24,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,16 +46,25 @@ public class MotelServiceImpl implements MotelService {
     private final MotelRepository motelRepository;
     private final MotelResponseConverter motelResponseConverter;
     private final ModelMapper modelMapper;
-    private final CloudinaryService cloudinaryService;
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
     private final FileService fileService;
+    private static final String UPLOAD_DIR = "D:/uploads/";
 
     @Override
-    public List<MotelResponse> findAll(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
-        Pageable pageable = PageRequest.of(motelSearchBuilder.getPage()-1, motelSearchBuilder.getMaxPageItems() + 10);
+    public PageResponse findAll(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
+        Pageable pageable = PageRequest.of(motelSearchBuilder.getPage()-1, motelSearchBuilder.getMaxPageItems());
         List<MotelEntity> motelEntities = motelRepository.searchByMotelSearchBuilder(motelSearchBuilder, pageable);
-        return motelResponseConverter.toMotelResponse(motelEntities);
+        List<MotelResponse> motelResponses = motelResponseConverter.toMotelResponse(motelEntities);
+        Integer totalPages = (int) Math.ceil((double) motelRepository.searchByMotelSearchBuilder(motelSearchBuilder) .size()/ motelSearchBuilder.getMaxPageItems());
+        PageResponse pageResponse = PageResponse.builder()
+                .content(motelResponses)
+                .currentPage(motelSearchBuilder.getPage())
+                .totalItems(motelResponses.size())
+                .pageSize(motelSearchBuilder.getMaxPageItems())
+                .totalPages(totalPages).build();
+        return pageResponse;
+
     }
 
     @Override
@@ -72,6 +80,7 @@ public class MotelServiceImpl implements MotelService {
             motelRepository.save(motelEntity);
             List<Integer> listFileId = motelDTO.getListFileId();
             if(listFileId != null){
+                motelEntity.setUpdatedAt(LocalDateTime.now());
                 for(Integer fileId : listFileId){
                     FileEntity fileEntity = fileService.findById(fileId);
                     motelEntity.getFileEntities().remove(fileEntity);
@@ -82,15 +91,20 @@ public class MotelServiceImpl implements MotelService {
             List<MultipartFile> files = motelDTO.getFiles();
             if(files != null && !files.isEmpty()) {
                 for(MultipartFile file : files) {
-                    Map result = cloudinaryService.uploadFile(file);
-                    FileEntity fileEntity = FileEntity
-                            .builder()
-                            .name(result.get("original_filename").toString())
-                            .fileUrl(result.get("url").toString())
-                            .fileId(result.get("public_id").toString())
-                            .motelId(motelEntity.getId())
+                    Path uploadPath = Paths.get(UPLOAD_DIR);
+                    if (!Files.exists(uploadPath)) {
+                        Files.createDirectories(uploadPath);
+                    }
+
+                    String originalFileName = String.valueOf(System.currentTimeMillis());
+                    String filePath = UPLOAD_DIR + originalFileName;
+                    String fileUrl = String.format("http://localhost:8081/uploads/%s", originalFileName);
+                    file.transferTo(new File(filePath));
+                    FileEntity fileEntity = FileEntity.builder()
+                            .name(originalFileName)
+                            .fileUrl(fileUrl)
                             .motelEntity(motelEntity)
-                            .build();
+                            .motelId(motelEntity.getId()).build();
                     motelEntity.getFileEntities().add(fileEntity);
                 }
             }
@@ -108,15 +122,20 @@ public class MotelServiceImpl implements MotelService {
             List<MultipartFile> files = motelDTO.getFiles();
             if(files != null && !files.isEmpty()) {
                 for(MultipartFile file : files) {
-                    Map result = cloudinaryService.uploadFile(file);
-                    FileEntity fileEntity = FileEntity
-                            .builder()
-                            .name(result.get("original_filename").toString())
-                            .fileUrl(result.get("url").toString())
-                            .fileId(result.get("public_id").toString())
-                            .motelId(motelEntity.getId())
+                    Path uploadPath = Paths.get(UPLOAD_DIR);
+                    if (!Files.exists(uploadPath)) {
+                        Files.createDirectories(uploadPath);
+                    }
+
+                    String originalFileName = String.valueOf(System.currentTimeMillis());
+                    String filePath = UPLOAD_DIR + originalFileName;
+                    String fileUrl = String.format("http://localhost:8081/uploads/%s", originalFileName);
+                    file.transferTo(new File(filePath));
+                    FileEntity fileEntity = FileEntity.builder()
+                            .name(originalFileName)
+                            .fileUrl(fileUrl)
                             .motelEntity(motelEntity)
-                            .build();
+                            .motelId(motelEntity.getId()).build();
                     motelEntity.getFileEntities().add(fileEntity);
                 }
             }
@@ -261,11 +280,15 @@ public class MotelServiceImpl implements MotelService {
                     })
                     .block();
 
-            if(radius >= list.getFirst().getValue()){
+
+            assert list != null;
+            if(!list.isEmpty() && radius >= list.getFirst().getValue()){
                 motelResponse.setDistance(list.getFirst().getText());
+                motelResponse.setDistanceValue(list.getFirst().getValue());
                 result.add(motelResponse);
             }
         }
+        result.sort(Comparator.comparing(MotelResponse::getDistanceValue));
         return result;
     }
 }

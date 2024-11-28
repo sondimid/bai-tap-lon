@@ -1,6 +1,5 @@
 package com.example.btnjava.Service.Implement;
 
-import com.example.btnjava.ChatRoom.ChatRoom;
 import com.example.btnjava.Converter.UserResponseConverter;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
@@ -10,11 +9,8 @@ import com.example.btnjava.Model.Response.UserResponse;
 import com.example.btnjava.Repository.RoleRepository;
 import com.example.btnjava.Repository.UserRepository;
 import com.example.btnjava.Service.ChatMessageService;
-import com.example.btnjava.Service.ChatRoomService;
-import com.example.btnjava.Service.CloudinaryService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -30,8 +26,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
-    private final CloudinaryService cloudinaryService;
     private final ChatMessageService chatMessageService;
+    private static final String UPLOAD_DIR = "D:/uploads/";
 
     @Override
     public List<UserResponse> getAllUsers(Integer page) {
@@ -129,10 +129,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public String uploadAvatar(Integer id, MultipartFile file ) throws Exception {
         UserEntity user = userRepository.findById(id).get();
-        Map result = cloudinaryService.uploadFile(file);
-        user.setFileUrl(result.get("url").toString());
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String originalFileName = String.valueOf(System.currentTimeMillis());
+        String filePath = UPLOAD_DIR + originalFileName;
+        String fileUrl = String.format("http://localhost:8081/uploads/%s", originalFileName);
+        file.transferTo(new File(filePath));
+        user.setFileUrl(fileUrl);
         userRepository.save(user);
-        return result.get("url").toString();
+        return fileUrl;
     }
 
     @Override

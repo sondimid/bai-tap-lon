@@ -106,4 +106,15 @@ public class MotelRepositoryCustomImpl implements MotelRepositoryCustom {
         Query query = entityManager.createNativeQuery(sql.toString(), MotelEntity.class);
         return query.getResultList();
     }
+
+    @Override
+    public List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) {
+        StringBuilder sql = new StringBuilder(" select m.* from motel m ");
+        joinTable(sql, motelSearchBuilder);
+        queryNormal(sql, motelSearchBuilder);
+        querySpecial(sql, motelSearchBuilder);
+        considerStatus(sql);
+        Query query = entityManager.createNativeQuery(sql.toString(), MotelEntity.class);
+        return query.getResultList();
+    }
 }

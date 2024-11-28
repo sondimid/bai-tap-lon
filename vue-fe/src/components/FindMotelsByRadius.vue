@@ -232,7 +232,7 @@
                             <div class="mb-3">
                                 <label for="radius" class="form-label">Bán kính (km)</label>
                                 <input type="number" id="radius" v-model="radius" class="form-control"
-                                    placeholder="Nhập bán kính tìm kiếm" required>
+                                    placeholder="Nhập bán kính tìm kiếm" required step="0.1">
                             </div>
 
                             <!-- Submit Button -->
@@ -285,7 +285,8 @@
                            padding: 4px 8px;
                            border-radius: 4px;
                            font-size: 12px;">
-                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ?
+                                            motel.filesDTO.length : 0
                                             }}
                                         </div>
                                     </div>
@@ -340,7 +341,8 @@
                            gap: 8px;
                            margin-bottom: 12px;">
                                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
-                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
+                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district
+                                                }}</span>
                                         </div>
 
                                         <p><strong>{{ motel.type }}</strong> </p>
@@ -384,13 +386,6 @@
                         </div>
                     </div>
 
-
-
-                    <!-- Begin Page Content -->
-
-
-                    <!-- /.container-fluid -->
-
                 </div>
                 <!-- End of Main Content -->
 
@@ -427,6 +422,12 @@
             </div>
         </div>
 
+        <div v-if="isLoading" class="loading-overlay">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div>
+
     </body>
 </template>
 
@@ -445,6 +446,7 @@ export default {
             avatar: localStorage.getItem('avatar') || '',
             destination: null,
             radius: null,
+            isLoading: false,
         };
     },
     mounted() {
@@ -455,7 +457,7 @@ export default {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
         }
-        const apiKey = '9Zd3qashu6zFvhgoWz02tjycaK4dH0qEfKlfCogk'; // https://account.goong.io/keys
+        const apiKey = '9Zd3qashu6zFvhgoWz02tjycaK4dH0qEfKlfCogk'; 
         const addressInput = document.getElementById('address');
         const suggestionsContainer = document.getElementById('suggestions');
         let sessionToken = crypto.randomUUID();
@@ -495,7 +497,7 @@ export default {
                                 this.destination = prediction.description
                                 suggestionsContainer.style.display = 'none';
 
-                               
+
                             });
                             suggestionsContainer.appendChild(div);
                         });
@@ -512,7 +514,7 @@ export default {
             }
         });
 
-       
+
 
     },
     methods: {
@@ -600,6 +602,7 @@ export default {
             this.$router.push('/my-motel')
         },
         async findByRadius() {
+            this.isLoading = true
             const response = await axios.get('http://localhost:8081/find-by-radius', {
                 params: {
                     destination: this.destination,
@@ -607,6 +610,10 @@ export default {
                 }
             })
             this.listMotel = response.data
+            this.isLoading = false
+        },
+        showAdvancedSearchModal() {
+            this.$router.push('/advanced-search')
         }
     },
     computed: {
@@ -691,6 +698,7 @@ export default {
         margin-bottom: 1rem;
     }
 }
+
 .suggestions {
     position: absolute;
     background: #1a1d24;
@@ -754,6 +762,7 @@ export default {
 .suggestion-item:hover:after {
     transform: scaleY(1);
 }
+
 .suggestions::-webkit-scrollbar {
     width: 8px;
 }
@@ -772,5 +781,26 @@ export default {
     background: #4f5565;
 }
 
-
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.result-title {
+    font-size: 1.5rem;
+    color: #4caf50;
+    /* Màu xanh để thu hút sự chú ý */
+    font-weight: bold;
+    /* Tô đậm chữ */
+    text-align: center;
+    /* Căn giữa tiêu đề */
+    margin-top: 1rem;
+}
 </style>

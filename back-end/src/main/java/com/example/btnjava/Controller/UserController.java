@@ -1,9 +1,6 @@
 package com.example.btnjava.Controller;
 
 
-import com.example.btnjava.Model.ApiDistance.Distance;
-import com.example.btnjava.Model.ApiDistance.Leg;
-import com.example.btnjava.Model.ApiDistance.RouterResponse;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.MotelDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
@@ -14,42 +11,42 @@ import com.example.btnjava.Service.ChatRoomService;
 import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("")
 @RequiredArgsConstructor
 public class UserController {
+    private static final String UPLOAD_DIR = "D:/uploads/";
     private final MotelService motelService;
     private final UserService userService;
     private final JwtTokenUtils jwtTokenUtils;
     private final ChatRoomService chatRoomService;
 
     @GetMapping("/search")
-    public ResponseEntity<?>searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
+    public ResponseEntity<?> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder) throws MalformedURLException {
         return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
 
     }
+
     @GetMapping("/get-all-motels")
-    public ResponseEntity<?> getAll() throws MalformedURLException {
-        List<MotelResponse> motelResponses = motelService.findByStatus();
-        return ResponseEntity.ok().body(motelResponses);
+    public ResponseEntity<?> getAll(@RequestParam("currentPage") Integer currentPage) throws MalformedURLException {
+        MotelSearchBuilder motelSearchBuilder = new MotelSearchBuilder();
+        motelSearchBuilder.setPage(currentPage);
+        return ResponseEntity.ok().body(motelService.findAll(motelSearchBuilder));
     }
 
     @GetMapping("/motel/{id}")
@@ -61,43 +58,41 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<?> addMotel(MotelDTO motelDTO, @RequestHeader("Authorization") String authorization) throws IOException {
 
-        try{
+        try {
             String token = authorization.replace("Bearer ", "");
             motelService.save(motelDTO, token);
             return ResponseEntity.status(HttpStatus.CREATED).body("Đăng Bài Thành Công, Chờ Admin Duyệt");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping(value="/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
-        try{
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
+        try {
             userService.createUser(userDTO);
             return ResponseEntity.accepted().body("Success");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping(value="/login")
-    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userDTO){
-        try{
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userDTO) {
+        try {
             String token = userService.login(userDTO.getUserName(), userDTO.getPassword());
             return ResponseEntity.ok(token);
-        }
-        catch (Exception e){
-                return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/my-motel")
     public ResponseEntity<?> searchByUserId(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
         String token = authorization.replace("Bearer ", "");
-        try{
+        try {
             return ResponseEntity.ok().body(motelService.findByUserName(jwtTokenUtils.extractUsername(token)));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -109,7 +104,7 @@ public class UserController {
     }
 
     @PostMapping("/upload-avatar/{id}")
-    public ResponseEntity<?> uploadAvatar(@PathVariable Integer id,@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<?> uploadAvatar(@PathVariable Integer id, @RequestParam("file") MultipartFile file) throws Exception {
         return ResponseEntity.accepted().body(userService.uploadAvatar(id, file));
     }
 
@@ -117,11 +112,11 @@ public class UserController {
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO,
                                             @RequestHeader("Authorization") String authorization) throws MalformedURLException {
         String token = authorization.replace("Bearer ", "");
-        try{
-            userService.changePassword(changePasswordDTO,token);
+        try {
+            userService.changePassword(changePasswordDTO, token);
             return ResponseEntity.accepted().body("Success");
-        }catch (Exception e){
-                return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -152,10 +147,10 @@ public class UserController {
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestParam("token") String token,
                                            @RequestParam("newPassword") String newPassword) {
-        try{
+        try {
             userService.resetPassword(token, newPassword);
             return ResponseEntity.ok().body("Success");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -166,4 +161,30 @@ public class UserController {
         return ResponseEntity.ok().body(motelService.findByRadius(destination, (int) (radius * 1000)));
     }
 
+
+    @PostMapping("/uploads")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            // Tạo thư mục upload nếu chưa tồn tại
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            String originalFileName = file.getOriginalFilename();
+            String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
+            String filePath = UPLOAD_DIR + uniqueFileName;
+
+            // Lưu file
+            file.transferTo(new File(filePath));
+
+            // Trả về đường dẫn file với status 200 OK
+            return ResponseEntity.ok("File uploaded successfully: " + uniqueFileName);
+        } catch (IOException e) {
+            // Trả về lỗi với status 500 Internal Server Error
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload file: " + e.getMessage());
+        }
+    }
 }
+

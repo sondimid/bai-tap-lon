@@ -106,6 +106,15 @@
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
                 </li>
+
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" @click="toFindByRadius">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                        <span>Tìm Kiếm Theo Bán Kính</span>
+                    </a>
+                </li>
             </ul>
             <!-- End of Sidebar -->
 
@@ -189,7 +198,7 @@
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow" v-if="hasToken">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{
                                         userInfo.fullName }}</span>
@@ -386,6 +395,22 @@
                                 <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item" :class="{ disabled: this.currentPage === 1 }"
+                                    @click="changePage(this.currentPage - 1)">
+                                    <a class="page-link">Previous</a>
+                                </li>
+                                <li class="page-item" :class="{ active: page === this.currentPage }"
+                                    v-for="page in totalPages" :key="page" @click="changePage(page)">
+                                    <a class="page-link">{{ page }}</a>
+                                </li>
+                                <li class="page-item" :class="{ disabled: this.currentPage === this.totalPages }"
+                                    @click="changePage(this.currentPage + 1)">
+                                    <a class="page-link">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
 
 
@@ -393,10 +418,6 @@
 
                 </div>
                 <!-- End of Main Content -->
-
-                <!-- Footer -->
-
-                <!-- End of Footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -464,6 +485,7 @@
                 </div>
             </div>
         </div>
+        
 
     </body>
 </template>
@@ -509,6 +531,11 @@ export default {
             selectedMotels: [],
             showMoalDelete: false,
             messageDelete: null,
+            currentPage: 1, 
+            pageSize: null, 
+            totalPages: null, 
+            isAdvanceSearch: false,
+            formSearch: null,
         };
     },
     mounted() {
@@ -573,39 +600,53 @@ export default {
             }
         },
         async getAllMotels() {
-            const response = await axios.get('http://localhost:8081/get-all-motels');
+            this.isAdvanceSearch = false
+            const response = await axios.get('http://localhost:8081/get-all-motels', {
+                params: {
+                    currentPage: this.currentPage
+                }
+            });
             console.log(response);
-            this.listMotel = response.data;
+            this.listMotel = response.data.content;
+            if (this.totalPages == null) {
+                this.totalPages = response.data.totalPages
+            }
+            this.pageSize = response.data.pageSize
         },
         async searchByPrice(priceFrom, priceTo) {
-            const data = this.buildSearchData();
-            data.priceFrom = priceFrom;
-            data.priceTo = priceTo;
-            this.search(data);
+            this.formSearch= this.buildSearchData();
+            this.formSearch.priceFrom = priceFrom;
+            this.formSearch.priceTo = priceTo;
+            this.search();
         },
         async searchByArea(areaFrom, areaTo) {
-            const data = this.buildSearchData();
-            data.areaFrom = areaFrom;
-            data.areaTo = areaTo;
-            this.search(data);
+            this.formSearch= this.buildSearchData();
+            this.formSearch.areaFrom = areaFrom;
+            this.formSearch.areaTo = areaTo;
+            this.search();
         },
         async searchByDistrict(district) {
-            const data = this.buildSearchData();
-            data.district = district;
-            this.search(data);
+            this.formSearch= this.buildSearchData();
+            this.formSearch.district = district;
+            this.search();
         },
-        async search(data) {
-            console.log(data);
+        async search() {
+            this.isAdvanceSearch = true
+            this.formSearch.page = this.currentPage
             const response = await axios.get('http://localhost:8081/search', {
-                params: data,
+                params: this.formSearch,
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
-            this.listMotel = response.data;
+            this.listMotel = response.data.content;
+            if (this.totalPages == null) {
+                this.totalPages = response.data.totalPages
+            }
+            this.pageSize = response.data.pageSize
         },
         buildSearchData() {
+            this.totalPages = null
             return {
                 description: this.description,
                 houseNumber: this.houseNumber,
@@ -621,8 +662,7 @@ export default {
                 detailDescription: this.detailDescription,
                 managerName: this.managerName,
                 phoneNumber: this.phoneNumber,
-                page: this.page || 1,
-                maxPageItems: this.maxPageItems || 10
+                page: this.currentPage,
             };
         },
         async toDashBoardPage() {
@@ -790,7 +830,19 @@ export default {
         closeModalDelete() {
             this.showMoalDelete = false
             window.location.reload();
-        }
+        },
+        toFindByRadius() {
+            this.$router.push('/find-by-radius')
+        },
+        changePage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.currentPage = page
+                if (this.isAdvanceSearch) {
+                    this.search()
+                }
+                else this.getAllMotels()
+            }
+        },
     },
     computed: {
         isAdmin() {
@@ -837,5 +889,28 @@ export default {
 
 .collapse-inner::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.page-item.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.page-item.active {
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
 }
 </style>

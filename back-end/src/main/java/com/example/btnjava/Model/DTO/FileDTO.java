@@ -17,6 +17,4 @@ public class FileDTO {
 
     private String fileUrl;
 
-    private String fileId;
-
 }

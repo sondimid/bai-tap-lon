@@ -39,6 +39,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         WHITE_LIST.add("/forgot-password/**");
         WHITE_LIST.add("/reset-password");
         WHITE_LIST.add("/find-by-radius");
+        WHITE_LIST.add("/uploads/**");
     }
 
     @Override

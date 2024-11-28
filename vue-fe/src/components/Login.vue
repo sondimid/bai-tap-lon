@@ -28,8 +28,8 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-4"></div>
-                <div class="col-8">
+              <div class="col-5"></div>
+                <div class="col-7">
                   <div class="p-5">
                     <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Đăng Nhập</h1>

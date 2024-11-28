@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MotelRepositoryCustom {
     List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder, Pageable pageable);
+    List<MotelEntity> searchByMotelSearchBuilder(MotelSearchBuilder motelSearchBuilder);
 }

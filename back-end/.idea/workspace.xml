@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f8200fc6-5c89-462a-86d7-4e425ca28c0f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/bai-tap-lon.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/MotelBookMarkEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/PageResponse/PageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Utils/GetPageSize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/test.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/BtnjavaApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatMessage$ChatMessageBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatMessage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatNotification$ChatNotificationBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatNotification.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatRoom$ChatRoomBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatRoom.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/ModelMapperConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/SecurityConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebSecurityConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebSocketConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/AdminController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/ChatController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/MailController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/UserController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Converter/MotelResponseConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Converter/UserResponseConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/InvalidParamException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/NotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/NotNullException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/StorageException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Filter/JwtTokenFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Distance.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Leg.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Route.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/RouterResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Step.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/ChangePasswordDTO$ChangePasswordDTOBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/ChangePasswordDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/FileDTO$FileDTOBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/FileDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/MotelDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserDTO$UserDTOBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserLoginDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Email/MailStructure$MailStructureBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Email/MailStructure.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/AbstractEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/FileEntity$FileEntityBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/FileEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/MotelBookMarkEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/MotelEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/RoleEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/UserEntity$UserEntityBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/UserEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/PageResponse/PageResponse$PageResponseBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/PageResponse/PageResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Response/MotelResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Response/UserResponse.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Search/MotelSearchBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/ChatMessageRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/ChatRoomRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/FileRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/MotelRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/RoleRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/ChatMessageService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/ChatRoomService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/FileService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/ChatMessageServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/ChatRoomServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/FileServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/MailServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/MotelServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/MailService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/MotelService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/FakeData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/GetPageSize.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/ImageUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/JwtTokenUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/NumberUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/StringUtils.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/demo/chart-area-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/demo/chart-pie-demo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/chart.js/Chart.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/jquery/jquery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/jquery/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/public7 choj.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../vue-fe/src/components/tmp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1 - Copy.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/464820591_953007536654493_4205893997455489688_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/7 choj.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/7 choj.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/anh dai dien.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/avatar1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/f-author-3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/f-author-3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/CloudinaryConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/FileDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/FileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Response/MotelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Response/MotelResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/CloudinaryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/CloudinaryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/MotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/MotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tuan lon.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unnamed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/public/assets/js/sb-admin-2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/sb-admin-2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Admin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Admin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/AdvancedSearch .vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/AdvancedSearch .vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/DashBoard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/DashBoard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/EditMotel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/EditMotel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/FindMotelsByRadius.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/FindMotelsByRadius.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/MotelDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/MotelDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vue-fe/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/router/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sondimid&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sondimid/bai-tap-lon.git&quot;,
+    &quot;accountId&quot;: &quot;006cc44f-9307-4fe8-a91a-649d8904a54b&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-websocket/6.2.0/spring-websocket-6.2.0.jar!/org/springframework/web/socket/config/annotation/WebSocketMessageBrokerConfigurer.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2nIYapAZv0nOsr0in6eXtN6p4Fb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Run",
+    "Maven.btnjava [org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean].executor": "Run",
+    "Maven.btnjava [org.apache.maven.plugins:maven-deploy-plugin:3.1.1:deploy].executor": "Run",
+    "Maven.btnjava [org.apache.maven.plugins:maven-install-plugin:3.1.1:install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Smart Tomcat.Unnamed.executor": "Run",
+    "Spring Boot.BtnjavaApplication.executor": "Run",
+    "Tomcat Server.Tomcat.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sondimid/IdeaProjects/bai-tap-lon/vue-fe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "C:/Users/sondimid/AppData/Roaming/JetBrains/IntelliJIdea2024.2/node/versions/20.18.0/node",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sondimid\IdeaProjects\bai-tap-lon\src\main\resources\templates" />
+      <recent name="C:\Users\sondimid\IdeaProjects\bai-tap-lon\src\main\resources" />
+      <recent name="C:\Users\sondimid\IdeaProjects\bai-tap-lon\src\main\resources\static" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BtnjavaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="btnjava" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.btnjava.BtnjavaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f8200fc6-5c89-462a-86d7-4e425ca28c0f" name="Changes" comment="" />
+      <created>1728662123504</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728662123504</updated>
+      <workItem from="1728662125672" duration="218000" />
+      <workItem from="1728692299760" duration="733000" />
+      <workItem from="1728720645563" duration="6202000" />
+      <workItem from="1728743643730" duration="3819000" />
+      <workItem from="1728752431184" duration="1851000" />
+      <workItem from="1728809417791" duration="64000" />
+      <workItem from="1728891842980" duration="4162000" />
+      <workItem from="1728896046678" duration="121000" />
+      <workItem from="1728896173511" duration="75000" />
+      <workItem from="1728901173915" duration="332000" />
+      <workItem from="1728984634911" duration="3925000" />
+      <workItem from="1729089149678" duration="4029000" />
+      <workItem from="1729154014921" duration="865000" />
+      <workItem from="1729156326539" duration="5059000" />
+      <workItem from="1729165692269" duration="1869000" />
+      <workItem from="1729167594805" duration="8899000" />
+      <workItem from="1729230684283" duration="9571000" />
+      <workItem from="1729406309182" duration="7199000" />
+      <workItem from="1729429763665" duration="6276000" />
+      <workItem from="1729476040584" duration="2118000" />
+      <workItem from="1729480162884" duration="2308000" />
+      <workItem from="1729501200517" duration="1030000" />
+      <workItem from="1729506314895" duration="9880000" />
+      <workItem from="1729581494354" duration="6375000" />
+      <workItem from="1729622346002" duration="2591000" />
+      <workItem from="1729674451486" duration="242000" />
+      <workItem from="1729690021555" duration="4449000" />
+      <workItem from="1729697811449" duration="1494000" />
+      <workItem from="1729752714374" duration="6237000" />
+      <workItem from="1729767534946" duration="1368000" />
+      <workItem from="1729785097717" duration="1136000" />
+      <workItem from="1729878092947" duration="22000" />
+      <workItem from="1729905496893" duration="1283000" />
+      <workItem from="1729911693381" duration="1721000" />
+      <workItem from="1729913981353" duration="2724000" />
+      <workItem from="1729917712398" duration="1334000" />
+      <workItem from="1729919132664" duration="776000" />
+      <workItem from="1729938899905" duration="568000" />
+      <workItem from="1730110799617" duration="789000" />
+      <workItem from="1730135258092" duration="1402000" />
+      <workItem from="1730189713727" duration="1569000" />
+      <workItem from="1730191490740" duration="385000" />
+      <workItem from="1730194902022" duration="3305000" />
+      <workItem from="1730383239671" duration="5521000" />
+      <workItem from="1730426537759" duration="5478000" />
+      <workItem from="1730444019249" duration="17000" />
+      <workItem from="1730444067115" duration="3684000" />
+      <workItem from="1730459829668" duration="4109000" />
+      <workItem from="1730509865280" duration="613000" />
+      <workItem from="1730691431601" duration="2568000" />
+      <workItem from="1730698313911" duration="1574000" />
+      <workItem from="1730702569729" duration="11290000" />
+      <workItem from="1730720318062" duration="4895000" />
+      <workItem from="1730740423072" duration="1885000" />
+      <workItem from="1730771673898" duration="3799000" />
+      <workItem from="1730787678957" duration="9485000" />
+      <workItem from="1730805214426" duration="1277000" />
+      <workItem from="1730886735852" duration="10404000" />
+      <workItem from="1730969334010" duration="15509000" />
+      <workItem from="1731039083909" duration="580000" />
+      <workItem from="1731050200028" duration="3637000" />
+      <workItem from="1731064014129" duration="11574000" />
+      <workItem from="1731110300452" duration="2244000" />
+      <workItem from="1731114257722" duration="1722000" />
+      <workItem from="1731220681214" duration="1726000" />
+      <workItem from="1731236562920" duration="2078000" />
+      <workItem from="1731333661112" duration="12850000" />
+      <workItem from="1731404980060" duration="5977000" />
+      <workItem from="1731421827146" duration="6418000" />
+      <workItem from="1731467445982" duration="5125000" />
+      <workItem from="1731487329470" duration="984000" />
+      <workItem from="1731587268261" duration="14907000" />
+      <workItem from="1731630232990" duration="4807000" />
+      <workItem from="1731637306266" duration="2000" />
+      <workItem from="1731641925791" duration="3424000" />
+      <workItem from="1731717666867" duration="1331000" />
+      <workItem from="1731748244910" duration="2776000" />
+      <workItem from="1731765150444" duration="1589000" />
+      <workItem from="1731775488717" duration="3531000" />
+      <workItem from="1731858067964" duration="3386000" />
+      <workItem from="1731898874745" duration="3588000" />
+      <workItem from="1731940656299" duration="6201000" />
+      <workItem from="1731985084424" duration="3376000" />
+      <workItem from="1732005628927" duration="6764000" />
+      <workItem from="1732024083406" duration="240000" />
+      <workItem from="1732068658003" duration="3360000" />
+      <workItem from="1732182675817" duration="17565000" />
+      <workItem from="1732234269560" duration="3306000" />
+      <workItem from="1732240525133" duration="4839000" />
+      <workItem from="1732245644132" duration="3824000" />
+      <workItem from="1732254816314" duration="26000" />
+      <workItem from="1732256336099" duration="35000" />
+      <workItem from="1732267996912" duration="2908000" />
+      <workItem from="1732276865877" duration="1022000" />
+      <workItem from="1732283716091" duration="10342000" />
+      <workItem from="1732325203599" duration="8382000" />
+      <workItem from="1732351813258" duration="6633000" />
+      <workItem from="1732365543630" duration="18271000" />
+      <workItem from="1732391995430" duration="8409000" />
+      <workItem from="1732429110849" duration="1365000" />
+      <workItem from="1732444044351" duration="22004000" />
+      <workItem from="1732526212031" duration="3773000" />
+      <workItem from="1732530117358" duration="933000" />
+      <workItem from="1732536946780" duration="8610000" />
+      <workItem from="1732599195428" duration="18924000" />
+      <workItem from="1732632087874" duration="8581000" />
+      <workItem from="1732685067034" duration="7498000" />
+      <workItem from="1732699187002" duration="475000" />
+      <workItem from="1732704682068" duration="252000" />
+      <workItem from="1732707563369" duration="12871000" />
+      <workItem from="1732764265911" duration="798000" />
+      <workItem from="1732767672178" duration="14173000" />
+      <workItem from="1732792928818" duration="107000" />
+      <workItem from="1732793048505" duration="74000" />
+      <workItem from="1732793184084" duration="16000" />
+      <workItem from="1732793382697" duration="32000" />
+      <workItem from="1732793442772" duration="99000" />
+      <workItem from="1732793570921" duration="20000" />
+      <workItem from="1732793610092" duration="92000" />
+      <workItem from="1732793752470" duration="346000" />
+      <workItem from="1732794123933" duration="99000" />
+      <workItem from="1732794228972" duration="62000" />
+      <workItem from="1732794296792" duration="43000" />
+      <workItem from="1732794374270" duration="207000" />
+      <workItem from="1732794594371" duration="7000" />
+      <workItem from="1732794622812" duration="8000" />
+      <workItem from="1732794702142" duration="8000" />
+      <workItem from="1732794773813" duration="56000" />
+      <workItem from="1732794837492" duration="46000" />
+      <workItem from="1732800225466" duration="3374000" />
+      <workItem from="1732811999139" duration="18000" />
+      <workItem from="1732812142545" duration="33000" />
+      <workItem from="1732812189621" duration="84000" />
+      <workItem from="1732812361329" duration="1111000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>128</line>
+          <properties class="com.example.btnjava.Controller.UserController" method="findAllUsers">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java</url>
+          <line>70</line>
+          <properties class="com.example.btnjava.Service.Implement.MotelServiceImpl" method="save">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="179" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/AdminController.java</url>
+          <line>49</line>
+          <properties class="com.example.btnjava.Controller.AdminController" method="deleteMotel">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="181" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>147</line>
+          <properties class="com.example.btnjava.Controller.UserController" method="resetPassword">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>90</line>
+          <properties class="com.example.btnjava.Controller.UserController" method="searchByUserId">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="190" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>143</line>
+          <option name="timeStamp" value="163" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="189" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.Integer" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="userService.getAllUsers()" language="JAVA" />
+        <watch expression="sql.toString()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

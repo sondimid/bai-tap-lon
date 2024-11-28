@@ -16,10 +16,6 @@ public class MotelDTO {
 
     private String title;
 
-    private Integer houseNumber;
-
-    private String street;
-
     private String ward;
 
     private String district;
