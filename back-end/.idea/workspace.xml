@@ -5,162 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8200fc6-5c89-462a-86d7-4e425ca28c0f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/bai-tap-lon.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/MotelBookMarkEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/PageResponse/PageResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Utils/GetPageSize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/BtnjavaApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatMessage$ChatMessageBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatMessage.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatNotification$ChatNotificationBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatNotification.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatRoom$ChatRoomBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/ChatRoom/ChatRoom.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/ModelMapperConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/SecurityConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebSecurityConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Config/WebSocketConfig.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/AdminController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/ChatController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/MailController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Controller/UserController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Converter/MotelResponseConverter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Converter/UserResponseConverter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/InvalidParamException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/NotFoundException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/NotNullException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/CustomException/StorageException.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Filter/JwtTokenFilter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Distance.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Leg.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Route.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/RouterResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/ApiDistance/Step.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/ChangePasswordDTO$ChangePasswordDTOBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/ChangePasswordDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/FileDTO$FileDTOBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/FileDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/MotelDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserDTO$UserDTOBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/DTO/UserLoginDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Email/MailStructure$MailStructureBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Email/MailStructure.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/AbstractEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/FileEntity$FileEntityBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/FileEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/MotelBookMarkEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/MotelEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/RoleEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/UserEntity$UserEntityBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Entity/UserEntity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/PageResponse/PageResponse$PageResponseBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/PageResponse/PageResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Response/MotelResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Response/UserResponse.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Model/Search/MotelSearchBuilder.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/ChatMessageRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/ChatRoomRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/FileRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/MotelRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/RoleRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Repository/UserRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/ChatMessageService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/ChatRoomService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/FileService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/ChatMessageServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/ChatRoomServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/FileServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/MailServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/MotelServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/Implement/UserServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/MailService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/MotelService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Service/UserService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/FakeData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/GetPageSize.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/ImageUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/JwtTokenUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/NumberUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/btnjava/Utils/StringUtils.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/demo/chart-area-demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/demo/chart-pie-demo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/chart.js/Chart.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/jquery/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/jquery/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/public7 choj.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../vue-fe/src/components/tmp.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1 - Copy.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/464820591_953007536654493_4205893997455489688_n.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/7 choj.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/7 choj.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/anh dai dien.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/avatar1.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/f-author-3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/f-author-3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/CloudinaryConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/FileDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/FileEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Response/MotelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Response/MotelResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/CloudinaryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/CloudinaryServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/Implement/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/MotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/btnjava/Service/MotelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tuan lon.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnamed.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/public/assets/js/sb-admin-2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/assets/js/sb-admin-2.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Admin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Admin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/AdvancedSearch .vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/AdvancedSearch .vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/DashBoard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/DashBoard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/EditMotel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/EditMotel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/FindMotelsByRadius.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/FindMotelsByRadius.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/MotelDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/MotelDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/components/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/components/Register.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vue-fe/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../vue-fe/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -423,7 +272,7 @@
       <workItem from="1732811999139" duration="18000" />
       <workItem from="1732812142545" duration="33000" />
       <workItem from="1732812189621" duration="84000" />
-      <workItem from="1732812361329" duration="1111000" />
+      <workItem from="1732812361329" duration="1788000" />
     </task>
     <servers />
   </component>

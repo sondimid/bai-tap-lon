@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2bc62160-1989-4865-8ac4-13359a3f156d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/bai-tap-lon.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../1 - Copy.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../464820591_953007536654493_4205893997455489688_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7 choj.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../anh dai dien.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../avatar1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../f-author-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Config/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Converter/MotelResponseConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Filter/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/DTO/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/DTO/FileDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/DTO/MotelDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Entity/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Entity/FileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Response/MotelResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Response/MotelResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Model/Search/MotelSearchBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Repository/Custom/Impl/MotelRepositoryCustomImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Repository/Custom/MotelRepositoryCustom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/Implement/FileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/Implement/MotelServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/MotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/com/example/btnjava/Service/MotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuan lon.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unnamed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/css/sb-admin-2.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/css/sb-admin-2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/css/sb-admin-2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/css/sb-admin-2.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_1.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_1.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_profile_3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_rocket.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/img/undraw_rocket.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/js/demo/chart-bar-demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/js/demo/chart-bar-demo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/js/demo/datatables-demo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/js/demo/datatables-demo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/js/sb-admin-2.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/js/sb-admin-2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/js/sb-admin-2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/js/sb-admin-2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_buttons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_cards.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_cards.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_charts.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_charts.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_dropdowns.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_dropdowns.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_error.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_error.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_footer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_footer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_global.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_login.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_mixins.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_navs.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_navs.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_utilities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_utilities.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_global.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_sidebar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_sidebar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_topbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/navs/_topbar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/sb-admin-2.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/sb-admin-2.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_animation.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_animation.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_background.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_background.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_border.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_border.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_display.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_display.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_rotate.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_rotate.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_text.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/scss/utilities/_text.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_alert.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_alert.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_badge.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_badge.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_breadcrumb.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_breadcrumb.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_button-group.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_button-group.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_buttons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_card.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_carousel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_carousel.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_close.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_close.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_code.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_code.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_custom-forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_custom-forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_dropdown.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_dropdown.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_functions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_functions.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_grid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_grid.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_images.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_images.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_input-group.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_input-group.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_jumbotron.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_jumbotron.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_list-group.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_list-group.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_media.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_media.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_mixins.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_modal.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_nav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_nav.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_navbar.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_navbar.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_pagination.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_pagination.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_popover.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_popover.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_print.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_print.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_progress.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_progress.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_reboot.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_reboot.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_root.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_root.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_spinners.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_spinners.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_tables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_tables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_toasts.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_toasts.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_tooltip.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_tooltip.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_transitions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_transitions.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_type.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_type.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_utilities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_utilities.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap-grid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap-grid.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap-reboot.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap-reboot.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/bootstrap.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_alert.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_alert.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_background-variant.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_background-variant.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_badge.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_badge.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_border-radius.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_border-radius.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_box-shadow.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_box-shadow.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_breakpoints.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_breakpoints.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_buttons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_buttons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_caret.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_caret.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_clearfix.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_clearfix.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_deprecate.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_deprecate.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_float.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_float.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_forms.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_forms.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_gradients.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_gradients.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_grid-framework.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_grid-framework.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_grid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_grid.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_hover.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_hover.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_image.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_image.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_list-group.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_list-group.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_lists.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_lists.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_nav-divider.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_nav-divider.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_pagination.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_pagination.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_reset-text.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_reset-text.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_resize.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_resize.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_screen-reader.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_screen-reader.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_size.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_size.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_table-row.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_table-row.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-emphasis.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-emphasis.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-hide.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-hide.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-truncate.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_text-truncate.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_transition.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_transition.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_visibility.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/mixins/_visibility.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_align.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_align.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_background.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_background.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_borders.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_borders.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_clearfix.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_clearfix.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_display.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_display.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_embed.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_embed.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_flex.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_flex.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_float.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_float.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_interactions.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_interactions.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_overflow.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_overflow.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_position.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_position.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_screenreaders.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_screenreaders.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_shadows.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_shadows.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_sizing.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_sizing.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_spacing.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_spacing.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_stretched-link.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_stretched-link.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_text.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_text.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_visibility.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/utilities/_visibility.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/vendor/_rfs.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/bootstrap/scss/vendor/_rfs.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/chart.js/Chart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/dataTables.bootstrap4.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/jquery.dataTables.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/jquery.dataTables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/jquery.dataTables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/datatables/jquery.dataTables.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/LICENSE.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/attribution.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/attribution.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/all.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/all.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/all.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/all.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/brands.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/brands.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/brands.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/brands.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/fontawesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/fontawesome.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/fontawesome.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/fontawesome.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/regular.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/regular.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/regular.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/regular.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/solid.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/solid.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/solid.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/solid.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/svg-with-js.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/svg-with-js.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/svg-with-js.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/svg-with-js.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/v4-shims.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/v4-shims.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/v4-shims.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/css/v4-shims.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/all.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/all.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/all.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/all.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/brands.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/brands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/brands.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/brands.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/conflict-detection.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/conflict-detection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/conflict-detection.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/conflict-detection.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/fontawesome.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/fontawesome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/fontawesome.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/fontawesome.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/regular.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/regular.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/regular.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/regular.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/solid.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/solid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/solid.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/solid.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/v4-shims.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/v4-shims.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/v4-shims.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/js/v4-shims.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_animated.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_animated.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_bordered-pulled.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_bordered-pulled.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_core.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_core.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_fixed-width.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_fixed-width.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_icons.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_icons.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_larger.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_larger.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_list.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_list.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_mixins.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_mixins.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_rotated-flipped.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_rotated-flipped.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_screen-reader.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_screen-reader.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_shims.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_shims.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_stacked.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_stacked.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_variables.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/_variables.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/brands.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/brands.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/fontawesome.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/fontawesome.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/regular.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/regular.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/solid.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/solid.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/v4-shims.less" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/less/v4-shims.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/categories.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/categories.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/icons.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/icons.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/shims.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/shims.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/sponsors.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/metadata/sponsors.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_animated.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_animated.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_bordered-pulled.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_bordered-pulled.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_core.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_core.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_fixed-width.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_fixed-width.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_icons.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_icons.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_larger.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_larger.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_list.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_list.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_mixins.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_rotated-flipped.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_rotated-flipped.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_screen-reader.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_screen-reader.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_shims.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_shims.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_stacked.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_stacked.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/brands.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/brands.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/fontawesome.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/fontawesome.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/regular.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/regular.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/solid.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/solid.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/v4-shims.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/scss/v4-shims.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/brands.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/brands.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/solid.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/sprites/solid.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-brands-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-brands-400.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-regular-400.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/fontawesome-free/webfonts/fa-solid-900.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery-easing/jquery.easing.compatibility.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery-easing/jquery.easing.compatibility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery-easing/jquery.easing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery-easing/jquery.easing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery/jquery.slim.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery/jquery.slim.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery/jquery.slim.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/public/assets/vendor/jquery/jquery.slim.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/Admin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/Admin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/AdvancedSearch .vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/AdvancedSearch .vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/DashBoard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/DashBoard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/EditMotel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/EditMotel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/FindMotelsByRadius.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/FindMotelsByRadius.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/MotelDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/MotelDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/components/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/components/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../vue-fe/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../vue-fe/src/router/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sondimid&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sondimid/bai-tap-lon.git&quot;,
+    &quot;accountId&quot;: &quot;006cc44f-9307-4fe8-a91a-649d8904a54b&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2pTcv3zRc1SRz7jJrWXLU4pwhl9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BtnjavaApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/sondimid/IdeaProjects/bai-tap-lon/back-end/src",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2bc62160-1989-4865-8ac4-13359a3f156d" name="Changes" comment="" />
+      <created>1732793733088</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732793733088</updated>
+      <workItem from="1732793734144" duration="17000" />
+      <workItem from="1732794331953" duration="248000" />
+      <workItem from="1732794687788" duration="7000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
