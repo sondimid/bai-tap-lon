@@ -3,6 +3,7 @@ package com.example.btnjava.Service;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
 import com.example.btnjava.Model.Entity.UserEntity;
+import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Response.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,6 @@ public interface UserService {
     void changePassword(ChangePasswordDTO changePasswordDTO, String token);
     List<UserResponse> getByIds(List<Integer> ids, Integer senderId) throws MalformedURLException;
     void saveResetToken(String email, String resetToken) throws Exception;
-
+    String favoriteMotels(List<Integer> ids, String token) throws MalformedURLException;
     void resetPassword(String token, String newPassword) throws Exception;
 }

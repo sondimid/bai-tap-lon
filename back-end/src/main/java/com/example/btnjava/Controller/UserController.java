@@ -17,12 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -161,30 +159,14 @@ public class UserController {
         return ResponseEntity.ok().body(motelService.findByRadius(destination, (int) (radius * 1000)));
     }
 
+    @PostMapping("/favorites")
+    public ResponseEntity<?> favorite(@RequestParam("ids") List<Integer> ids, @RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        return ResponseEntity.ok().body(userService.favoriteMotels(ids, authorization.substring(7)));
+    }
 
-    @PostMapping("/uploads")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            // Tạo thư mục upload nếu chưa tồn tại
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            String originalFileName = file.getOriginalFilename();
-            String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
-            String filePath = UPLOAD_DIR + uniqueFileName;
-
-            // Lưu file
-            file.transferTo(new File(filePath));
-
-            // Trả về đường dẫn file với status 200 OK
-            return ResponseEntity.ok("File uploaded successfully: " + uniqueFileName);
-        } catch (IOException e) {
-            // Trả về lỗi với status 500 Internal Server Error
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to upload file: " + e.getMessage());
-        }
+    @GetMapping("/get-favorites")
+    public ResponseEntity<?> favorite(@RequestHeader("Authorization") String authorization) throws MalformedURLException {
+        return ResponseEntity.ok().body(motelService.getFavorite(authorization.substring(7)));
     }
 }
 

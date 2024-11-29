@@ -50,8 +50,13 @@ public class UserEntity extends AbstractEntity implements UserDetails{
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MotelEntity> motelEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MotelBookMarkEntity> motelBookMarkEntities = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "userfavorites",
+            joinColumns = @JoinColumn(name = "userid"),
+            inverseJoinColumns = @JoinColumn(name = "motelid")
+    )
+    private List<MotelEntity> favoriteMotels = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "roleid", nullable = false, updatable = false)

@@ -60,4 +60,7 @@ public class MotelEntity extends AbstractEntity{
     @OneToMany(mappedBy = "motelEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL
             , orphanRemoval = true)
     private List<FileEntity> fileEntities = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "favoriteMotels")
+    private List<UserEntity> likedByUsers = new ArrayList<>();
 }

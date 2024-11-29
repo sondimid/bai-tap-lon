@@ -3,14 +3,19 @@ package com.example.btnjava.Service.Implement;
 import com.example.btnjava.Converter.UserResponseConverter;
 import com.example.btnjava.Model.DTO.ChangePasswordDTO;
 import com.example.btnjava.Model.DTO.UserDTO;
+import com.example.btnjava.Model.Entity.MotelEntity;
 import com.example.btnjava.Model.Entity.RoleEntity;
 import com.example.btnjava.Model.Entity.UserEntity;
+import com.example.btnjava.Model.Response.MotelResponse;
 import com.example.btnjava.Model.Response.UserResponse;
+import com.example.btnjava.Repository.MotelRepository;
 import com.example.btnjava.Repository.RoleRepository;
 import com.example.btnjava.Repository.UserRepository;
 import com.example.btnjava.Service.ChatMessageService;
+import com.example.btnjava.Service.MotelService;
 import com.example.btnjava.Service.UserService;
 import com.example.btnjava.Utils.JwtTokenUtils;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -45,6 +50,7 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
     private final ChatMessageService chatMessageService;
+    private final MotelRepository motelRepository;
     private static final String UPLOAD_DIR = "D:/uploads/";
 
     @Override
@@ -205,6 +211,22 @@ public class UserServiceImpl implements UserService {
             }
 
         }
+    }
+
+
+
+    @Override
+    public String favoriteMotels(List<Integer> ids, String token) throws MalformedURLException {
+        Integer id = jwtTokenUtils.extractUserId(token);
+        UserEntity user = userRepository.findById(id).get();
+        user.getFavoriteMotels().clear();
+        for(Integer motelId: ids) {
+            MotelEntity motel = motelRepository.findById(motelId).get();
+            user.getFavoriteMotels().add(motel);
+        }
+        userRepository.save(user);
+        return "SUCCESS";
+
     }
 
 }

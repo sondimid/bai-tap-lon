@@ -1,5 +1,6 @@
 package com.example.btnjava.Converter;
 
+import com.example.btnjava.Model.Entity.MotelEntity;
 import com.example.btnjava.Model.Entity.UserEntity;
 import com.example.btnjava.Model.Response.UserResponse;
 import lombok.RequiredArgsConstructor;

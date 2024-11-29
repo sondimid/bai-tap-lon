@@ -26,4 +26,5 @@ public interface MotelService {
     String deleteMotels(Integer userId, List<Integer> ids) throws MalformedURLException;
     String deleteOrUnpublishMotel(List<Integer> ids, Boolean isDelete);
     List<MotelResponse> findByRadius(String destination,Integer radius) throws MalformedURLException;
+    List<MotelResponse> getFavorite(String token) throws MalformedURLException;
 }

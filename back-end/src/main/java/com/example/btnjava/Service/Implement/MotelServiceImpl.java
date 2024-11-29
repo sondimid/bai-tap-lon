@@ -82,9 +82,6 @@ public class MotelServiceImpl implements MotelService {
             if(listFileId != null){
                 motelEntity.setUpdatedAt(LocalDateTime.now());
                 for(Integer fileId : listFileId){
-                    FileEntity fileEntity = fileService.findById(fileId);
-                    motelEntity.getFileEntities().remove(fileEntity);
-                    fileEntity.setMotelEntity(null);
                     fileService.deleteById(fileId);
                 }
             }
@@ -240,7 +237,6 @@ public class MotelServiceImpl implements MotelService {
                 UserEntity user = userService.findById(motel.getUserId()).get();
                 user.getMotelEntities().remove(motel);
                 motel.setUser(null);
-
                 motelRepository.delete(motel);
             }
             return "Xóa Nhà Trọ Thành Công";
@@ -290,5 +286,12 @@ public class MotelServiceImpl implements MotelService {
         }
         result.sort(Comparator.comparing(MotelResponse::getDistanceValue));
         return result;
+    }
+
+    @Override
+    public List<MotelResponse> getFavorite(String token) throws MalformedURLException {
+        Integer id = jwtTokenUtils.extractUserId(token);
+        UserEntity userEntity = userService.findById(id).get();
+        return motelResponseConverter.toMotelResponse(userEntity.getFavoriteMotels());
     }
 }
