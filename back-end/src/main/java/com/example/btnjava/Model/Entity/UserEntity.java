@@ -47,6 +47,7 @@ public class UserEntity extends AbstractEntity implements UserDetails{
     @Column(name = "tokenexpirydate")
     private LocalDateTime tokenExpiryDate;
 
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MotelEntity> motelEntities = new ArrayList<>();
 

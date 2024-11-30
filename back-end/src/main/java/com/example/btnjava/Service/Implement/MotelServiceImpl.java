@@ -92,8 +92,8 @@ public class MotelServiceImpl implements MotelService {
                     if (!Files.exists(uploadPath)) {
                         Files.createDirectories(uploadPath);
                     }
-
-                    String originalFileName = String.valueOf(System.currentTimeMillis());
+                    Random random  = new Random();
+                    String originalFileName = String.valueOf(System.currentTimeMillis() + random.nextInt(9000));
                     String filePath = UPLOAD_DIR + originalFileName;
                     String fileUrl = String.format("http://localhost:8081/uploads/%s", originalFileName);
                     file.transferTo(new File(filePath));
@@ -123,8 +123,8 @@ public class MotelServiceImpl implements MotelService {
                     if (!Files.exists(uploadPath)) {
                         Files.createDirectories(uploadPath);
                     }
-
-                    String originalFileName = String.valueOf(System.currentTimeMillis());
+                    Random random  = new Random();
+                    String originalFileName = String.valueOf(System.currentTimeMillis() + random.nextInt(9000));
                     String filePath = UPLOAD_DIR + originalFileName;
                     String fileUrl = String.format("http://localhost:8081/uploads/%s", originalFileName);
                     file.transferTo(new File(filePath));
@@ -142,8 +142,6 @@ public class MotelServiceImpl implements MotelService {
 
     @Override
     public List<MotelResponse> findAll() throws MalformedURLException {
-//        List<MotelEntity> motelEntities = motelRepository.findAll(Sort.by("created_at").descending().and(Sort.by("updated_at").descending().and(Sort.by("status").ascending())));
-
         return motelResponseConverter.toMotelResponse(motelRepository.findAll());
     }
 

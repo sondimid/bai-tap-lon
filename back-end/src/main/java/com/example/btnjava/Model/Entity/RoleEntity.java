@@ -17,4 +17,6 @@ public class RoleEntity extends AbstractEntity{
     @Column(name = "role")
     private String role;
 
+    @OneToMany(mappedBy = "roleEntity", cascade = CascadeType.ALL)
+    private List<UserEntity> userEntities;
 }
