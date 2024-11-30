@@ -106,11 +106,21 @@
 
                 <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
+                    <a class="nav-link" href="#" @click="toFindByRadius">
                         <i class="fas fa-search-plus"></i>
-                        <span>Tìm Kiếm Nâng Cao</span>
+                        <span>Tìm Theo Bán Kính</span>
                     </a>
                 </li>
+
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" v-if="hasToken" @click="toFavoriteMotel">
+                        <i class="fa-solid fa-hotel"></i>
+                        <span>Nhà Trọ Đã Lưu</span>
+                    </a>
+                </li>
+
 
 
             </ul>
@@ -450,19 +460,20 @@
                                 </div>
 
                                 <!-- Nút yêu thích -->
-                                <div style="position: absolute;
-                       top: 10px;
-                       right: 10px;
-                       width: 32px;
-                       height: 32px;
-                       display: flex;
-                       align-items: center;
-                       justify-content: center;
-                       border-radius: 50%;
-                       background: white;
-                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                       cursor: pointer;">
-                                    <i class="far fa-heart" style="color: #666;"></i>
+                                <div id="favorite-button" v-if="hasToken" @click.stop="toggleFavorite(motel.id)" style="position: absolute;
+   top: 10px;
+   right: 10px;
+   width: 32px;
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   background: white;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   cursor: pointer;">
+                                    <i :class="isFavorite(motel.id) ? 'fas fa-heart red-heart' : 'far fa-heart'"
+                                        style="transition: color 0.3s;"></i>
                                 </div>
                             </div>
                             <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
@@ -563,6 +574,7 @@ export default {
             pageSize: null,
             totalPages: null,
             formSearch: null,
+            favorites: [],
         };
     },
     mounted() {
@@ -572,13 +584,7 @@ export default {
             } else {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
-        }
-        if (localStorage.getItem('queryMotel')) {
-            const queryMotel = JSON.parse(localStorage.getItem('queryMotel'));
-            this.search(queryMotel);
-            localStorage.removeItem('queryMotel');
-        } else {
-            this.getAllMotels();
+            this.fetchFavorites()
         }
         this.getDistrict()
     },
@@ -623,9 +629,18 @@ export default {
             }
         },
         async getAllMotels() {
-            const response = await axios.get('http://localhost:8081/get-all-motels');
+            this.isAdvanceSearch = false
+            const response = await axios.get('http://localhost:8081/get-all-motels', {
+                params: {
+                    currentPage: this.currentPage
+                }
+            });
             console.log(response);
-            this.listMotel = response.data;
+            this.listMotel = response.data.content;
+            if (this.totalPages == null) {
+                this.totalPages = response.data.totalPages
+            }
+            this.pageSize = response.data.pageSize
         },
         async searchByPrice(priceFrom, priceTo) {
             this.totalPages = null
@@ -1027,6 +1042,39 @@ export default {
                 this.search()
             }
         },
+        toggleFavorite(motelId) {
+            if (this.favorites.includes(motelId)) {
+                this.favorites = this.favorites.filter(id => id !== motelId);
+            } else {
+                this.favorites.push(motelId);
+            }
+            const response = axios.post('http://localhost:8081/favorites', null, {
+                params: {
+                    ids: this.favorites.join(','),
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+        },
+        isFavorite(motelId) {
+            return this.favorites.includes(motelId);
+        },
+        async fetchFavorites() {
+            const response = await axios.get('http://localhost:8081/get-favorites', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            this.favorites = response.data.map(motel => motel.id);
+            console.log(this.favorites)
+        },
+        toFavoriteMotel() {
+            this.$router.push('/favorite-motel')
+        },
+        toFindByRadius() {
+            this.$router.push('/find-by-radius')
+        }
     },
     computed: {
         hasToken() {
@@ -1132,5 +1180,8 @@ export default {
     color: #fff;
     background-color: #007bff;
     border-radius: 5px;
+}
+.red-heart {
+    color: red;
 }
 </style>

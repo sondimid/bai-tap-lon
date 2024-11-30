@@ -33,14 +33,10 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="#" @click="searchByPrice(0, 1)">Dưới 1 triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5
-                                triệu</a>
-                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7
-                                triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(1, 2)">Từ 1 triệu đến 2 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(2, 3)">Từ 2 triệu đến 3 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(3, 5)">Từ 3 triệu đến 5 triệu</a>
+                            <a class="collapse-item" href="#" @click="searchByPrice(5, 7)">Từ 5 triệu đến 7 triệu</a>
                             <a class="collapse-item" href="#" @click="searchByPrice(7)">Trên 7 triệu</a>
                         </div>
                     </div>
@@ -100,26 +96,29 @@
                             <a class="collapse-item" href="#" @click="searchByDistrict('Ba Vì')">Ba Vì</a>
                         </div>
                     </div>
-
                 </li>
+
                 <hr class="sidebar-divider">
 
-                <!-- Advanced Search Button at the bottom -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click="showAdvancedSearchModal">
+                    <a class="nav-link" href="#" @click="toAdvancedSearchPage">
                         <i class="fas fa-search-plus"></i>
                         <span>Tìm Kiếm Nâng Cao</span>
                     </a>
                 </li>
+
                 <hr class="sidebar-divider">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" v-if="hasToken" @click="toFavoriteMotel">
-                        <i class="fa-solid fa-hotel"></i>
-                        <span>Nhà Trọ Đã Lưu</span>
+                    <a class="nav-link" href="#" @click="toFindByRadius">
+                        <i class="fa-solid fa-magnifying-glass-location"></i>
+                        <span>Tìm Kiếm Theo Bán Kính</span>
                     </a>
                 </li>
 
+                <hr class="sidebar-divider">
+
+                
 
             </ul>
             <!-- End of Sidebar -->
@@ -139,52 +138,66 @@
                         </button>
 
                         <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
+                                    <i class="fas fa-envelope fa-fw"></i>
+                                    <!-- Counter - Messages -->
+                                    <span class="badge badge-danger badge-counter"></span>
+                                    <!-- Biểu tượng tin nhắn mới -->
+                                    <span v-if="hasNewMessages" class="badge badge-success badge-new">Mới</span>
                                 </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
-                                                placeholder="Search for..." aria-label="Search"
-                                                aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
-                                                </button>
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="messagesDropdown">
+                                    <h6 class="dropdown-header">
+                                        Tin Nhắn Mới
+                                    </h6>
+                                    <a v-for="user in listUser" :key="user.id"
+                                        class="dropdown-item d-flex align-items-center" href="#"
+                                        @click="toggleChatBox(user)">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle"
+                                                :src="user.fileUrl || '../../assets/img/undraw_profile.svg'"
+                                                alt="Avatar">
+                                        </div>
+                                        <div class="font-weight-bold w-100">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-truncate">{{ user.fullName }}</div>
+                                                <div class="small text-gray-500">{{ formatTime(user.timestamp) }}
+                                                </div>
+                                            </div>
+                                            <div class="text-truncate small text-gray-700">{{ user.content }}
                                             </div>
                                         </div>
-                                    </form>
+                                    </a>
                                 </div>
                             </li>
 
+
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+
+                            <li class="nav-item mx-1 d-flex align-items-center" v-if="isAdmin">
+                                <button type="button" class="btn btn-primary" @click="toAdminPage">
+                                    <i class="fas fa-sync-alt fa-fw"></i>
+                                    Trang Quản Trị
+                                </button>
+                            </li>
                             <li class="nav-item mx-1 d-flex align-items-center">
                                 <button type="button" class="btn btn-primary" @click="addNewMotel">
                                     <i class="fas fa-plus fa-fw"></i>
                                     Thêm nhà trọ mới
                                 </button>
                             </li>
+
+
 
                             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -225,30 +238,26 @@
 
                     </nav>
                     <!-- End of Topbar -->
-                    <div id="app" class="container mt-5">
-                        <h2 class="text-left mb-4">Tìm kiếm nhà trọ theo bán kính</h2>
-                        <form @submit.prevent="findByRadius" class="border p-4 rounded shadow-sm mb-5">
-                            <!-- Destination Input -->
-                            <div class="mb-3">
-                                <label for="destination" class="form-label">Địa chỉ</label>
-                                <input type="text" id="address" v-model="destination" class="form-control"
-                                    placeholder="Trường học, bệnh viện hoặc địa chỉ cụ thể bất kỳ" autocomplete="off">
-                                <div id="suggestions" class="suggestions"></div>
-                            </div>
+                    <div class="col-12 mb-3 d-flex justify-content-start" v-if="selectedMotels.length && isAdmin">
+                        <button class="btn btn-danger" @click="deleteMotels(1)">
+                            Xóa Bài Đăng
+                        </button>
+                        <button class="btn btn-warning" style="margin-left: 20px;" @click="deleteMotels(0)">
+                            Gỡ Bài Đăng
+                        </button>
+                    </div>
 
-                            <!-- Radius Input -->
-                            <div class="mb-3">
-                                <label for="radius" class="form-label">Bán kính (km)</label>
-                                <input type="number" id="radius" v-model="radius" class="form-control"
-                                    placeholder="Nhập bán kính tìm kiếm" required step="0.1">
-                            </div>
 
-                            <!-- Submit Button -->
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-                        </form>
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid py-4">
+                        <!-- Page Heading với animation nhẹ -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800 border-bottom border-primary pb-2">
+                                Nhà Trọ Đã Đánh Dấu
+                            </h1>
+                        </div>
 
+                        <!-- Grid Layout cho danh sách phòng trọ -->
                         <div class="row g-4">
                             <div class="col-8" v-for="motel in listMotel" :key="motel.id">
                                 <div class="card" @click="toMotelDetailPage(motel.id)" style="border: none; 
@@ -293,8 +302,7 @@
                            padding: 4px 8px;
                            border-radius: 4px;
                            font-size: 12px;">
-                                            <i class="fas fa-image"></i> {{ motel.filesDTO ?
-                                            motel.filesDTO.length : 0
+                                            <i class="fas fa-image"></i> {{ motel.filesDTO ? motel.filesDTO.length : 0
                                             }}
                                         </div>
                                     </div>
@@ -331,15 +339,6 @@
                 line-height: 1.2;">
                                                 {{ motel.area }}m²
                                             </div>
-                                            <div style="display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            color: #666; 
-            font-size: 16px; 
-            line-height: 1.2;">
-                                                <i class="fas fa-location" style="color: #00b4d8;"></i>
-                                                {{ motel.distance }}
-                                            </div>
                                         </div>
 
 
@@ -349,13 +348,22 @@
                            gap: 8px;
                            margin-bottom: 12px;">
                                             <i class="fas fa-map-marker-alt" style="color: red;"></i>
-                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district
-                                                }}</span>
+                                            <span style="color: #666;">{{ motel.ward }}, {{ motel.district }}</span>
                                         </div>
 
                                         <p><strong>{{ motel.type }}</strong> </p>
 
                                         <!-- Mô tả -->
+                                        <p style="color: #666;
+                         font-size: 20px;
+                         line-height: 1.5;
+                         margin-bottom: 12px;
+                         display: -webkit-box;
+                         -webkit-line-clamp: 2;
+                         -webkit-box-orient: vertical;
+                         overflow: hidden;">
+                                            {{ motel.detail }}
+                                        </p>
 
                                         <!-- Thời gian đăng -->
                                         <div
@@ -374,48 +382,34 @@
                                     </div>
 
                                     <!-- Nút yêu thích -->
-                                    <div style="position: absolute;
-                       top: 10px;
-                       right: 10px;
-                       width: 32px;
-                       height: 32px;
-                       display: flex;
-                       align-items: center;
-                       justify-content: center;
-                       border-radius: 50%;
-                       background: white;
-                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                       cursor: pointer;">
-                                        <i class="far fa-heart" style="color: #666;"></i>
+                                    <div id="favorite-button" @click.stop="toggleFavorite(motel.id)" style="position: absolute;
+   top: 10px;
+   right: 10px;
+   width: 32px;
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   background: white;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   cursor: pointer;">
+                                        <i :class="isFavorite(motel.id) ? 'fas fa-heart red-heart' : 'far fa-heart'"
+                                            style="transition: color 0.3s;"></i>
                                     </div>
+
+
                                 </div>
                                 <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
                         </div>
                     </div>
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item" :class="{ disabled: this.currentPage === 1 }"
-                                @click="changePage(this.currentPage - 1)">
-                                <a class="page-link">Previous</a>
-                            </li>
-                            <li class="page-item" :class="{ active: page === this.currentPage }"
-                                v-for="page in totalPages" :key="page" @click="changePage(page)">
-                                <a class="page-link">{{ page }}</a>
-                            </li>
-                            <li class="page-item" :class="{ disabled: this.currentPage === this.totalPages }"
-                                @click="changePage(this.currentPage + 1)">
-                                <a class="page-link">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+
+
+                    <!-- /.container-fluid -->
 
                 </div>
                 <!-- End of Main Content -->
-
-                <!-- Footer -->
-
-                <!-- End of Footer -->
 
             </div>
             <!-- End of Content Wrapper -->
@@ -424,6 +418,27 @@
         <!-- End of Page Wrapper -->
 
         <!-- Scroll to Top Button-->
+        <div v-if="isChatBoxVisible" class="chat-box">
+            <div class="chat-header">
+                <h3>Chat với {{ nameChat }}</h3>
+                <button class="close-button" @click="closeToggleChatBox">×</button>
+            </div>
+
+            <div class="chat-messages" ref="chatMessagesContainer">
+                <div v-for="(message, index) in messages" :key="index" :class="{
+                    'message-sender': message.senderId === this.userInfo.id,
+                    'message-receiver': message.senderId !== this.userInfo.id
+                }">
+                    <p>{{ message.content }}</p>
+                    <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" v-model="messageContent" @keyup.enter="sendMessage" placeholder="Nhập tin nhắn..." />
+                <button @click="sendMessage">Gửi</button>
+            </div>
+        </div>
 
         <!-- Logout Modal-->
         <div class="modal" tabindex="-1" v-if="showModal">
@@ -446,31 +461,71 @@
             </div>
         </div>
 
-        <div v-if="isLoading" class="loading-overlay">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden"></span>
+        <div v-if="showMoalDelete" class="modal success-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông Báo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ messageDelete }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            @click=closeModalDelete>OK</button>
+                    </div>
+                </div>
             </div>
         </div>
+
 
     </body>
 </template>
 
 <script>
-
 import axios from 'axios';
-
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 export default {
-    name: 'FindMotelsByRadius',
+    name: 'FavoriteMotel',
     data() {
         return {
             showModal: false,
             userInfo: {},
             listMotel: {},
             defaultImage: new URL('../../assets/img/undraw_profile.svg', import.meta.url).href,
-            avatar: localStorage.getItem('avatar') || '',
-            destination: null,
-            radius: null,
-            isLoading: false,
+            description: null,
+            houseNumber: null,
+            ward: null,
+            district: null,
+            province: null,
+            areaFrom: null,
+            areaTo: null,
+            priceFrom: null,
+            priceTo: null,
+            interior: null,
+            type: null,
+            detailDescription: null,
+            managerName: null,
+            phoneNumber: null,
+            page: null,
+            maxPageItems: null,
+            avatar: localStorage.getItem('avatar') || this.defaultImage,
+            listUser: {},
+            hasNewMessages: false,
+            isChatBoxVisible: false,
+            messages: [],
+            messageContent: "",
+            stompClient: null,
+            senderId: null,
+            recipientId: null,
+            nameChat: null,
+            selectedMotels: [],
+            showMoalDelete: false,
+            messageDelete: null,
+            isAdvanceSearch: false,
+            formSearch: null,
+            favorites: [],
         };
     },
     mounted() {
@@ -480,65 +535,17 @@ export default {
             } else {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
+            this.fetchFavorites()
         }
-        const apiKey = '9Zd3qashu6zFvhgoWz02tjycaK4dH0qEfKlfCogk'; 
-        const addressInput = document.getElementById('address');
-        const suggestionsContainer = document.getElementById('suggestions');
-        let sessionToken = crypto.randomUUID();
+        else this.$router.push('/login')
 
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
+        this.getAllMotels();
+
+        this.fetchUers();
+        this.connect();
+        if (this.isChatBoxVisible) {
+            this.scrollToBottom();
         }
-
-        const debouncedSearch = debounce((query) => {
-            if (query.length < 2) {
-                suggestionsContainer.style.display = 'none';
-                return;
-            }
-
-
-            fetch(`https://rsapi.goong.io/Place/AutoComplete?api_key=${apiKey}&input=${encodeURIComponent(query)}&sessiontoken=${sessionToken}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'OK') {
-                        suggestionsContainer.innerHTML = '';
-                        suggestionsContainer.style.display = 'block';
-
-                        data.predictions.forEach(prediction => {
-                            const div = document.createElement('div');
-                            div.className = 'suggestion-item';
-                            div.textContent = prediction.description;
-                            div.addEventListener('click', () => {
-                                addressInput.value = prediction.description;
-                                this.destination = prediction.description
-                                suggestionsContainer.style.display = 'none';
-
-
-                            });
-                            suggestionsContainer.appendChild(div);
-                        });
-                    }
-                })
-                .catch(error => console.error('Lỗi:', error));
-        }, 300);
-
-        addressInput.addEventListener('input', (e) => debouncedSearch(e.target.value));
-
-        document.addEventListener('click', function (e) {
-            if (!suggestionsContainer.contains(e.target) && e.target !== addressInput) {
-                suggestionsContainer.style.display = 'none';
-            }
-        });
-
-
 
     },
     methods: {
@@ -574,12 +581,74 @@ export default {
                         this.avatar = this.userInfo.fileUrl
                     }
                     console.log(response.data)
+
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
             }
         },
+        async getAllMotels() {
+            this.isAdvanceSearch = false
+            const response = await axios.get('http://localhost:8081/get-favorites', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            this.listMotel = response.data
 
+        },
+        async searchByPrice(priceFrom, priceTo) {
+            this.formSearch = this.buildSearchData();
+            this.formSearch.priceFrom = priceFrom;
+            this.formSearch.priceTo = priceTo;
+            this.search();
+        },
+        async searchByArea(areaFrom, areaTo) {
+            this.formSearch = this.buildSearchData();
+            this.formSearch.areaFrom = areaFrom;
+            this.formSearch.areaTo = areaTo;
+            this.search();
+        },
+        async searchByDistrict(district) {
+            this.formSearch = this.buildSearchData();
+            this.formSearch.district = district;
+            this.search();
+        },
+        async search() {
+            this.isAdvanceSearch = true
+            this.formSearch.page = this.currentPage
+            const response = await axios.get('http://localhost:8081/search', {
+                params: this.formSearch,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            this.listMotel = response.data.content;
+            if (this.totalPages == null) {
+                this.totalPages = response.data.totalPages
+            }
+            this.pageSize = response.data.pageSize
+        },
+        buildSearchData() {
+            this.totalPages = null
+            return {
+                description: this.description,
+                houseNumber: this.houseNumber,
+                ward: this.ward,
+                district: this.district,
+                province: this.province,
+                areaFrom: this.areaFrom,
+                areaTo: this.areaTo,
+                priceFrom: this.priceFrom,
+                priceTo: this.priceTo,
+                interior: this.interior,
+                type: this.type,
+                detailDescription: this.detailDescription,
+                managerName: this.managerName,
+                phoneNumber: this.phoneNumber,
+                page: this.currentPage,
+            };
+        },
         async toDashBoardPage() {
             this.$router.push('/').then(() => {
                 window.location.reload();
@@ -587,18 +656,48 @@ export default {
         },
         clearDataAndRedirect(route) {
             localStorage.clear();
+            this.resetData();
+
             this.$router.push(route).then(() => {
                 window.location.reload();
             });
+        },
+        toAdminPage() {
+            this.$router.push('/admin')
+        },
+        toMyMotel() {
+            this.$router.push('/my-motel')
+        },
+        toAdvancedSearchPage() {
+            this.$router.push('/advanced-search')
+        },
+        resetData() {
+            this.showModal = false;
+            this.userInfo = {};
+            this.listMotel = {};
+            this.description = null;
+            this.houseNumber = null;
+            this.ward = null;
+            this.district = null;
+            this.province = null;
+            this.areaFrom = null;
+            this.areaTo = null;
+            this.priceFrom = null;
+            this.priceTo = null;
+            this.interior = null;
+            this.type = null;
+            this.detailDescription = null;
+            this.managerName = null;
+            this.phoneNumber = null;
+            this.page = null;
+            this.maxPageItems = null;
+            this.listUser = {};
         },
         addNewMotel() {
             if (this.hasToken) {
                 this.$router.push('/add-motel')
             }
             else this.$router.push('/login')
-        },
-        hasToken() {
-            return !!localStorage.getItem('token')
         },
         formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price);
@@ -607,225 +706,253 @@ export default {
         formatDate(date) {
             return new Date(date).toLocaleDateString('vi-VN');
         },
+        async fetchUers() {
+            const response = await axios.get('http://localhost:8081/get-all-ids', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            this.listUser = response.data
+            console.log(this.listUser)
+        },
+        toggleChatBox(user) {
+            this.recipientId = user.id
+            this.connect();
+            this.nameChat = user.fullName
+            this.fetchMessages(user.id)
+            this.isChatBoxVisible = !this.isChatBoxVisible;
 
-        getStatusBadgeClass(status) {
-            switch (status) {
-                case 'Đã Được Duyệt':
-                case 'Đã Được Duyệt':
-                    return 'bg-success';
-                case 'Chưa Được Duyệt':
-                case 'Chưa Được Duyệt':
-                    return 'bg-danger';
-                default:
-                    return 'bg-secondary';
+        },
+        connect() {
+            if (this.stompClient && this.stompClient.connected) {
+                console.log("Already connected");
+                return;
+            }
+            const socket = new SockJS("http://localhost:8081/chat");
+            this.stompClient = Stomp.over(socket);
+            this.stompClient.connect({}, () => {
+                console.log("Connected");
+                this.stompClient.subscribe(`/user/${this.userInfo.id}/queue/messages`, (message) => {
+                    const receivedMessage = JSON.parse(message.body);
+                    this.messages.push(receivedMessage);
+                });
+            });
+        },
+        closeToggleChatBox() {
+            this.isChatBoxVisible = false;
+            this.disconnect();
+        },
+        disconnect() {
+            if (this.stompClient) {
+                this.stompClient.disconnect();
+                console.log("Disconnected");
             }
         },
-        toMyMotel() {
-            this.$router.push('/my-motel')
+        sendMessage() {
+            if (this.messageContent.trim() && this.stompClient) {
+                const chatMessage = {
+                    senderId: this.userInfo.id,
+                    recipientId: this.recipientId,
+                    content: this.messageContent.trim(),
+                    timestamp: new Date(),
+                };
+                this.stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+                this.messages.push({ ...chatMessage });
+                this.messageContent = "";
+                this.scrollToBottom();
+
+            }
         },
-        async findByRadius() {
-            this.isLoading = true
-            const response = await axios.get('http://localhost:8081/find-by-radius', {
+        async fetchMessages(id) {
+            await axios.get(`http://localhost:8081/messages/${this.userInfo.id}/${id}`)
+                .then(response => {
+                    this.messages = response.data;
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+        },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                if (this.$refs.chatMessagesContainer) {
+                    this.$refs.chatMessagesContainer.scrollTop = this.$refs.chatMessagesContainer.scrollHeight;
+                }
+            });
+        },
+        formatTime(timestamp) {
+            const date = new Date(timestamp);
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return `${hours}:${minutes} ${ampm}`;
+        },
+        async deleteMotels(value) {
+            console.log(this.selectedMotels)
+            const token = localStorage.getItem('token');
+
+            const response = await axios.delete(`http://localhost:8081/admin/delete-motels`, {
                 params: {
-                    destination: this.destination,
-                    radius: this.radius
+                    selectedMotels: this.selectedMotels.join(','),
+                    isDelete: value
+                },
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            this.messageDelete = response.data
+            this.showMoalDelete = true
+        },
+        closeModalDelete() {
+            this.showMoalDelete = false
+            window.location.reload();
+        },
+        toFindByRadius() {
+            this.$router.push('/find-by-radius')
+        },
+        changePage(page) {
+            if (page > 0 && page <= this.totalPages) {
+                this.currentPage = page
+                if (this.isAdvanceSearch) {
+                    this.search()
+                }
+                else this.getAllMotels()
+            }
+        },
+        toggleFavorite(motelId) {
+            if (this.favorites.includes(motelId)) {
+                this.favorites = this.favorites.filter(id => id !== motelId);
+            } else {
+                this.favorites.push(motelId);
+            }
+            const response = axios.post('http://localhost:8081/favorites', null, {
+                params: {
+                    ids: this.favorites.join(','),
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+        },
+        isFavorite(motelId) {
+            return this.favorites.includes(motelId);
+        },
+        async fetchFavorites() {
+            const response = await axios.get('http://localhost:8081/get-favorites', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 }
             })
-            this.listMotel = response.data
-            this.isLoading = false
+            this.listMotel = response.data;
+            this.favorites = response.data.map(motel => motel.id);
+            console.log(this.favorites)
         },
-        showAdvancedSearchModal() {
-            this.$router.push('/advanced-search')
+        toggleFavorite(motelId) {
+            if (this.favorites.includes(motelId)) {
+                this.favorites = this.favorites.filter(id => id !== motelId);
+            } else {
+                this.favorites.push(motelId);
+            }
+            const response = axios.post('http://localhost:8081/favorites', null, {
+                params: {
+                    ids: this.favorites.join(','),
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
         },
-        toFavoriteMotel() {
-            this.$router.push('/favorite-motel')
-        }
+        isFavorite(motelId) {
+            return this.favorites.includes(motelId);
+        },
+        async fetchFavorites() {
+            const response = await axios.get('http://localhost:8081/get-favorites', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            this.favorites = response.data.map(motel => motel.id);
+            console.log(this.favorites)
+        },
     },
     computed: {
+        isAdmin() {
+            return this.userInfo?.role === 'ADMIN';
+        },
         hasToken() {
             return !!localStorage.getItem('token');
-        }
-    }
-};
+        },
+    },
+    watch: {
+        isChatBoxVisible(newVal) {
+            if (newVal) {
+                this.scrollToBottom();
+            }
+        },
+        messages: {
+            handler() {
+                this.scrollToBottom();
+            },
 
+        }
+    },
+};
 </script>
 <style scoped>
-.re__btn {
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    width: 80px;
-    max-width: 100px;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.re__btn-se-border--md {
-    border: 2px solid #3498db;
-    background-color: transparent;
-}
-
-.re__btn-se-ghost--md {
-    color: #3498db;
-    background-color: transparent;
-}
-
-.login-btn {
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.re__btn:hover {
-    background-color: #3498db;
-    color: #ffffff;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.re__btn:active {
-    transform: scale(0.98);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.card {
-    display: flex;
-    border: 1px solid #dee2e6;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    margin-right: 10px;
-}
-
-.card-img-right {
-    width: 30%;
-    /* Reduced to 30% for a larger card body */
-    height: auto;
-}
-
-.card-body {
-    padding: 4.5rem;
-    width: 70%;
-}
-
-.card-title {
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    color: #6c757d;
-}
-
-@media (max-width: 768px) {
-    .col-lg-6 {
-        flex: 0 0 100%;
-        margin-bottom: 1rem;
-    }
-}
-
-.suggestions {
-    position: absolute;
-    background: #1a1d24;
-    width: 100%;
+.collapse-inner {
     max-height: 300px;
     overflow-y: auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    z-index: 1000;
-    display: none;
-    margin-top: 3px;
-    border: 1px solid #3f4451;
 }
 
-.suggestion-item {
-    padding: 12px 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #3f4451;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    background: #292e3a;
+.collapse-inner::-webkit-scrollbar {
+    width: 6px;
 }
 
-.suggestion-item:last-child {
-    border-bottom: none;
+.collapse-inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
 }
 
-.suggestion-item:before {
-    content: "📍";
-    margin-right: 10px;
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
+.collapse-inner::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
 }
 
-.suggestion-item:hover {
-    background: #3a4150;
-    color: #ffffff;
-    padding-left: 24px;
-    cursor: text;
+.collapse-inner::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
-.suggestion-item:hover:before {
-    transform: scale(1.2);
-}
-
-.suggestion-item:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 4px;
-    background: var(--primary);
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-}
-
-.suggestion-item:hover:after {
-    transform: scaleY(1);
-}
-
-.suggestions::-webkit-scrollbar {
-    width: 8px;
-}
-
-.suggestions::-webkit-scrollbar-track {
-    background: #1a1d24;
-    border-radius: 8px;
-}
-
-.suggestions::-webkit-scrollbar-thumb {
-    background: #3f4451;
-    border-radius: 8px;
-}
-
-.suggestions::-webkit-scrollbar-thumb:hover {
-    background: #4f5565;
-}
-
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+.pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 9999;
+    list-style: none;
+    padding: 0;
 }
-.result-title {
-    font-size: 1.5rem;
-    color: #4caf50;
-    /* Màu xanh để thu hút sự chú ý */
+
+.page-item {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.page-item.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.page-item.active {
     font-weight: bold;
-    /* Tô đậm chữ */
-    text-align: center;
-    /* Căn giữa tiêu đề */
-    margin-top: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.red-heart {
+    color: red;
 }
 </style>

@@ -15,7 +15,7 @@ import ResetPassword from "@/components/ResetPassword.vue";
 import ForgotPassword from "@/components/ForgotPassword.vue";
 import FindMotelsByRadius from "@/components/FindMotelsByRadius.vue";
 import tmp from "@/components/tmp.vue";
-
+import FavoriteMotel from "@/components/FavoriteMotel.vue";
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -88,6 +88,11 @@ const router = createRouter({
       path: "/tmp",
       name: "tnp",
       component: tmp,
+    },
+    {
+      path: "/favorite-motel",
+      name: "FavoriteMotel",
+      component: FavoriteMotel,
     },
   ],
 });

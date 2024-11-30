@@ -115,6 +115,16 @@
                         <span>Tìm Kiếm Theo Bán Kính</span>
                     </a>
                 </li>
+
+                <hr class="sidebar-divider">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" v-if="hasToken" @click="toFavoriteMotel">
+                        <i class="fa-solid fa-hotel"></i>
+                        <span>Nhà Trọ Đã Lưu</span>
+                    </a>
+                </li>
+
             </ul>
             <!-- End of Sidebar -->
 
@@ -377,20 +387,24 @@
                                     </div>
 
                                     <!-- Nút yêu thích -->
-                                    <div style="position: absolute;
-                       top: 10px;
-                       right: 10px;
-                       width: 32px;
-                       height: 32px;
-                       display: flex;
-                       align-items: center;
-                       justify-content: center;
-                       border-radius: 50%;
-                       background: white;
-                       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                       cursor: pointer;">
-                                        <i class="far fa-heart" style="color: #666;"></i>
+                                    <div id="favorite-button" v-if="hasToken" @click.stop="toggleFavorite(motel.id)"
+                                        style="position: absolute;
+   top: 10px;
+   right: 10px;
+   width: 32px;
+   height: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   background: white;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   cursor: pointer;">
+                                        <i :class="isFavorite(motel.id) ? 'fas fa-heart red-heart' : 'far fa-heart'"
+                                            style="transition: color 0.3s;"></i>
                                     </div>
+
+
                                 </div>
                                 <div style="border-bottom: 2px solid #ddd; margin: 16px 0;"></div>
                             </div>
@@ -485,7 +499,7 @@
                 </div>
             </div>
         </div>
-        
+
 
     </body>
 </template>
@@ -536,29 +550,29 @@ export default {
             totalPages: null, 
             isAdvanceSearch: false,
             formSearch: null,
+            favorites: [],
         };
     },
     mounted() {
+        
         if (this.hasToken) {
             if (!localStorage.getItem('userInfor')) {
                 this.getUserInfo();
+                
             } else {
                 this.userInfo = JSON.parse(localStorage.getItem('userInfor'));
             }
+            this.fetchFavorites()
+            
         }
-        if (localStorage.getItem('queryMotel')) {
-            const queryMotel = JSON.parse(localStorage.getItem('queryMotel'));
-            this.search(queryMotel);
-            localStorage.removeItem('queryMotel');
-        } else {
-            this.getAllMotels();
-        }
+       
+        this.getAllMotels();
+        
         this.fetchUers();
         this.connect();
         if (this.isChatBoxVisible) {
             this.scrollToBottom();
         }
-
 
     },
     methods: {
@@ -594,6 +608,7 @@ export default {
                         this.avatar = this.userInfo.fileUrl
                     }
                     console.log(response.data)
+                    
                 } catch (error) {
                     console.error('Error fetching user info:', error);
                 }
@@ -802,11 +817,9 @@ export default {
             let minutes = date.getMinutes();
             const ampm = hours >= 12 ? 'PM' : 'AM';
 
-            // Chuyển đổi sang định dạng 12 giờ
             hours = hours % 12;
-            hours = hours ? hours : 12; // Nếu hours = 0 thì đổi thành 12
+            hours = hours ? hours : 12; 
 
-            // Thêm số 0 phía trước nếu cần
             minutes = minutes < 10 ? '0' + minutes : minutes;
 
             return `${hours}:${minutes} ${ampm}`;
@@ -843,6 +856,36 @@ export default {
                 else this.getAllMotels()
             }
         },
+        toggleFavorite(motelId) {
+            if (this.favorites.includes(motelId)) {
+                this.favorites = this.favorites.filter(id => id !== motelId);
+            } else {
+                this.favorites.push(motelId);
+            }
+            const response =  axios.post('http://localhost:8081/favorites', null, {
+                params: {
+                    ids: this.favorites.join(','),
+                },
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+        },
+        isFavorite(motelId) {
+            return this.favorites.includes(motelId);
+        },
+        async fetchFavorites() {
+            const response = await axios.get('http://localhost:8081/get-favorites', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                }
+            })
+            this.favorites = response.data.map(motel => motel.id);
+            console.log(this.favorites)
+        },
+        toFavoriteMotel(){
+            this.$router.push('/favorite-motel')
+        }
     },
     computed: {
         isAdmin() {
@@ -863,7 +906,7 @@ export default {
                 this.scrollToBottom();
             },
 
-        }
+        },
     },
 };
 </script>
@@ -912,5 +955,9 @@ export default {
     color: #fff;
     background-color: #007bff;
     border-radius: 5px;
+}
+
+.red-heart {
+    color: red;
 }
 </style>

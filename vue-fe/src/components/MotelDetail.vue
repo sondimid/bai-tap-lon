@@ -178,10 +178,10 @@
 
 
                     <div class="container-fluid " style="overflow: auto;" v-if="!openMotelUser">
-                        
+
 
                         <div class="row">
-                            
+
                             <div v-if="motel" class="col-md-8 motel-info">
 
                                 <div v-if="isSelf" class="edit-container d-flex justify-content-end"
@@ -253,7 +253,7 @@
                                     <button class="contact-button" style="margin-right: 15px;"
                                         @click="getMotelsByUser(motel.owner)">Xem Thêm Nhà Trọ
                                     </button>
-                                    <button class="contact-button" v-if="!isSelf" @click="toggleChatBox">Chat</button>
+                                    <button class="contact-button" v-if="!isSelf && hasToken" @click="toggleChatBox">Chat</button>
                                 </div>
                             </div>
                         </div>
@@ -396,7 +396,8 @@
                             <p><strong>Số điện thoại:</strong> {{ motel.owner.phoneNumber }}</p>
                             <div class="button-container">
 
-                                <button class="contact-button" v-if="!isSelf && hasToken" @click="toggleChatBox">Chat</button>
+                                <button class="contact-button" v-if="hasToken && !isSelf"
+                                    @click="toggleChatBox">Chat</button>
                             </div>
                         </div>
                     </div>

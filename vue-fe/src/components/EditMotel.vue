@@ -281,7 +281,8 @@
                                     <!-- Preview container -->
                                     <div class="mt-3 d-flex flex-wrap gap-3">
                                         <div v-for="(preview, index) in currents" :key="index"
-                                            class="position-relative preview-container" style="width: 150px;">
+                                            class="position-relative preview-container"
+                                            style="width: 150px;margin-right: 20px;">
                                             <img :src="preview.fileUrl" :alt="'Preview ' + (index + 1)"
                                                 class="img-fluid rounded"
                                                 style="height: 150px; object-fit: cover; width: 100%;" />
@@ -303,7 +304,8 @@
                                     <!-- Preview container -->
                                     <div class="mt-3 d-flex flex-wrap gap-3">
                                         <div v-for="(preview, index) in previews" :key="index"
-                                            class="position-relative preview-container" style="width: 150px;">
+                                            class="position-relative preview-container"
+                                            style="width: 150px;margin-right: 20px">
                                             <img :src="preview.url" :alt="'Preview ' + (index + 1)"
                                                 class="img-fluid rounded"
                                                 style="height: 150px; object-fit: cover; width: 100%;" />

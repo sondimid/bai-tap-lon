@@ -468,6 +468,7 @@ export default {
                             div.className = 'suggestion-item';
                             div.textContent = prediction.description;
                             div.addEventListener('click', () => {
+                                console.log(prediction.compound)
                                 addressInput.value = prediction.description;
                                 this.address = prediction.description
                                 this.district = prediction.compound.district

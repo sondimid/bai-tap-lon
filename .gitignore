@@ -1,6 +1,4 @@
-
- /back-end/.idea
- /back-end/target
- .idea
- .gitignore
- /front-end
+/.idea
+/back-end/.idea
+/back-end/target
+/.gitignore
